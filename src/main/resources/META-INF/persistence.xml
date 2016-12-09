@@ -3,6 +3,7 @@
   <persistence-unit name="Candidat_PU" transaction-type="JTA">
     <jta-data-source>java:/MySqlDSIMP</jta-data-source>
     <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>

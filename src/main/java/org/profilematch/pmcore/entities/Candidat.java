@@ -1,10 +1,14 @@
 package org.profilematch.pmcore.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -17,21 +21,70 @@ public class Candidat implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    private String nom, prenom, email;
-    
-    public Candidat(){
-        
+
+    private String nom, prenom, email, loisirs;
+    @OneToOne
+    private ExperiencePro experiencePro;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Formation formation;
+    @OneToMany
+    private Collection<Competence> competence;
+
+    public Candidat() {
+
     }
-    
-    public Candidat(Long id, String nom, String prenom, String email){
+
+    public Candidat(Long id, String nom, String prenom, String email) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
     }
+
+    public Candidat(Long id, String nom, String prenom, String email, String loisirs, ExperiencePro ep, Formation f, Collection<Competence> c) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.loisirs = loisirs;
+        this.experiencePro = ep;
+        this.formation = f;
+        this.competence = c;
+    }
+
+    public String getLoisirs() {
+        return loisirs;
+    }
+
+    public void setLoisirs(String loisirs) {
+        this.loisirs = loisirs;
+    }
+
+    public ExperiencePro getExperiencePro() {
+        return experiencePro;
+    }
+
+    public void setExperiencePro(ExperiencePro experiencePro) {
+        this.experiencePro = experiencePro;
+    }
+
+    public Formation getFormation() {
+        return formation;
+    }
+
+    public void setFormation(Formation formation) {
+        this.formation = formation;
+    }
+
+    public Collection<Competence> getCompetence() {
+        return competence;
+    }
+
+    public void setCompetence(Collection<Competence> competence) {
+        this.competence = competence;
+    }    
     
-    public Candidat(String nom, String prenom, String email){
+    public Candidat(String nom, String prenom, String email) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -93,5 +146,5 @@ public class Candidat implements Serializable {
     public String toString() {
         return "com.imp.entities.Candidat[ id=" + id + " ]";
     }
-    
+
 }
