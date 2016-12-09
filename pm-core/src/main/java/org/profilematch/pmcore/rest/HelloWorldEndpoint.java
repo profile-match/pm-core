@@ -1,4 +1,4 @@
-package org.profilematch.imatchprofile.IMatchProfile.rest;
+package org.profilematch.pmcore.rest;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
