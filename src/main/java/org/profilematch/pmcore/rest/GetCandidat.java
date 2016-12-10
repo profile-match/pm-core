@@ -7,8 +7,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import org.profilematch.pmcore.ejbs.CandidatEJB;
-import org.profilematch.pmcore.entities.Candidat;
-import org.profilematch.pmcore.entities.Competence;
 
 /**
  *

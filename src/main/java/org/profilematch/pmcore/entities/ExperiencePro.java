@@ -23,6 +23,7 @@ public class ExperiencePro implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    private String intitule_de_poste;
     private Date date_debut;
     private Date date_fin;
     private String pays;

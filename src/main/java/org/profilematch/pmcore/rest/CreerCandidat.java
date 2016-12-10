@@ -18,11 +18,6 @@ public class CreerCandidat {
     @EJB
     private CandidatEJB ce;
 
-    /**
-     *
-     * @param c
-     * @return
-     */
     @POST
     @Consumes("application/json")
     public Response post(Candidat c) {
