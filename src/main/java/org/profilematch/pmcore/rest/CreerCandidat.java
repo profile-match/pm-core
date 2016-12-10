@@ -19,7 +19,7 @@ import org.profilematch.pmcore.entities.Candidat;
  *
  * @author antoine
  */
-@Path("/creercandidat")
+@Path("candidat/create")
 public class CreerCandidat {
 
     @EJB

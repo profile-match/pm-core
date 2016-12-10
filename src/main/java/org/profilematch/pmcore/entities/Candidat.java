@@ -23,11 +23,11 @@ public class Candidat implements Serializable {
     private Long id;
 
     private String nom, prenom, email, loisirs;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private ExperiencePro experiencePro;
     @OneToOne(cascade = CascadeType.PERSIST)
     private Formation formation;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private Collection<Competence> competence;
 
     public Candidat() {

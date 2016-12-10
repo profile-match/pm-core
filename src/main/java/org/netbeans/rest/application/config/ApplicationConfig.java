@@ -31,7 +31,6 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(org.profilematch.pmcore.rest.CreerCandidat.class);
         resources.add(org.profilematch.pmcore.rest.GetCandidat.class);
-        resources.add(org.profilematch.pmcore.rest.HelloWorldEndpoint.class);
         resources.add(org.profilematch.pmcore.rest.MajCandidat.class);
     }
     
