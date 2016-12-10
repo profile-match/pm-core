@@ -40,6 +40,62 @@ public class ExperiencePro implements Serializable {
         this.id = id;
     }
 
+    public Date getDate_debut() {
+        return date_debut;
+    }
+
+    public void setDate_debut(Date date_debut) {
+        this.date_debut = date_debut;
+    }
+
+    public Date getDate_fin() {
+        return date_fin;
+    }
+
+    public void setDate_fin(Date date_fin) {
+        this.date_fin = date_fin;
+    }
+
+    public String getPays() {
+        return pays;
+    }
+
+    public void setPays(String pays) {
+        this.pays = pays;
+    }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    public String getNom_entreprise() {
+        return nom_entreprise;
+    }
+
+    public void setNom_entreprise(String nom_entreprise) {
+        this.nom_entreprise = nom_entreprise;
+    }
+
+    public String getDescription_entreprise() {
+        return description_entreprise;
+    }
+
+    public void setDescription_entreprise(String description_entreprise) {
+        this.description_entreprise = description_entreprise;
+    }
+
+    public String getMissions_effectuees() {
+        return missions_effectuees;
+    }
+
+    public void setMissions_effectuees(String missions_effectuees) {
+        this.missions_effectuees = missions_effectuees;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
