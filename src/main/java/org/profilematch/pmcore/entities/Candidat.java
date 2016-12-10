@@ -1,14 +1,17 @@
 package org.profilematch.pmcore.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  *
@@ -17,7 +20,6 @@ import javax.persistence.OneToOne;
 @Entity
 public class Candidat implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -27,8 +29,9 @@ public class Candidat implements Serializable {
     private ExperiencePro experiencePro;
     @OneToOne(cascade = CascadeType.PERSIST)
     private Formation formation;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private Collection<Competence> competence;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Competence> competence;
 
     public Candidat() {
 
@@ -41,7 +44,7 @@ public class Candidat implements Serializable {
         this.email = email;
     }
 
-    public Candidat(Long id, String nom, String prenom, String email, String loisirs, ExperiencePro ep, Formation f, Collection<Competence> c) {
+    public Candidat(Long id, String nom, String prenom, String email, String loisirs, ExperiencePro ep, Formation f, List<Competence> c) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -76,14 +79,14 @@ public class Candidat implements Serializable {
         this.formation = formation;
     }
 
-    public Collection<Competence> getCompetence() {
+    public List<Competence> getCompetence() {
         return competence;
     }
 
-    public void setCompetence(Collection<Competence> competence) {
+    public void setCompetence(List<Competence> competence) {
         this.competence = competence;
-    }    
-    
+    }
+  
     public Candidat(String nom, String prenom, String email) {
         this.nom = nom;
         this.prenom = prenom;
