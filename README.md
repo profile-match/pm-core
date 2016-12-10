@@ -6,6 +6,7 @@ The core project for Profile Match
 mvn package
 
 Il faut ensuite deployer le war target/pm-core.war
+
 Le paquetage en jar avec wildfly-swarm ne marche pas enncore
 
 ## créer une branche de feature
