@@ -7,6 +7,8 @@ mvn package
 
 Il faut ensuite deployer le war target/pm-core.war
 
+Le serveur sur lequel est deployé le war doit avoir une datasource dont le JNDI est java:/MySqlDSIMP
+
 Le paquetage en jar avec wildfly-swarm ne marche pas encore.
 
 ## créer une branche de feature
