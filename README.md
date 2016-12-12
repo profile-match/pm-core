@@ -5,11 +5,11 @@ The core project for Profile Match
 
 mvn package
 
-Il faut ensuite deployer le war target/pm-core.war
+Ensuite au choix:
+* déployer le war pm-core.war dans un serveur d'application
+* lancer le jar : java -jar pm-core-swarm.jar
 
-Le serveur sur lequel est deployé le war doit avoir une datasource dont le JNDI est java:/MySqlDSIMP
-
-Le paquetage en jar avec wildfly-swarm ne marche pas encore.
+Pour une raison que j'ignore, hibernate s'obstine à utiliser l'URL de connexion par default. Votre BDD doit donc contenir une base nommée "test".
 
 ## créer une branche de feature
 Voir page confluence pour les normes des branches et les noms à utiliser !
