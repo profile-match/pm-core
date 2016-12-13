@@ -3,6 +3,7 @@ The core project for Profile Match
 
 ## build / deploiment
 
+mvn package
 mvn wildfly-swarm:package
 
 Ensuite au choix:
