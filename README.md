@@ -1,18 +1,27 @@
 # pm-core
 The core project for Profile Match
 
-## build / deploiment
+## Requirements
 
+* Mysql server running on localhost on the port 3306 (default port). The root password should be root.
+* A Database called IMP on this server
+
+## build / deployment
+
+To build and package the project, run the two following commands
+``` bash
 mvn package  
-mvn wildfly-swarm:package
+mvn wildfly-swarm:package  
+```
 
-Ensuite au choix:
-* déployer le war pm-core.war dans un serveur d'application
-* lancer le jar : java -Dswarm.ds.connection.url="jdbc:mysql://localhost:3306/IMP?useSSL=false" -jar pm-core-swarm.jar qui contient lui même tout ce qu'il faut
+You'll then find 2 files in the target folder: 
 
-Pour une raison que j'ignore, hibernate s'obstine à utiliser l'URL de connexion par default, il faut donc spécifier l'url de connection en paramètre de la commande comme au dessus.
 
-## créer une branche de feature
-Voir page confluence pour les normes des branches et les noms à utiliser !
+* pm-core.war
+* pm-core-swarm.jar
 
-https://profile-match.atlassian.net/wiki/display/IM/Bien+commencer+le+projet
+The first one needs to be deployed in an application server  
+The 2nd one can run on its own by running the following command :  
+``` bash
+java -Dswarm.ds.connection.url="jdbc:mysql://localhost:3306/IMP?useSSL=false" -jar pm-core-swarm.jar
+```
