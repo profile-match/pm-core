@@ -31,7 +31,14 @@ public class ExperiencePro implements Serializable {
     private String nom_entreprise;
     private String description_entreprise;
     private String missions_effectuees;
-    
+
+    public String getIntitule_de_poste() {
+        return intitule_de_poste;
+    }
+
+    public void setIntitule_de_poste(String intitule_de_poste) {
+        this.intitule_de_poste = intitule_de_poste;
+    }
 
     public Long getId() {
         return id;
