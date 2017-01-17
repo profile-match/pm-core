@@ -63,7 +63,7 @@ public class Dossier_poste implements Serializable {
     private Long id;
 
    
-    public Dossier_poste(int id_recruteur, int id_entreprise, Date date_publication, String reference, String intitule, int indice_salaire, int salaire_min, int salaire_max, String type_contrat, String resume, String point_attention, String lieu_travail, String organisation, String service, String departement, String equipe, Set<Certification> certifications,Set<Metier> metiers, Set<Technique> techniques, Set<Langue> langues, Set<Formation> formations, Set<Fonctionnelle> fonctionnelles,Set<Savoir_etre> savoir_etres, Set<Savoir_faire> savoir_faires, Set<Savoir_specification> savoir_specifications) {
+    public Dossier_poste(int id_recruteur, int id_entreprise, Date date_publication, String reference, String intitule, int indice_salaire, int salaire_min, int salaire_max, String type_contrat, String resume, String point_attention, String lieu_travail, String organisation, String service, String departement, String equipe, Set<Certification> certifications,Set<Metier> metiers, Set<Technique> techniques, Set<Langue> langues, Set<Formation_Recruteur> formations, Set<Fonctionnelle> fonctionnelles,Set<Savoir_etre> savoir_etres, Set<Savoir_faire> savoir_faires, Set<Savoir_specification> savoir_specifications) {
         this.id_recruteur = id_recruteur;
         this.id_entreprise = id_entreprise;
         this.date_publication = date_publication;
@@ -105,7 +105,7 @@ private Set<Metier> metiers;
 private Set<Fonctionnelle> fonctionnelles;
 private Set<Technique> techniques;
 private Set<Langue> langues;
-private Set<Formation> formations;
+private Set<Formation_Recruteur> formations;
 private Set<Savoir_etre> savoir_etres;
 private Set<Savoir_faire> savoir_faires;
 private Set<Savoir_specification> savoir_specifications;
@@ -146,7 +146,7 @@ private Set<Savoir_specification> savoir_specifications;
     }
     
     @ManyToMany(cascade=CascadeType.ALL)  
-    @JoinTable(name="POSTE_FORMATION", joinColumns=@JoinColumn(name="poste_id"), inverseJoinColumns=@JoinColumn(name="formation_id")) public Set<Formation> getFormations()  
+    @JoinTable(name="POSTE_FORMATION", joinColumns=@JoinColumn(name="poste_id"), inverseJoinColumns=@JoinColumn(name="formation_id")) public Set<Formation_Recruteur> getFormations()  
     {  
         return formations;  
     }
@@ -333,7 +333,7 @@ private Set<Savoir_specification> savoir_specifications;
         this.langues = langues;
     }
 
-    public void setFormations(Set<Formation> formations) {
+    public void setFormations(Set<Formation_Recruteur> formations) {
         this.formations = formations;
     }
 
