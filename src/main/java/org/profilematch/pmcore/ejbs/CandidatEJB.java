@@ -1,5 +1,6 @@
 package org.profilematch.pmcore.ejbs;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
@@ -41,5 +42,9 @@ public class CandidatEJB {
         } else {
             return new Candidat(-1L, "", "", "");
         }
+    }
+    
+    public List<Candidat> getAllUser(){
+        return em.createNamedQuery("Candidat.findAll").getResultList();
     }
 }

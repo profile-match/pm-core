@@ -4,6 +4,7 @@ import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -35,11 +36,18 @@ public class RestCandidat {
         return Response.ok(ce.registerUser(c)).build();
     }
 
-    @POST
+    @PUT
     @Consumes("application/json")
     @Path("update/")
     public Response UpdateCandidat(Candidat c) {
         return Response.ok(ce.updateUser(c)).build();
+    }
+    
+    @GET
+    @Path("get")
+    @Produces("application/json")
+    public Response GetAllClient(){
+        return Response.ok(ce.getAllUser()).build();
     }
 
 }
