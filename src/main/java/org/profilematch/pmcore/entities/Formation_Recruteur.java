@@ -24,7 +24,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="FORMATION")
-public class Formation implements Serializable {
+public class Formation_Recruteur implements Serializable {
 
     @Id
     private Long id;
@@ -79,7 +79,7 @@ public class Formation implements Serializable {
     
     
     
-    public Formation(){}
+    public Formation_Recruteur(){}
 
     public void setId(Long id) {
         this.id = id;
