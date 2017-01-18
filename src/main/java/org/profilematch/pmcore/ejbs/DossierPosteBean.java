@@ -5,6 +5,7 @@
  */
 package org.profilematch.pmcore.ejbs;
 
+import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -36,18 +37,19 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
     }
     //TO DO 
     @Override
-    public Set<String> getIntituleAllDossier() {
+    public List<Dossier_poste> getIntituleAllDossier() {
         
-        Query createQuery = em.createNamedQuery("IntitulefindAll");
+        Query query = em.createNamedQuery("Dossier.findByIntitule");
        
-        return  (Set<String>)createQuery.getResultList();
+        return query.getResultList();
     
     }
 
     @Override
-    public Set<String> getElementAllDossier() {
-        Query createQuery = em.createQuery("SELECT intitule, resume, lieu_travail, type_contrat, date_publication from DOSSIER");
-        return (Set<String>)createQuery.getResultList();
+    public List<Dossier_poste> getElementAllDossier() {
+        
+        Query createQuery = em.createNamedQuery("Dossier.findByElement");
+        return createQuery.getResultList();
     }
 
     

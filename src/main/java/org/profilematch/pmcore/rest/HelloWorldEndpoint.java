@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import org.profilematch.pmcore.ejbs.DossierPosteBeanLocal;
 import org.profilematch.pmcore.entities.Dossier_poste;
 
@@ -32,7 +33,7 @@ public class HelloWorldEndpoint {
     //Methode get Info all dossier
     @GET
     @Path("ElementAllDossier")
-    @Produces("application/json")
+    @Produces({ MediaType.APPLICATION_JSON })
     public Response ElementAllDossier(){
         return Response.ok(ce.getElementAllDossier()).build();
         
@@ -40,7 +41,7 @@ public class HelloWorldEndpoint {
     //Methode get ALL intitule de dossier
     @GET
     @Path("intituleAllDossier")
-    @Produces("application/json")
+    @Produces({ MediaType.APPLICATION_JSON })
     public Response intituleAllDossier(){
         return Response.ok(ce.getIntituleAllDossier()).build();
         

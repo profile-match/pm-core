@@ -20,20 +20,20 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Steven Klinger && Pierre Leriche
  */
 @Entity
+@XmlRootElement
 @Table(name = "DOSSIER")
 @NamedQueries({
-  @NamedQuery(name="Dossier.IntitulefindAll",
-              query="SELECT intitule FROM Dossier e"),
-  @NamedQuery(name="Dossier.findByPrimaryKey",
-              query="SELECT e FROM Dossier e WHERE e.id = :id"),
-  @NamedQuery(name="Dossier.findByName",
-              query="SELECT e FROM Dossier e WHERE e.name = :name")
+  @NamedQuery(name = "Dossier.findByIntitule",
+        query = "SELECT p.intitule FROM Dossier_poste p"),
+  @NamedQuery(name = "Dossier.findByElement",
+        query = "SELECT p.intitule, p.resume, p.lieu_travail, p.type_contrat, p.date_publication from Dossier_poste p")
 })
 public class Dossier_poste implements Serializable {
 

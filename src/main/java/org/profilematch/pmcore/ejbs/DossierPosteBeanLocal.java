@@ -7,6 +7,7 @@ package org.profilematch.pmcore.ejbs;
  */
 
 
+import java.util.List;
 import java.util.Set;
 import javax.ejb.Local;
 import org.profilematch.pmcore.entities.Dossier_poste;
@@ -19,6 +20,6 @@ import org.profilematch.pmcore.entities.Dossier_poste;
 public interface DossierPosteBeanLocal {
     
     public int createDossier(Dossier_poste dp);
-    public Set<String> getIntituleAllDossier();
-    public Set<String> getElementAllDossier();
+     public List<Dossier_poste> getIntituleAllDossier();
+    public List<Dossier_poste> getElementAllDossier();
 }
