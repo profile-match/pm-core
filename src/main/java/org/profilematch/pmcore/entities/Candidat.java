@@ -26,7 +26,8 @@ public class Candidat implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String nom, prenom, email, loisirs;
+    private String nom, prenom, email, loisirs, photo;
+    private boolean isBanned;
     @OneToOne(cascade = CascadeType.PERSIST)
     private ExperiencePro experiencePro;
     @OneToOne(cascade = CascadeType.PERSIST)
@@ -152,4 +153,11 @@ public class Candidat implements Serializable {
         return "com.imp.entities.Candidat[ id=" + id + " ]";
     }
 
+    public boolean isBanned() {
+        return isBanned;
+    }
+
+    public void setBanned(boolean banned) {
+        isBanned = banned;
+    }
 }

@@ -9,11 +9,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+
 import org.profilematch.pmcore.ejbs.CandidatEJB;
 import org.profilematch.pmcore.entities.Candidat;
 
 /**
- *
  * @author antoine
  */
 @Path("candidat/")
@@ -33,20 +33,39 @@ public class RestCandidat {
     @Consumes("application/json")
     @Path("create/")
     public Response RegisterCandidat(Candidat c) {
-        return Response.ok(ce.registerUser(c)).build();
+        ce.registerUser(c);
+        return Response.ok().build();
     }
 
     @PUT
     @Consumes("application/json")
     @Path("update/")
     public Response UpdateCandidat(Candidat c) {
-        return Response.ok(ce.updateUser(c)).build();
+        ce.updateUser(c);
+        return Response.ok().build();
     }
-    
+
+    @PUT
+    @Consumes("application/json")
+    @Path("ban/{id}")
+    public Response UpdateBanCandidat(@PathParam("id") Long id) {
+        ce.BanUser(id);
+        return Response.ok().build();
+    }
+
+    @PUT
+    @Consumes("application/json")
+    @Path("unban/{id}")
+    public Response UpdateUnbanCandidat(@PathParam("id") Long id) {
+        ce.UnbanUser(id);
+        return Response.ok().build();
+    }
+
+
     @GET
     @Path("get")
     @Produces("application/json")
-    public Response GetAllClient(){
+    public Response GetAllClient() {
         return Response.ok(ce.getAllUser()).build();
     }
 

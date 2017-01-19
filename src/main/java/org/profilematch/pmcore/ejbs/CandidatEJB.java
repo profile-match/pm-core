@@ -43,6 +43,26 @@ public class CandidatEJB {
             return new Candidat(-1L, "", "", "");
         }
     }
+
+    public Candidat BanUser(Long id){
+        Candidat c = em.find(Candidat.class, id);
+        if (c != null) {
+            c.setBanned(true);
+            return c;
+        } else {
+            return new Candidat(-1L, "", "", "");
+        }
+    }
+
+    public Candidat UnbanUser(Long id){
+        Candidat c = em.find(Candidat.class, id);
+        if (c != null) {
+            c.setBanned(false);
+            return c;
+        } else {
+            return new Candidat(-1L, "", "", "");
+        }
+    }
     
     public List<Candidat> getAllUser(){
         return em.createNamedQuery("Candidat.findAll").getResultList();
