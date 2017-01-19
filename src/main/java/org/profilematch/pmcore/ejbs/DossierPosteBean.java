@@ -35,7 +35,7 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
         return 0;
        
     }
-    //TO DO 
+     
     @Override
     public List<Dossier_poste> getIntituleAllDossier() {
         
@@ -50,6 +50,13 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
         
         Query createQuery = em.createNamedQuery("Dossier.findByElement");
         return createQuery.getResultList();
+    }
+
+    @Override
+    public int deleteDossier(Long id) {
+        em.createNamedQuery("Dossier.deleteDossier").setParameter("poste_id", id).executeUpdate();
+       
+       return 0;
     }
 
     

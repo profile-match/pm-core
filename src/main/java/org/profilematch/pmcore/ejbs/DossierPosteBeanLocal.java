@@ -22,4 +22,5 @@ public interface DossierPosteBeanLocal {
     public int createDossier(Dossier_poste dp);
      public List<Dossier_poste> getIntituleAllDossier();
     public List<Dossier_poste> getElementAllDossier();
+    public int deleteDossier(Long id);
 }
