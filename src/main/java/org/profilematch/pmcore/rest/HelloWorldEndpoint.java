@@ -46,21 +46,21 @@ public class HelloWorldEndpoint {
     }
     
     @GET    
-    @Path("completeMetier/{complete}")
+    @Path("completeTechnique/{complete}")
     @Produces("application/json")
     public Response completeTechnique(@PathParam("complete") String c){
         return Response.ok(ce.completeTechnique(c)).build();
     }
     
     @GET    
-    @Path("completeMetier/{complete}")
+    @Path("completeLangue/{complete}")
     @Produces("application/json")
     public Response completeLangue(@PathParam("complete") String c){
         return Response.ok(ce.completeLinguistique(c)).build();
     }
     
     @GET    
-    @Path("completeMetier/{complete}")
+    @Path("completeFonctionnelle{complete}")
     @Produces("application/json")
     public Response completeFonctionnelle(@PathParam("complete") String c){
         return Response.ok(ce.completeFonctionnelle(c)).build();
