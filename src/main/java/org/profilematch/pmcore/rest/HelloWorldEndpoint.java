@@ -60,7 +60,7 @@ public class HelloWorldEndpoint {
     }
     
     @GET    
-    @Path("completeFonctionnelle{complete}")
+    @Path("completeFonctionnelle/{complete}")
     @Produces("application/json")
     public Response completeFonctionnelle(@PathParam("complete") String c){
         return Response.ok(ce.completeFonctionnelle(c)).build();
