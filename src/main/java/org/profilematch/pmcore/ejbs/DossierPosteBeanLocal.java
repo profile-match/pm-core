@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.Set;
 import javax.ejb.Local;
 import org.profilematch.pmcore.entities.Dossier_poste;
+import org.profilematch.pmcore.entities.Fonctionnelle;
+import org.profilematch.pmcore.entities.Langue;
+import org.profilematch.pmcore.entities.Metier;
+import org.profilematch.pmcore.entities.Technique;
 
 /**
  *
@@ -20,7 +24,12 @@ import org.profilematch.pmcore.entities.Dossier_poste;
 public interface DossierPosteBeanLocal {
     
     public int createDossier(Dossier_poste dp);
-     public List<Dossier_poste> getIntituleAllDossier();
-    public List<Dossier_poste> getElementAllDossier();
+     public List<Dossier_poste> getIntituleAllDossier(int id);
+    public List<Dossier_poste> getElementAllDossier(int id);
     public int deleteDossier(Long id);
+    public int updateDossier(Dossier_poste dp);
+    public List<Metier> completeMetier(String metier);
+    public List<Technique> completeTechnique(String technique);
+    public List<Fonctionnelle> completeFonctionnelle(String metier);
+    public List<Langue> completeLinguistique(String metier);
 }

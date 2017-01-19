@@ -5,6 +5,7 @@
  */
 package org.profilematch.pmcore.entities;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -14,6 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -22,7 +25,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="TECHNIQUE")
-public class Technique {
+@NamedQueries({
+  @NamedQuery(name = "Technique.completetechnique",
+        query = "SELECT p FROM Technique p where p.technique LIKE :nom_technique")
+    })
+public class Technique implements Serializable {
 
     @Id
     private Long id;

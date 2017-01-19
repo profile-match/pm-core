@@ -30,11 +30,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "DOSSIER")
 @NamedQueries({
   @NamedQuery(name = "Dossier.findByIntitule",
-        query = "SELECT p.intitule FROM Dossier_poste p"),
+        query = "SELECT p.intitule FROM Dossier_poste p where p.id_recruteur = :id_recruteur"),
     @NamedQuery(name = "Dossier.deleteDossier",
         query = "DELETE FROM Dossier_poste p WHERE p.id = :poste_id"),
   @NamedQuery(name = "Dossier.findByElement",
-        query = "SELECT p.intitule, p.resume, p.lieu_travail, p.type_contrat, p.date_publication from Dossier_poste p")
+        query = "SELECT p.intitule, p.resume, p.lieu_travail, p.type_contrat, p.date_publication from Dossier_poste p where p.id_recruteur = :id_recruteur")
 })
 public class Dossier_poste implements Serializable {
 

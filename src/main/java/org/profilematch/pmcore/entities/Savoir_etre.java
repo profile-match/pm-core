@@ -5,6 +5,7 @@
  */
 package org.profilematch.pmcore.entities;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -22,7 +23,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="SAVOIR_ETRE")
-public class Savoir_etre {
+public class Savoir_etre implements Serializable {
 
     @Id
     private Long id;

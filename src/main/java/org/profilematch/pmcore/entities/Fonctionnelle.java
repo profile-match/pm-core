@@ -15,6 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -23,6 +25,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="FONCTIONNELLE")
+@NamedQueries({
+  @NamedQuery(name = "Fonctionnelle.completeFonctionnelle",
+        query = "SELECT p FROM Fonctionnelle p where p.fonctionnelle LIKE :nom_fonctionnelle")
+    })
 public class Fonctionnelle implements Serializable {
 
     @Id

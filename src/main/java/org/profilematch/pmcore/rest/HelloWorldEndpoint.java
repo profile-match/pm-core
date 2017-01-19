@@ -7,6 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -28,24 +29,57 @@ public class HelloWorldEndpoint {
 	}
         
     //Methode put modification dossier
+    @PUT
+    @Path("updateDossier")
+    @Consumes("application/json")
+    public Response updateDossier(Dossier_poste c){
         
+        return Response.ok(ce.updateDossier(c)).build();
+    }
         
-    //Methode get savoir être faire specifique
+    //Methode get metier technique
+    @GET    
+    @Path("completeMetier/{complete}")
+    @Produces("application/json")
+    public Response completeMetier(@PathParam("complete") String c){
+        return Response.ok(ce.completeMetier(c)).build();
+    }
+    
+    @GET    
+    @Path("completeMetier/{complete}")
+    @Produces("application/json")
+    public Response completeTechnique(@PathParam("complete") String c){
+        return Response.ok(ce.completeTechnique(c)).build();
+    }
+    
+    @GET    
+    @Path("completeMetier/{complete}")
+    @Produces("application/json")
+    public Response completeLangue(@PathParam("complete") String c){
+        return Response.ok(ce.completeLinguistique(c)).build();
+    }
+    
+    @GET    
+    @Path("completeMetier/{complete}")
+    @Produces("application/json")
+    public Response completeFonctionnelle(@PathParam("complete") String c){
+        return Response.ok(ce.completeFonctionnelle(c)).build();
+    }
     
     //Methode get Info all dossier
     @GET
-    @Path("ElementAllDossier")
+    @Path("ElementAllDossier/{id}")
     @Produces("application/json")
-    public Response ElementAllDossier(){
-        return Response.ok(ce.getElementAllDossier()).build();
+    public Response ElementAllDossier(@PathParam("id")int id){
+        return Response.ok(ce.getElementAllDossier(id)).build();
         
     }
     //Methode get ALL intitule de dossier
     @GET
-    @Path("intituleAllDossier")
+    @Path("intituleAllDossier/{id}")
     @Produces("application/json")
-    public Response intituleAllDossier(){
-        return Response.ok(ce.getIntituleAllDossier()).build();
+    public Response intituleAllDossier(@PathParam("id")int id){
+        return Response.ok(ce.getIntituleAllDossier(id)).build();
         
     }
     //Methode Delete dossier_poste
@@ -60,7 +94,7 @@ public class HelloWorldEndpoint {
     @POST
     @Consumes("application/json")
     @Path("create")
-    public Response RegisterCandidat(Dossier_poste c) {
+    public Response createDossier(Dossier_poste c) {
         return Response.ok(ce.createDossier(c)).build();
     }
     
