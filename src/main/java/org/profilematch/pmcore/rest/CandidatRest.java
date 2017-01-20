@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 
 import org.profilematch.pmcore.ejbs.CandidatEJB;
 import org.profilematch.pmcore.entities.Candidat;
+import org.profilematch.pmcore.entities.MessageSignalementCandidat;
 
 /**
  * @author antoine
@@ -68,5 +69,13 @@ public class CandidatRest {
     public Response GetAllClient() {
         return Response.ok(ce.getAllUser()).build();
     }
+   
+    @POST
+    @Consumes("application/json")
+    @Path("messagesignalementcandidat/")
+    public Response postMessageSignalementCandidat(MessageSignalementCandidat m) {
+        ce.postMessageSignalementCandidat(m);
+        return Response.ok().build();
+}
 
 }
