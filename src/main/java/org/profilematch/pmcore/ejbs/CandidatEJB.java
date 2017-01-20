@@ -6,6 +6,7 @@ import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.profilematch.pmcore.entities.Candidat;
+import org.profilematch.pmcore.entities.MessageSignalementCandidat;
 
 /**
  *
@@ -17,6 +18,10 @@ public class CandidatEJB {
 
     @PersistenceContext(unitName = "Candidat_PU")
     EntityManager em;
+
+    public void postMessageSignalementCandidat(MessageSignalementCandidat m) {
+        em.persist(m);
+    }
 
     public int registerUser(Candidat c) {
 
@@ -34,8 +39,8 @@ public class CandidatEJB {
             return -1;
         }
     }
-    
-    public Candidat getUser(Long id){
+
+    public Candidat getUser(Long id) {
         Candidat c = em.find(Candidat.class, id);
         if (c != null) {
             return c;
@@ -44,7 +49,7 @@ public class CandidatEJB {
         }
     }
 
-    public Candidat BanUser(Long id){
+    public Candidat BanUser(Long id) {
         Candidat c = em.find(Candidat.class, id);
         if (c != null) {
             c.setBanned(true);
@@ -54,7 +59,7 @@ public class CandidatEJB {
         }
     }
 
-    public Candidat UnbanUser(Long id){
+    public Candidat UnbanUser(Long id) {
         Candidat c = em.find(Candidat.class, id);
         if (c != null) {
             c.setBanned(false);
@@ -63,8 +68,8 @@ public class CandidatEJB {
             return new Candidat(-1L, "", "", "");
         }
     }
-    
-    public List<Candidat> getAllUser(){
+
+    public List<Candidat> getAllUser() {
         return em.createNamedQuery("Candidat.findAll").getResultList();
     }
 }
