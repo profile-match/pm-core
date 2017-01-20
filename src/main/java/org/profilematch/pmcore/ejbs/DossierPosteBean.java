@@ -45,6 +45,11 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
         return query.getResultList();
 
     }
+    
+    public List<Dossier_poste> getAllDossier(int id) {
+        Query query = em.createNamedQuery("Dossier.getAllDossier").setParameter("id_recruteur", id);
+        return query.getResultList();
+    }
 
     @Override
     public List<Dossier_poste> getElementAllDossier(int id) {

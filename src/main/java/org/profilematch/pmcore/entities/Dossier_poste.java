@@ -29,6 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "DOSSIER")
 @NamedQueries({
+    @NamedQuery(name = "Dossier.getAllDossier",
+            query = "SELECT p FROM Dossier_poste p where p.id_recruteur = :id_recruteur"),
     @NamedQuery(name = "Dossier.findByIntitule",
             query = "SELECT p.intitule FROM Dossier_poste p where p.id_recruteur = :id_recruteur"),
     @NamedQuery(name = "Dossier.deleteDossier",

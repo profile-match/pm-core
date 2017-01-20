@@ -38,4 +38,6 @@ public interface DossierPosteBeanLocal {
     public List<Fonctionnelle> completeFonctionnelle(String metier);
 
     public List<Langue> completeLinguistique(String metier);
+    
+    public List<Dossier_poste> getAllDossier(int id);
 }

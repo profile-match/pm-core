@@ -82,6 +82,13 @@ public class RecruteurRest {
         return Response.ok(ce.getIntituleAllDossier(id)).build();
 
     }
+    
+    @GET
+    @Path("allDossier/{id}")
+    @Produces("application/json")
+    public Response allDossier(@PathParam("id") int id) {
+        return Response.ok(ce.getAllDossier(id)).build();
+    }
 
     //Methode Delete dossier_poste
     @DELETE
