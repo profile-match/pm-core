@@ -17,7 +17,7 @@ import org.profilematch.pmcore.entities.Candidat;
  * @author antoine
  */
 @Path("candidat/")
-public class RestCandidat {
+public class CandidatRest {
 
     @EJB
     private CandidatEJB ce;
