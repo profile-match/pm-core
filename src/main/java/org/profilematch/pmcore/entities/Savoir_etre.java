@@ -36,7 +36,7 @@ public class Savoir_etre implements Serializable {
     }
 
     @Column(name = "nom_savoir_etre")
-    private String etre;
+    private String intitule;
     @Column(name = "is_obligatoire_savoir_etre")
     private int obligatoire;
 
@@ -47,13 +47,15 @@ public class Savoir_etre implements Serializable {
         return postes;
     }
 
-    public String getEtre() {
-        return etre;
+    public String getIntitule() {
+        return intitule;
     }
 
-    public void setEtre(String etres) {
-        this.etre = etres;
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
     }
+
+    
 
     public int getObligatoire() {
         return obligatoire;

@@ -36,7 +36,7 @@ public class Savoir_specification implements Serializable {
     }
 
     @Column(name = "nom_savoir_specification")
-    private String specification;
+    private String intitule;
     @Column(name = "is_obligatoire_savoir_specification")
     private int obligatoire;
 
@@ -47,13 +47,15 @@ public class Savoir_specification implements Serializable {
         return postes;
     }
 
-    public String getSpecification() {
-        return specification;
+    public String getIntitule() {
+        return intitule;
     }
 
-    public void setFonctionnelles(String faires) {
-        this.specification = faires;
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
     }
+
+    
 
     public int getObligatoire() {
         return obligatoire;
@@ -70,9 +72,7 @@ public class Savoir_specification implements Serializable {
         this.id = id;
     }
 
-    public void setSpecification(String specification) {
-        this.specification = specification;
-    }
+    
 
     public void setPostes(Set<Dossier_poste> postes) {
         this.postes = postes;

@@ -36,7 +36,7 @@ public class Savoir_faire implements Serializable {
     }
 
     @Column(name = "nom_savoir_faire")
-    private String faire;
+    private String intitule;
     @Column(name = "is_obligatoire_savoir_faire")
     private int obligatoire;
 
@@ -47,13 +47,15 @@ public class Savoir_faire implements Serializable {
         return postes;
     }
 
-    public String getFaire() {
-        return faire;
+    public String getIntitule() {
+        return intitule;
     }
 
-    public void setFonctionnelles(String faires) {
-        this.faire = faires;
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
     }
+
+    
 
     public int getObligatoire() {
         return obligatoire;
@@ -70,9 +72,7 @@ public class Savoir_faire implements Serializable {
         this.id = id;
     }
 
-    public void setFaire(String faire) {
-        this.faire = faire;
-    }
+    
 
     public void setPostes(Set<Dossier_poste> postes) {
         this.postes = postes;

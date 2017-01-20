@@ -37,7 +37,7 @@ public class Formation_Recruteur implements Serializable {
     }
 
     @Column(name = "nom_formation")
-    private String formation;
+    private String intitule;
     @Column(name = "is_obligatoire_formation")
     private int obligatoire;
     @Column(name = "annee_formation")
@@ -50,13 +50,15 @@ public class Formation_Recruteur implements Serializable {
         return postes;
     }
 
-    public String getFormation() {
-        return formation;
+    public String getIntitule() {
+        return intitule;
     }
 
-    public void setFormation(String formations) {
-        this.formation = formations;
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
     }
+
+    
 
     public int getObligatoire() {
         return obligatoire;

@@ -37,7 +37,7 @@ public class Certification implements Serializable {
     }
 
     @Column(name = "nom_certification")
-    private String certification;
+    private String intitule;
 
     @Column(name = "annee_certification")
     private Date annee;
@@ -52,13 +52,15 @@ public class Certification implements Serializable {
         return postes;
     }
 
-    public String getCertification() {
-        return certification;
+    public String getIntitule() {
+        return intitule;
     }
 
-    public void setCertification(String certification) {
-        this.certification = certification;
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
     }
+
+   
 
     public Date getAnnee() {
         return annee;
@@ -80,7 +82,7 @@ public class Certification implements Serializable {
     }
 
     public Certification(String certification, Date annee, int obligatoire) {
-        this.certification = certification;
+        this.intitule = certification;
         this.annee = annee;
         this.obligatoire = obligatoire;
     }

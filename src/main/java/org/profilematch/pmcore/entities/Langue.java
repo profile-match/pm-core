@@ -27,7 +27,7 @@ import javax.persistence.Table;
 @Table(name = "LANGUE")
 @NamedQueries({
     @NamedQuery(name = "Langue.completeLangue",
-            query = "SELECT p FROM Langue p where p.langue LIKE :nom_langue")
+            query = "SELECT p FROM Langue p where p.intitule LIKE :nom_langue")
 })
 public class Langue implements Serializable {
 
@@ -42,7 +42,7 @@ public class Langue implements Serializable {
     }
 
     @Column(name = "nom_langue")
-    private String langue;
+    private String intitule;
     @Column(name = "is_obligatoire_langue")
     private int obligatoire;
 
@@ -53,13 +53,15 @@ public class Langue implements Serializable {
         return postes;
     }
 
-    public String getLangue() {
-        return langue;
+    public String getIntitule() {
+        return intitule;
     }
 
-    public void setFonctionnelles(String langues) {
-        this.langue = langues;
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
     }
+
+   
 
     public int getObligatoire() {
         return obligatoire;
@@ -76,9 +78,7 @@ public class Langue implements Serializable {
         this.id = id;
     }
 
-    public void setLangue(String langue) {
-        this.langue = langue;
-    }
+    
 
     public void setPostes(Set<Dossier_poste> postes) {
         this.postes = postes;

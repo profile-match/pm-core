@@ -27,7 +27,7 @@ import javax.persistence.Table;
 @Table(name = "METIER")
 @NamedQueries({
     @NamedQuery(name = "Metier.completeMetier",
-            query = "SELECT p FROM Metier p where p.metier LIKE :nom_metier")
+            query = "SELECT p FROM Metier p where p.intitule LIKE :nom_metier")
 })
 public class Metier implements Serializable {
 
@@ -42,7 +42,7 @@ public class Metier implements Serializable {
     }
 
     @Column(name = "nom_metier")
-    private String metier;
+    private String intitule;
     @Column(name = "is_obligatoire_metier")
     private int obligatoire;
 
@@ -53,13 +53,15 @@ public class Metier implements Serializable {
         return postes;
     }
 
-    public String getMetier() {
-        return metier;
+    public String getIntitule() {
+        return intitule;
     }
 
-    public void setMetier(String metiers) {
-        this.metier = metiers;
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
     }
+
+    
 
     public int getObligatoire() {
         return obligatoire;

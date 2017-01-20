@@ -27,7 +27,7 @@ import javax.persistence.Table;
 @Table(name = "FONCTIONNELLE")
 @NamedQueries({
     @NamedQuery(name = "Fonctionnelle.completeFonctionnelle",
-            query = "SELECT p FROM Fonctionnelle p where p.fonctionnelle LIKE :nom_fonctionnelle")
+            query = "SELECT p FROM Fonctionnelle p where p.intitule LIKE :nom_fonctionnelle")
 })
 public class Fonctionnelle implements Serializable {
 
@@ -42,7 +42,7 @@ public class Fonctionnelle implements Serializable {
     }
 
     @Column(name = "nom_fonctionnelle")
-    private String fonctionnelle;
+    private String intitule;
     @Column(name = "is_obligatoire_fonctionnelle")
     private int obligatoire;
 
@@ -53,13 +53,15 @@ public class Fonctionnelle implements Serializable {
         return postes;
     }
 
-    public String getFonctionnelles() {
-        return fonctionnelle;
+    public String getIntitule() {
+        return intitule;
     }
 
-    public void setFonctionnelles(String fonctionnelles) {
-        this.fonctionnelle = fonctionnelles;
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
     }
+
+    
 
     public int getObligatoire() {
         return obligatoire;
@@ -72,13 +74,7 @@ public class Fonctionnelle implements Serializable {
     public Fonctionnelle() {
     }
 
-    public String getFonctionnelle() {
-        return fonctionnelle;
-    }
-
-    public void setFonctionnelle(String fonctionnelle) {
-        this.fonctionnelle = fonctionnelle;
-    }
+    
 
     public void setId(Long id) {
         this.id = id;

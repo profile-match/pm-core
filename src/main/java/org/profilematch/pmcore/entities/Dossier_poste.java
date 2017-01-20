@@ -44,7 +44,7 @@ public class Dossier_poste implements Serializable {
     private Date date_publication;
     private String reference;
     private String intitule;
-    private int indice_salaire;
+    private String indice_salaire;
     /*Clé étrangère sur Niveau_Salaire)*/
     private int salaire_min;
     private int salaire_max;
@@ -60,7 +60,7 @@ public class Dossier_poste implements Serializable {
 
     private Long id;
 
-    public Dossier_poste(int id_recruteur, Date date_publication, String reference, String intitule, int indice_salaire, int salaire_min, int salaire_max, String type_contrat, String resume, String point_attention, String lieu_travail, String organisation,String equipe, String service, Set<Certification> certifications, Set<Metier> metiers, Set<Technique> techniques, Set<Langue> langues, Set<Formation_Recruteur> formations, Set<Fonctionnelle> fonctionnelles, Set<Savoir_etre> savoir_etres, Set<Savoir_faire> savoir_faires, Set<Savoir_specification> savoir_specifications) {
+    public Dossier_poste(int id_recruteur, Date date_publication, String reference, String intitule, String indice_salaire, int salaire_min, int salaire_max, String type_contrat, String resume, String point_attention, String lieu_travail, String organisation,String equipe, String service, Set<Certification> certifications, Set<Metier> metiers, Set<Technique> techniques, Set<Langue> langues, Set<Formation_Recruteur> formations, Set<Fonctionnelle> fonctionnelles, Set<Savoir_etre> savoir_etres, Set<Savoir_faire> savoir_faires, Set<Savoir_specification> savoir_specifications) {
         this.id_recruteur = id_recruteur;
         
         this.date_publication = date_publication;
@@ -205,13 +205,15 @@ Afficher_moyenne : int{0,1}
         this.intitule = intitule;
     }
 
-    public int getIndice_salaire() {
+    public String getIndice_salaire() {
         return indice_salaire;
     }
 
-    public void setIndice_salaire(int indice_salaire) {
+    public void setIndice_salaire(String indice_salaire) {
         this.indice_salaire = indice_salaire;
     }
+
+    
 
     public int getSalaire_min() {
         return salaire_min;
