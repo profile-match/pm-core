@@ -5,6 +5,7 @@
  */
 package org.profilematch.pmcore.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -26,7 +27,9 @@ public class Formation implements Serializable {
     private String intitule_de_formation;
     private String etablissement;
     private String description_formation;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date date_debut_format;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date date_fin_format;
 
     public Long getId() {

@@ -5,6 +5,7 @@
  */
 package org.profilematch.pmcore.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -24,7 +25,9 @@ public class ExperiencePro implements Serializable {
     private Long id;
     
     private String intitule_de_poste;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date date_debut;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date date_fin;
     private String pays;
     private String ville;
