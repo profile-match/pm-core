@@ -23,7 +23,7 @@ import javax.persistence.Table;
  * @author Steven Klinger && Pierre Leriche
  */
 @Entity
-@Table(name="CERTIFICATION")
+@Table(name = "CERTIFICATION")
 public class Certification implements Serializable {
 
     @Id
@@ -31,24 +31,23 @@ public class Certification implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="certification_id")
+    @Column(name = "certification_id")
     public Long getId() {
         return id;
     }
 
-  
-    @Column(name="nom_certification")
+    @Column(name = "nom_certification")
     private String certification;
-    
-    @Column(name="annee_certification")
+
+    @Column(name = "annee_certification")
     private Date annee;
-    
-    @Column(name="is_obligatoire_certification")
+
+    @Column(name = "is_obligatoire_certification")
     private int obligatoire;
-    
+
     private Set<Dossier_poste> postes = new HashSet<>(0);
-    
-    @ManyToMany(cascade=CascadeType.ALL, mappedBy="certifications")
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "certifications")
     public Set<Dossier_poste> getPostes() {
         return postes;
     }
@@ -93,8 +92,5 @@ public class Certification implements Serializable {
     public void setPostes(Set<Dossier_poste> postes) {
         this.postes = postes;
     }
-    
-    
-    
-    
+
 }

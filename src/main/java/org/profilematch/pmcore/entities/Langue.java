@@ -24,11 +24,11 @@ import javax.persistence.Table;
  * @author Steven Klinger && Pierre Leriche
  */
 @Entity
-@Table(name="LANGUE")
+@Table(name = "LANGUE")
 @NamedQueries({
-  @NamedQuery(name = "Langue.completeLangue",
-        query = "SELECT p FROM Langue p where p.langue LIKE :nom_langue")
-    })
+    @NamedQuery(name = "Langue.completeLangue",
+            query = "SELECT p FROM Langue p where p.langue LIKE :nom_langue")
+})
 public class Langue implements Serializable {
 
     @Id
@@ -36,21 +36,19 @@ public class Langue implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="langue_id")
+    @Column(name = "langue_id")
     public Long getId() {
         return id;
     }
 
-    
-    @Column(name="nom_langue")
+    @Column(name = "nom_langue")
     private String langue;
-    @Column(name="is_obligatoire_langue")
+    @Column(name = "is_obligatoire_langue")
     private int obligatoire;
-    
-    
+
     private Set<Dossier_poste> postes = new HashSet<>(0);
-    
-    @ManyToMany(cascade=CascadeType.ALL, mappedBy="langues")
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "langues")
     public Set<Dossier_poste> getPostes() {
         return postes;
     }
@@ -70,10 +68,9 @@ public class Langue implements Serializable {
     public void setObligatoire(int obligatoire) {
         this.obligatoire = obligatoire;
     }
-    
-    
-    
-    public Langue(){}
+
+    public Langue() {
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -86,6 +83,5 @@ public class Langue implements Serializable {
     public void setPostes(Set<Dossier_poste> postes) {
         this.postes = postes;
     }
-    
-    
+
 }

@@ -23,7 +23,7 @@ import javax.persistence.Table;
  * @author Steven Klinger && Pierre Leriche
  */
 @Entity
-@Table(name="FORMATION")
+@Table(name = "FORMATION")
 public class Formation_Recruteur implements Serializable {
 
     @Id
@@ -31,24 +31,21 @@ public class Formation_Recruteur implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="formation_id")
+    @Column(name = "formation_id")
     public Long getId() {
         return id;
     }
 
-    
-    
-    @Column(name="nom_formation")
+    @Column(name = "nom_formation")
     private String formation;
-    @Column(name="is_obligatoire_formation")
+    @Column(name = "is_obligatoire_formation")
     private int obligatoire;
-    @Column(name="annee_formation")
+    @Column(name = "annee_formation")
     private Date annee;
-    
-    
+
     private Set<Dossier_poste> postes = new HashSet<>(0);
-    
-    @ManyToMany(cascade=CascadeType.ALL, mappedBy="formations")
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "formations")
     public Set<Dossier_poste> getPostes() {
         return postes;
     }
@@ -76,10 +73,9 @@ public class Formation_Recruteur implements Serializable {
     public void setAnnee(Date annee) {
         this.annee = annee;
     }
-    
-    
-    
-    public Formation_Recruteur(){}
+
+    public Formation_Recruteur() {
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -88,7 +84,5 @@ public class Formation_Recruteur implements Serializable {
     public void setPostes(Set<Dossier_poste> postes) {
         this.postes = postes;
     }
- 
-    
-    
+
 }

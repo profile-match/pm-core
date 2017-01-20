@@ -24,33 +24,31 @@ import javax.persistence.Table;
  * @author Steven Klinger && Pierre Leriche
  */
 @Entity
-@Table(name="FONCTIONNELLE")
+@Table(name = "FONCTIONNELLE")
 @NamedQueries({
-  @NamedQuery(name = "Fonctionnelle.completeFonctionnelle",
-        query = "SELECT p FROM Fonctionnelle p where p.fonctionnelle LIKE :nom_fonctionnelle")
-    })
+    @NamedQuery(name = "Fonctionnelle.completeFonctionnelle",
+            query = "SELECT p FROM Fonctionnelle p where p.fonctionnelle LIKE :nom_fonctionnelle")
+})
 public class Fonctionnelle implements Serializable {
 
     @Id
     private Long id;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="fonctionnelle_id")
+    @Column(name = "fonctionnelle_id")
     public Long getId() {
         return id;
     }
 
-    
-    @Column(name="nom_fonctionnelle")
+    @Column(name = "nom_fonctionnelle")
     private String fonctionnelle;
-    @Column(name="is_obligatoire_fonctionnelle")
+    @Column(name = "is_obligatoire_fonctionnelle")
     private int obligatoire;
-    
-    
+
     private Set<Dossier_poste> postes = new HashSet<>(0);
-    
-    @ManyToMany(cascade=CascadeType.ALL, mappedBy="fonctionnelles")
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "fonctionnelles")
     public Set<Dossier_poste> getPostes() {
         return postes;
     }
@@ -70,10 +68,9 @@ public class Fonctionnelle implements Serializable {
     public void setObligatoire(int obligatoire) {
         this.obligatoire = obligatoire;
     }
-    
-    
-    
-    public Fonctionnelle(){}
+
+    public Fonctionnelle() {
+    }
 
     public String getFonctionnelle() {
         return fonctionnelle;
@@ -90,8 +87,5 @@ public class Fonctionnelle implements Serializable {
     public void setPostes(Set<Dossier_poste> postes) {
         this.postes = postes;
     }
-    
-    
-    
-    
+
 }

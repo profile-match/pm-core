@@ -24,11 +24,11 @@ import javax.persistence.Table;
  * @author Steven Klinger && Pierre Leriche
  */
 @Entity
-@Table(name="METIER")
+@Table(name = "METIER")
 @NamedQueries({
-  @NamedQuery(name = "Metier.completeMetier",
-        query = "SELECT p FROM Metier p where p.metier LIKE :nom_metier")
-    })
+    @NamedQuery(name = "Metier.completeMetier",
+            query = "SELECT p FROM Metier p where p.metier LIKE :nom_metier")
+})
 public class Metier implements Serializable {
 
     @Id
@@ -36,22 +36,19 @@ public class Metier implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="metier_id")
+    @Column(name = "metier_id")
     public Long getId() {
         return id;
     }
 
-    
-    
-    @Column(name="nom_metier")
+    @Column(name = "nom_metier")
     private String metier;
-    @Column(name="is_obligatoire_metier")
+    @Column(name = "is_obligatoire_metier")
     private int obligatoire;
-    
-    
+
     private Set<Dossier_poste> postes = new HashSet<>(0);
-    
-    @ManyToMany(cascade=CascadeType.ALL, mappedBy="metiers")
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "metiers")
     public Set<Dossier_poste> getPostes() {
         return postes;
     }
@@ -71,10 +68,9 @@ public class Metier implements Serializable {
     public void setObligatoire(int obligatoire) {
         this.obligatoire = obligatoire;
     }
-    
-    
-    
-    public Metier(){}
+
+    public Metier() {
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -83,6 +79,5 @@ public class Metier implements Serializable {
     public void setPostes(Set<Dossier_poste> postes) {
         this.postes = postes;
     }
-    
-    
+
 }

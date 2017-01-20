@@ -22,7 +22,7 @@ import javax.persistence.Table;
  * @author Steven Klinger && Pierre Leriche
  */
 @Entity
-@Table(name="SAVOIR_ETRE")
+@Table(name = "SAVOIR_ETRE")
 public class Savoir_etre implements Serializable {
 
     @Id
@@ -30,22 +30,19 @@ public class Savoir_etre implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="savoir_etre_id")
+    @Column(name = "savoir_etre_id")
     public Long getId() {
         return id;
     }
 
-    
-    
-    @Column(name="nom_savoir_etre")
+    @Column(name = "nom_savoir_etre")
     private String etre;
-    @Column(name="is_obligatoire_savoir_etre")
+    @Column(name = "is_obligatoire_savoir_etre")
     private int obligatoire;
-    
-    
+
     private Set<Dossier_poste> postes = new HashSet<>(0);
-    
-    @ManyToMany(cascade=CascadeType.ALL, mappedBy="savoir_etres")
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "savoir_etres")
     public Set<Dossier_poste> getPostes() {
         return postes;
     }
@@ -65,10 +62,9 @@ public class Savoir_etre implements Serializable {
     public void setObligatoire(int obligatoire) {
         this.obligatoire = obligatoire;
     }
-    
-    
-    
-    public Savoir_etre(){}
+
+    public Savoir_etre() {
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -77,6 +73,5 @@ public class Savoir_etre implements Serializable {
     public void setPostes(Set<Dossier_poste> postes) {
         this.postes = postes;
     }
-    
-    
+
 }

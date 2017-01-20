@@ -14,89 +14,89 @@ import javax.ws.rs.core.MediaType;
 import org.profilematch.pmcore.ejbs.DossierPosteBeanLocal;
 import org.profilematch.pmcore.entities.Dossier_poste;
 
-
 @Path("/recruteur")
-public class HelloWorldEndpoint {
+public class RecruteurRest {
 
     @Inject
     DossierPosteBeanLocal ce;
-    
-	@GET
-	@Produces("text/plain")
-	public Response doGet() throws InterruptedException {
-          
-		return Response.ok(" gazejalzjelazkjealzkejfrom WildFrzerly Swarm!").build();
-	}
-        
+
+    @GET
+    @Produces("text/plain")
+    public Response doGet() throws InterruptedException {
+
+        return Response.ok(" gazejalzjelazkjealzkejfrom WildFrzerly Swarm!").build();
+    }
+
     //Methode put modification dossier
     @PUT
     @Path("updateDossier")
     @Consumes("application/json")
-    public Response updateDossier(Dossier_poste c){
-        
+    public Response updateDossier(Dossier_poste c) {
+
         return Response.ok(ce.updateDossier(c)).build();
     }
-        
+
     //Methode get metier technique
-    @GET    
+    @GET
     @Path("completeMetier/{complete}")
     @Produces("application/json")
-    public Response completeMetier(@PathParam("complete") String c){
+    public Response completeMetier(@PathParam("complete") String c) {
         return Response.ok(ce.completeMetier(c)).build();
     }
-    
-    @GET    
+
+    @GET
     @Path("completeTechnique/{complete}")
     @Produces("application/json")
-    public Response completeTechnique(@PathParam("complete") String c){
+    public Response completeTechnique(@PathParam("complete") String c) {
         return Response.ok(ce.completeTechnique(c)).build();
     }
-    
-    @GET    
+
+    @GET
     @Path("completeLangue/{complete}")
     @Produces("application/json")
-    public Response completeLangue(@PathParam("complete") String c){
+    public Response completeLangue(@PathParam("complete") String c) {
         return Response.ok(ce.completeLinguistique(c)).build();
     }
-    
-    @GET    
+
+    @GET
     @Path("completeFonctionnelle/{complete}")
     @Produces("application/json")
-    public Response completeFonctionnelle(@PathParam("complete") String c){
+    public Response completeFonctionnelle(@PathParam("complete") String c) {
         return Response.ok(ce.completeFonctionnelle(c)).build();
     }
-    
+
     //Methode get Info all dossier
     @GET
     @Path("ElementAllDossier/{id}")
     @Produces("application/json")
-    public Response ElementAllDossier(@PathParam("id")int id){
+    public Response ElementAllDossier(@PathParam("id") int id) {
         return Response.ok(ce.getElementAllDossier(id)).build();
-        
+
     }
+
     //Methode get ALL intitule de dossier
     @GET
     @Path("intituleAllDossier/{id}")
     @Produces("application/json")
-    public Response intituleAllDossier(@PathParam("id")int id){
+    public Response intituleAllDossier(@PathParam("id") int id) {
         return Response.ok(ce.getIntituleAllDossier(id)).build();
-        
+
     }
+
     //Methode Delete dossier_poste
     @DELETE
     @Path("deleteDossier/{id}")
     @Consumes("application/json")
-    public Response deleteDossier(@PathParam("id") Long id){
-        
+    public Response deleteDossier(@PathParam("id") Long id) {
+
         return Response.ok(ce.deleteDossier(id)).build();
     }
-    
+
     @POST
     @Consumes("application/json")
     @Path("create")
     public Response createDossier(Dossier_poste c) {
         return Response.ok(ce.createDossier(c)).build();
     }
-    
-        
+
 }
