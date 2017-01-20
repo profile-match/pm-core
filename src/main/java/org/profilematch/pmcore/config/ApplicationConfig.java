@@ -5,7 +5,6 @@ import javax.ws.rs.core.Application;
 
 /**
  *
- * @author antoine
  */
 @javax.ws.rs.ApplicationPath("rest")
 public class ApplicationConfig extends Application {
@@ -27,6 +26,7 @@ public class ApplicationConfig extends Application {
         resources.add(org.profilematch.pmcore.config.CorsFeature.class);
         resources.add(org.profilematch.pmcore.rest.CandidatRest.class);
         resources.add(org.profilematch.pmcore.rest.RecruteurRest.class);
+        resources.add(org.profilematch.pmcore.rest.UtilisateurRest.class);
     }
     
 }
