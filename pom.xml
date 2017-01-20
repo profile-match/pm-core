@@ -5,7 +5,7 @@
     <groupId>org.profile-match</groupId>
     <artifactId>pm-core</artifactId>
     <name>pm-core</name>
-    <version>0.1-G3</version>
+    <version>0.1-RC</version>
     <packaging>war</packaging>
 
     <properties>
