@@ -23,7 +23,7 @@ import javax.persistence.Table;
  * @author Steven Klinger && Pierre Leriche
  */
 @Entity
-@Table(name = "FORMATION")
+@Table(name = "FORMATION_RECRUTEUR")
 public class Formation_Recruteur implements Serializable {
 
     @Id
