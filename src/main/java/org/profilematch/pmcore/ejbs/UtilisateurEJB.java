@@ -38,7 +38,7 @@ public class UtilisateurEJB {
         if (u != null) {
             return u;
         } else {
-            return new Utilisateur(-1, "", "");
+            return new Utilisateur(-1, "", "", "");
         }
     }
 
