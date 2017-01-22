@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +21,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  *
@@ -29,6 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "DOSSIER")
 @NamedQueries({
+    @NamedQuery(name = "Dossier.getAllDossiers",
+            query = "SELECT p FROM Dossier_poste p where p.id = :id_recruteur"),
     @NamedQuery(name = "Dossier.getAllDossier",
             query = "SELECT p FROM Dossier_poste p where p.id_recruteur = :id_recruteur"),
     @NamedQuery(name = "Dossier.findByIntitule",
@@ -60,10 +64,10 @@ public class Dossier_poste implements Serializable {
 
     private Long id;
 
-    public Dossier_poste(int id_recruteur, Date date_publication, String reference, String intitule, String indice_salaire, int salaire_min, int salaire_max, String type_contrat, String resume, String point_attention, String lieu_travail, String organisation,String equipe, String service, Set<Certification> certifications, Set<Metier> metiers, Set<Technique> techniques, Set<Langue> langues, Set<Formation_Recruteur> formations, Set<Fonctionnelle> fonctionnelles, Set<Savoir_etre> savoir_etres, Set<Savoir_faire> savoir_faires, Set<Savoir_specification> savoir_specifications) {
+    public Dossier_poste(int id_recruteur, Date date_publication, String reference, String intitule, String indice_salaire, int salaire_min, int salaire_max, String type_contrat, String resume, String point_attention, String lieu_travail, String organisation, String equipe, String service, Set<Certification> certifications, Set<Metier> metiers, Set<Technique> techniques, Set<Langue> langues, Set<Formation_Recruteur> formations, Set<Fonctionnelle> fonctionnelles, Set<Savoir_etre> savoir_etres, Set<Savoir_faire> savoir_faires, Set<Savoir_specification> savoir_specifications) {
+
         this.id_recruteur = id_recruteur;
-        
-        this.date_publication = date_publication;
+
         this.reference = reference;
         this.intitule = intitule;
         this.indice_salaire = indice_salaire;
@@ -87,70 +91,106 @@ public class Dossier_poste implements Serializable {
 
     }
 
+    public Dossier_poste(int id_recruteur, Date date_publication, String reference, String intitule, String indice_salaire, int salaire_min, int salaire_max, String type_contrat, String resume, String point_attention, String lieu_travail, String organisation, String equipe) {
+
+        this.id_recruteur = id_recruteur;
+
+        this.date_publication = date_publication;
+        this.reference = reference;
+        this.intitule = intitule;
+        this.indice_salaire = indice_salaire;
+        this.salaire_min = salaire_min;
+        this.salaire_max = salaire_max;
+        this.type_contrat = type_contrat;
+        this.resume = resume;
+        this.point_attention = point_attention;
+        this.lieu_travail = lieu_travail;
+        this.organisation = organisation;
+        this.equipe_concernee = equipe;
+    }
+
     public Dossier_poste() {
     }
     /*
 Afficher_moyenne : int{0,1}
      */
-    private Set<Certification> certifications;
+
     private Set<Metier> metiers;
+
+    private Set<Certification> certifications;
+
     private Set<Fonctionnelle> fonctionnelles;
+
     private Set<Technique> techniques;
+
     private Set<Langue> langues;
+
     private Set<Formation_Recruteur> formations;
+
     private Set<Savoir_etre> savoir_etres;
+
     private Set<Savoir_faire> savoir_faires;
+
     private Set<Savoir_specification> savoir_specifications;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "POSTE_CERTIFICATION", joinColumns = @JoinColumn(name = "poste_id"), inverseJoinColumns = @JoinColumn(name = "certification_id"))
-    public Set<Certification> getCertifications() {
-        return certifications;
-    }
-
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "POSTE_METIER", joinColumns = @JoinColumn(name = "poste_id"), inverseJoinColumns = @JoinColumn(name = "metier_id"))
     public Set<Metier> getMetiers() {
         return metiers;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(name = "POSTE_CERTIFICATION", joinColumns = @JoinColumn(name = "poste_id"), inverseJoinColumns = @JoinColumn(name = "certification_id"))
+    public Set<Certification> getCertifications() {
+        return certifications;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "POSTE_FONCTIONNELLE", joinColumns = @JoinColumn(name = "poste_id"), inverseJoinColumns = @JoinColumn(name = "fonctionnelle_id"))
     public Set<Fonctionnelle> getFonctionnelles() {
         return fonctionnelles;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "POSTE_TECHNIQUE", joinColumns = @JoinColumn(name = "poste_id"), inverseJoinColumns = @JoinColumn(name = "technique_id"))
     public Set<Technique> getTechniques() {
         return techniques;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "POSTE_LANGUE", joinColumns = @JoinColumn(name = "poste_id"), inverseJoinColumns = @JoinColumn(name = "langue_id"))
     public Set<Langue> getLangues() {
         return langues;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "POSTE_FORMATION", joinColumns = @JoinColumn(name = "poste_id"), inverseJoinColumns = @JoinColumn(name = "formation_id"))
     public Set<Formation_Recruteur> getFormations() {
         return formations;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "POSTE_SAVOIR_ETRE", joinColumns = @JoinColumn(name = "poste_id"), inverseJoinColumns = @JoinColumn(name = "savoir_etre_id"))
     public Set<Savoir_etre> getSavoir_etres() {
         return savoir_etres;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "POSTE_SAVOIR_FAIRE", joinColumns = @JoinColumn(name = "poste_id"), inverseJoinColumns = @JoinColumn(name = "savoir_faire_id"))
     public Set<Savoir_faire> getSavoir_faires() {
         return savoir_faires;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "POSTE_SAVOIR_SPECIFICATION", joinColumns = @JoinColumn(name = "poste_id"), inverseJoinColumns = @JoinColumn(name = "savoir_specification_id"))
     public Set<Savoir_specification> getSavoir_specifications() {
         return savoir_specifications;
@@ -178,8 +218,6 @@ Afficher_moyenne : int{0,1}
     public void setId_recruteur(int id_recruteur) {
         this.id_recruteur = id_recruteur;
     }
-
-    
 
     public Date getDate_publication() {
         return date_publication;
@@ -212,8 +250,6 @@ Afficher_moyenne : int{0,1}
     public void setIndice_salaire(String indice_salaire) {
         this.indice_salaire = indice_salaire;
     }
-
-    
 
     public int getSalaire_min() {
         return salaire_min;
@@ -271,9 +307,6 @@ Afficher_moyenne : int{0,1}
         this.organisation = organisation;
     }
 
-    
-
-    
     public void setCertifications(Set<Certification> certifications) {
         this.certifications = certifications;
     }
@@ -321,7 +354,5 @@ Afficher_moyenne : int{0,1}
     public void setEquipe_concernee(String equipe_concernee) {
         this.equipe_concernee = equipe_concernee;
     }
-    
-    
 
 }

@@ -40,4 +40,8 @@ public interface DossierPosteBeanLocal {
     public List<Langue> completeLinguistique(String metier);
     
     public List<Dossier_poste> getAllDossier(int id);
+    
+    public Dossier_poste getDossier(Long id);
+    
+    
 }

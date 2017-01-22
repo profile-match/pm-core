@@ -5,12 +5,18 @@
  */
 package org.profilematch.pmcore.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +31,7 @@ import javax.persistence.Table;
 @Table(name = "SAVOIR_SPECIFICATION")
 public class Savoir_specification implements Serializable {
 
-    @Id
+    @JsonIgnore
     private Long id;
 
     @Id
@@ -42,7 +48,8 @@ public class Savoir_specification implements Serializable {
 
     private Set<Dossier_poste> postes = new HashSet<>(0);
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "savoir_specifications")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "savoir_specifications", fetch = FetchType.LAZY)
+    @JsonIgnore
     public Set<Dossier_poste> getPostes() {
         return postes;
     }

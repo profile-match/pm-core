@@ -5,6 +5,9 @@
  */
 package org.profilematch.pmcore.ejbs;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
@@ -26,11 +29,14 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-    @PersistenceContext(unitName = "Candidat_PU")
+    @PersistenceContext(unitName = "GPU")
     private EntityManager em;
 
     @Override
     public int createDossier(Dossier_poste dp) {
+        Calendar c = new GregorianCalendar();
+        Date date_publication = c.getTime();
+        dp.setDate_publication(date_publication);
         em.persist(dp);
 
         return 0;
@@ -46,6 +52,7 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
 
     }
     
+    @Override
     public List<Dossier_poste> getAllDossier(int id) {
         Query query = em.createNamedQuery("Dossier.getAllDossier").setParameter("id_recruteur", id);
         return query.getResultList();
@@ -98,6 +105,13 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
     public List<Langue> completeLinguistique(String langue) {
         Query query = em.createNamedQuery("Langue.completeLangue").setParameter("nom_langue", langue + "%");
         return query.getResultList();
+    }
+
+    @Override
+    public Dossier_poste getDossier(Long id) {
+             Query query = em.createNamedQuery("Dossier.getAllDossiers").setParameter("id_recruteur", id);
+             Dossier_poste p = (Dossier_poste)query.getSingleResult();
+             return p;
     }
 
 }

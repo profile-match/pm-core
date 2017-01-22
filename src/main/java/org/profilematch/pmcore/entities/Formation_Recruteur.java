@@ -5,6 +5,11 @@
  */
 package org.profilematch.pmcore.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -12,6 +17,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,10 +29,9 @@ import javax.persistence.Table;
  * @author Steven Klinger && Pierre Leriche
  */
 @Entity
-@Table(name = "FORMATION_RECRUTEUR")
 public class Formation_Recruteur implements Serializable {
 
-    @Id
+    @JsonIgnore
     private Long id;
 
     @Id
@@ -41,11 +46,13 @@ public class Formation_Recruteur implements Serializable {
     @Column(name = "is_obligatoire_formation")
     private int obligatoire;
     @Column(name = "annee_formation")
+    @JsonIgnore
     private Date annee;
 
     private Set<Dossier_poste> postes = new HashSet<>(0);
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "formations")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "formations", fetch = FetchType.LAZY)
+    @JsonIgnore
     public Set<Dossier_poste> getPostes() {
         return postes;
     }

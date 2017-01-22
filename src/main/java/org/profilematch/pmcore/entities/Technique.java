@@ -5,12 +5,18 @@
  */
 package org.profilematch.pmcore.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,12 +32,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "TECHNIQUE")
 @NamedQueries({
-    @NamedQuery(name = "Technique.completetechnique",
+    @NamedQuery(name = "Technique.completeTechnique",
             query = "SELECT p FROM Technique p where p.intitule LIKE :nom_technique")
 })
 public class Technique implements Serializable {
 
-    @Id
+    @JsonIgnore
     private Long id;
 
     @Id
@@ -48,7 +54,8 @@ public class Technique implements Serializable {
 
     private Set<Dossier_poste> postes = new HashSet<>(0);
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "techniques")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "techniques", fetch = FetchType.LAZY)
+    @JsonIgnore
     public Set<Dossier_poste> getPostes() {
         return postes;
     }
