@@ -29,7 +29,7 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-    @PersistenceContext(unitName = "GPU")
+    @PersistenceContext(unitName = "Candidat_PU")
     private EntityManager em;
 
     @Override
