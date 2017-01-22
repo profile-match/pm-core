@@ -15,7 +15,7 @@ import org.profilematch.pmcore.entities.Utilisateur;
 @LocalBean
 public class UtilisateurEJB {
 
-    @PersistenceContext(unitName = "Candidat_PU")
+    @PersistenceContext(unitName = "IMP_PU")
     EntityManager em;
 
     public boolean inscrireUtilisateur(Utilisateur u) {

@@ -27,9 +27,7 @@ import org.profilematch.pmcore.entities.Technique;
 @Stateless
 public class DossierPosteBean implements DossierPosteBeanLocal {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
-    @PersistenceContext(unitName = "Candidat_PU")
+    @PersistenceContext(unitName = "IMP_PU")
     private EntityManager em;
 
     @Override

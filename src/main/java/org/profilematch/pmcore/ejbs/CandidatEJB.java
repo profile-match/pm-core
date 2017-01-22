@@ -16,7 +16,7 @@ import org.profilematch.pmcore.entities.MessageSignalementCandidat;
 @LocalBean
 public class CandidatEJB {
 
-    @PersistenceContext(unitName = "Candidat_PU")
+    @PersistenceContext(unitName = "IMP_PU")
     EntityManager em;
 
     public void postMessageSignalementCandidat(MessageSignalementCandidat m) {
