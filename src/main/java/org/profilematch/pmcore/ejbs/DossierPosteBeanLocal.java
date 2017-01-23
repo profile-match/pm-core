@@ -8,8 +8,10 @@ package org.profilematch.pmcore.ejbs;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Local;
+import org.profilematch.pmcore.entities.Certification;
 import org.profilematch.pmcore.entities.Dossier_poste;
 import org.profilematch.pmcore.entities.Fonctionnelle;
+import org.profilematch.pmcore.entities.Formation_Recruteur;
 import org.profilematch.pmcore.entities.Langue;
 import org.profilematch.pmcore.entities.Metier;
 import org.profilematch.pmcore.entities.Technique;
@@ -35,9 +37,11 @@ public interface DossierPosteBeanLocal {
 
     public List<Technique> completeTechnique(String technique);
 
-    public List<Fonctionnelle> completeFonctionnelle(String metier);
+    public List<Fonctionnelle> completeFonctionnelle(String fonctionnelle);
 
-    public List<Langue> completeLinguistique(String metier);
+    public List<Langue> completeLinguistique(String langue);
+    public List<Formation_Recruteur> completeFormation(String formation);
+    public List<Certification> completeCertification(String certification);
     
     public List<Dossier_poste> getAllDossier(int id);
     

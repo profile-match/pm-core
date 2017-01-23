@@ -22,6 +22,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -29,6 +31,10 @@ import javax.persistence.Table;
  * @author Steven Klinger && Pierre Leriche
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Formation.completeFormation",
+            query = "SELECT p FROM Formation_Recruteur p where p.intitule LIKE :nom_formation")
+})
 public class Formation_Recruteur implements Serializable {
 
     @JsonIgnore

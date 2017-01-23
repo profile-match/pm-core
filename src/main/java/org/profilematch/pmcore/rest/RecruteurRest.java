@@ -57,6 +57,20 @@ public class RecruteurRest {
     public Response completeLangue(@PathParam("complete") String c) {
         return Response.ok(ce.completeLinguistique(c)).build();
     }
+    
+    @GET
+    @Path("completeFormation/{complete}")
+    @Produces("application/json")
+    public Response completeFormation(@PathParam("complete") String c) {
+        return Response.ok(ce.completeFormation(c)).build();
+    }
+    
+    @GET
+    @Path("completeCertification/{complete}")
+    @Produces("application/json")
+    public Response completeCertification(@PathParam("complete") String c) {
+        return Response.ok(ce.completeCertification(c)).build();
+    }
 
     @GET
     @Path("completeFonctionnelle/{complete}")

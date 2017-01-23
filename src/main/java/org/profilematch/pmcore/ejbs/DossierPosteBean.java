@@ -14,8 +14,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.profilematch.pmcore.entities.Certification;
 import org.profilematch.pmcore.entities.Dossier_poste;
 import org.profilematch.pmcore.entities.Fonctionnelle;
+import org.profilematch.pmcore.entities.Formation_Recruteur;
 import org.profilematch.pmcore.entities.Langue;
 import org.profilematch.pmcore.entities.Metier;
 import org.profilematch.pmcore.entities.Technique;
@@ -111,5 +113,15 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
              Dossier_poste p = (Dossier_poste)query.getSingleResult();
              return p;
     }
+
+    @Override
+    public List<Formation_Recruteur> completeFormation(String formation) {
+    Query query = em.createNamedQuery("Formation.completeFormation").setParameter("nom_formation", formation + "%");
+        return query.getResultList(); }
+
+    @Override
+    public List<Certification> completeCertification(String certification) {
+    Query query = em.createNamedQuery("certification.completeCertification").setParameter("nom_certification", certification + "%");
+        return query.getResultList(); }
 
 }

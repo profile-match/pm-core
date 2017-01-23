@@ -22,6 +22,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -30,6 +32,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CERTIFICATION")
+@NamedQueries({
+    @NamedQuery(name = "certification.completeCertification",
+            query = "SELECT p FROM Certification p where p.intitule LIKE :nom_certification")
+})
 public class Certification implements Serializable {
 
     @JsonIgnore
