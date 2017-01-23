@@ -30,6 +30,20 @@ public class CandidatRest {
         return Response.ok(ce.getUser(id)).build();
     }
 
+    @GET
+    @Path("getnbmale/")
+    @Produces("application/json")
+    public Response GetNbMale() {
+        return Response.ok(ce.getNbMale()).build();
+    }
+
+    @GET
+    @Path("getnbfemelle/")
+    @Produces("application/json")
+    public Response GetNbFemelle() {
+        return Response.ok(ce.getNbFemelle()).build();
+    }
+
     @POST
     @Consumes("application/json")
     @Path("create/")
@@ -50,7 +64,7 @@ public class CandidatRest {
     @Produces("application/json")
     @Path("ban/{id}")
     public Response UpdateBanCandidat(@PathParam("id") Long id) {
-        
+
         return Response.ok(ce.BanUser(id)).build();
     }
 
@@ -61,20 +75,19 @@ public class CandidatRest {
         return Response.ok(ce.UnbanUser(id)).build();
     }
 
-
     @GET
     @Path("get")
     @Produces("application/json")
     public Response GetAllClient() {
         return Response.ok(ce.getAllUser()).build();
     }
-   
+
     @POST
     @Consumes("application/json")
     @Path("messagesignalementcandidat/")
     public Response postMessageSignalementCandidat(MessageSignalementCandidat m) {
         ce.postMessageSignalementCandidat(m);
         return Response.ok().build();
-}
+    }
 
 }

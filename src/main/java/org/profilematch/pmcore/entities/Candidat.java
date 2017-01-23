@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import org.hibernate.annotations.LazyCollection;
@@ -23,7 +24,11 @@ import org.hibernate.annotations.LazyCollectionOption;
  * @author antoine
  */
 @Entity
-@NamedQuery(name="Candidat.findAll", query="SELECT c FROM Candidat c") 
+@NamedQueries({
+    @NamedQuery(name = "Candidat.findAll", query = "SELECT c FROM Candidat c"),
+    @NamedQuery(name = "Candidat.countMale", query = "SELECT count(c) FROM Candidat c WHERE c.isMale = TRUE"),
+    @NamedQuery(name = "Candidat.countFemelle", query = "SELECT count(c) FROM Candidat c WHERE c.isMale = FALSE")
+})
 public class Candidat implements Serializable {
 
     @Id
@@ -45,12 +50,12 @@ public class Candidat implements Serializable {
     private ExperiencePro experiencePro;
     @OneToOne(cascade = CascadeType.PERSIST)
     private Formation formation;
-    
+
     private boolean isMale;
-    
+
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "Candidat_Competence", joinColumns = @JoinColumn (name ="id"), inverseJoinColumns = @JoinColumn(name = "id_comp"))
+    @JoinTable(name = "Candidat_Competence", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "id_comp"))
     private Set<Competence> competence;
 
     public Candidat() {
@@ -75,12 +80,12 @@ public class Candidat implements Serializable {
         this.formation = f;
         this.competence = c;
     }
-  
+
     public Candidat(String nom, String prenom, String email) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
-        
+
     }
 
     public boolean isIsMale() {
@@ -191,6 +196,5 @@ public class Candidat implements Serializable {
     public void setIsBanned(boolean isBanned) {
         this.isBanned = isBanned;
     }
-    
-    
+
 }

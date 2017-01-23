@@ -49,6 +49,14 @@ public class CandidatEJB {
         }
     }
 
+    public String getNbMale() {
+        return em.createNamedQuery("Candidat.countMale").getSingleResult().toString();
+    }
+
+    public String getNbFemelle() {
+        return em.createNamedQuery("Candidat.countFemelle").getSingleResult().toString();
+    }
+
     public Candidat BanUser(Long id) {
         Candidat c = em.find(Candidat.class, id);
         if (c != null) {
