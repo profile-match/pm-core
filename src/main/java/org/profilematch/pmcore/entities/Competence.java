@@ -5,11 +5,17 @@
  */
 package org.profilematch.pmcore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -18,19 +24,32 @@ import javax.persistence.Id;
 @Entity
 public class Competence implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    
+    @JsonIgnore
+    private Long id_comp;
+
     private String domaine_de_competence;
     private String competences;
 
+    private Set<Candidat> candidat = new HashSet<>(0);
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "competence")
+    @JsonIgnore
+    public Set<Candidat> getCandidat() {
+        return candidat;
+    }
+
+    public void setCandidat(Set<Candidat> candidat) {
+        this.candidat = candidat;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
-        return id;
+        return id_comp;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.id_comp = id;
     }
 
     public String getDomaine_de_competence() {
@@ -52,7 +71,7 @@ public class Competence implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (id_comp != null ? id_comp.hashCode() : 0);
         return hash;
     }
 
@@ -63,7 +82,7 @@ public class Competence implements Serializable {
             return false;
         }
         Competence other = (Competence) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.id_comp == null && other.id_comp != null) || (this.id_comp != null && !this.id_comp.equals(other.id_comp))) {
             return false;
         }
         return true;
@@ -71,7 +90,7 @@ public class Competence implements Serializable {
 
     @Override
     public String toString() {
-        return "org.profilematch.pmcore.entities.Competence[ id=" + id + " ]";
+        return "org.profilematch.pmcore.entities.Competence[ id=" + id_comp + " ]";
     }
-    
+
 }

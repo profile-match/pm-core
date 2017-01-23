@@ -1,15 +1,19 @@
 package org.profilematch.pmcore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -41,9 +45,12 @@ public class Candidat implements Serializable {
     private ExperiencePro experiencePro;
     @OneToOne(cascade = CascadeType.PERSIST)
     private Formation formation;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    
+    
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Competence> competence;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "Candidat_Competence", joinColumns = @JoinColumn (name ="id"), inverseJoinColumns = @JoinColumn(name = "id_comp"))
+    private Set<Competence> competence;
 
     public Candidat() {
 
@@ -54,9 +61,10 @@ public class Candidat implements Serializable {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
+        this.competence = new HashSet<>();
     }
 
-    public Candidat(Long id, String nom, String prenom, String email, String loisirs, ExperiencePro ep, Formation f, List<Competence> c) {
+    public Candidat(Long id, String nom, String prenom, String email, String loisirs, ExperiencePro ep, Formation f, Set<Competence> c) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -65,6 +73,13 @@ public class Candidat implements Serializable {
         this.experiencePro = ep;
         this.formation = f;
         this.competence = c;
+    }
+  
+    public Candidat(String nom, String prenom, String email) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        
     }
 
     public String getLoisirs() {
@@ -91,18 +106,12 @@ public class Candidat implements Serializable {
         this.formation = formation;
     }
 
-    public List<Competence> getCompetence() {
+    public Set<Competence> getCompetence() {
         return competence;
     }
 
-    public void setCompetence(List<Competence> competence) {
+    public void setCompetence(Set<Competence> competence) {
         this.competence = competence;
-    }
-  
-    public Candidat(String nom, String prenom, String email) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
     }
 
     public String getNom() {
@@ -169,4 +178,10 @@ public class Candidat implements Serializable {
     public void setBanned(boolean banned) {
         isBanned = banned;
     }
+
+    public void setIsBanned(boolean isBanned) {
+        this.isBanned = isBanned;
+    }
+    
+    
 }

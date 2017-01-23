@@ -47,7 +47,7 @@ public class CandidatRest {
     }
 
     @PUT
-    @Consumes("application/json")
+    @Produces("application/json")
     @Path("ban/{id}")
     public Response UpdateBanCandidat(@PathParam("id") Long id) {
         
@@ -55,7 +55,7 @@ public class CandidatRest {
     }
 
     @PUT
-    @Consumes("application/json")
+    @Produces("application/json")
     @Path("unban/{id}")
     public Response UpdateUnbanCandidat(@PathParam("id") Long id) {
         return Response.ok(ce.UnbanUser(id)).build();
