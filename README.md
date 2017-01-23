@@ -3,7 +3,7 @@ The core project for Profile Match
 
 ## Requirements
 
-* Mysql server running on localhost on the port 3306 (default port). The root password should be root.
+* Mysql server running on localhost on the port 3306 (default port). The user used is imp with imp as password.
 * A Database called IMP on this server
 
 ## build / deployment
