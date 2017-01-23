@@ -50,16 +50,15 @@ public class CandidatRest {
     @Consumes("application/json")
     @Path("ban/{id}")
     public Response UpdateBanCandidat(@PathParam("id") Long id) {
-        ce.BanUser(id);
-        return Response.ok().build();
+        
+        return Response.ok(ce.BanUser(id)).build();
     }
 
     @PUT
     @Consumes("application/json")
     @Path("unban/{id}")
     public Response UpdateUnbanCandidat(@PathParam("id") Long id) {
-        ce.UnbanUser(id);
-        return Response.ok().build();
+        return Response.ok(ce.UnbanUser(id)).build();
     }
 
 

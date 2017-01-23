@@ -27,6 +27,15 @@ public class Candidat implements Serializable {
     private Long id;
 
     private String nom, prenom, email, loisirs, photo;
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
     private boolean isBanned;
     @OneToOne(cascade = CascadeType.PERSIST)
     private ExperiencePro experiencePro;
