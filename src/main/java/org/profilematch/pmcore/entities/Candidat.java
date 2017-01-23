@@ -46,6 +46,7 @@ public class Candidat implements Serializable {
     @OneToOne(cascade = CascadeType.PERSIST)
     private Formation formation;
     
+    private boolean isMale;
     
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
@@ -80,6 +81,14 @@ public class Candidat implements Serializable {
         this.prenom = prenom;
         this.email = email;
         
+    }
+
+    public boolean isIsMale() {
+        return isMale;
+    }
+
+    public void setIsMale(boolean isMale) {
+        this.isMale = isMale;
     }
 
     public String getLoisirs() {
