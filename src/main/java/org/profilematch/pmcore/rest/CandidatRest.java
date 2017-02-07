@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 
 import org.profilematch.pmcore.ejbs.CandidatEJB;
 import org.profilematch.pmcore.entities.Candidat;
+import org.profilematch.pmcore.entities.Competence;
 import org.profilematch.pmcore.entities.MessageSignalementCandidat;
 
 /**

@@ -25,6 +25,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(org.profilematch.pmcore.config.CorsFeature.class);
         resources.add(org.profilematch.pmcore.rest.CandidatRest.class);
+        resources.add(org.profilematch.pmcore.rest.CompetenceRest.class);
         resources.add(org.profilematch.pmcore.rest.RecruteurRest.class);
         resources.add(org.profilematch.pmcore.rest.UtilisateurRest.class);
     }

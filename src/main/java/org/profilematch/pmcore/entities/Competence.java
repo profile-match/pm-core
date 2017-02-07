@@ -1,44 +1,41 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.profilematch.pmcore.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.*;
 
 /**
  *
  * @author antoine
  */
 @Entity
+@NamedQuery(name = "competence.startsby", query = "SELECT DISTINCT c.competence FROM Competence c WHERE c.competence LIKE :debut_comp")
 public class Competence implements Serializable {
 
     @JsonIgnore
     private Long id_comp;
 
-    private String domaine_de_competence;
-    private String competences;
+    private String competence;
 
-    private Set<Candidat> candidat = new HashSet<>(0);
+    private List<Candidat> candidat = new ArrayList<>(0);
+    
+    public Competence(){
+        
+    }
+    
+    public Competence(String c){
+        this.competence = c;
+    }
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "competence")
     @JsonIgnore
-    public Set<Candidat> getCandidat() {
+    public List<Candidat> getCandidat() {
         return candidat;
     }
 
-    public void setCandidat(Set<Candidat> candidat) {
+    public void setCandidat(List<Candidat> candidat) {
         this.candidat = candidat;
     }
 
@@ -52,20 +49,12 @@ public class Competence implements Serializable {
         this.id_comp = id;
     }
 
-    public String getDomaine_de_competence() {
-        return domaine_de_competence;
+    public String getCompetence() {
+        return competence;
     }
 
-    public void setDomaine_de_competence(String domaine_de_competence) {
-        this.domaine_de_competence = domaine_de_competence;
-    }
-
-    public String getCompetences() {
-        return competences;
-    }
-
-    public void setCompetences(String competences) {
-        this.competences = competences;
+    public void setCompetence(String competences) {
+        this.competence = competences;
     }
 
     @Override

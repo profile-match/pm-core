@@ -1,9 +1,8 @@
 package org.profilematch.pmcore.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -56,7 +55,7 @@ public class Candidat implements Serializable {
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "Candidat_Competence", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "id_comp"))
-    private Set<Competence> competence;
+    private List<Competence> competence;
 
     public Candidat() {
 
@@ -67,10 +66,10 @@ public class Candidat implements Serializable {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
-        this.competence = new HashSet<>();
+        this.competence = new ArrayList<>();
     }
 
-    public Candidat(Long id, String nom, String prenom, String email, String loisirs, ExperiencePro ep, Formation f, Set<Competence> c) {
+    public Candidat(Long id, String nom, String prenom, String email, String loisirs, ExperiencePro ep, Formation f, List<Competence> c) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -120,11 +119,11 @@ public class Candidat implements Serializable {
         this.formation = formation;
     }
 
-    public Set<Competence> getCompetence() {
+    public List<Competence> getCompetence() {
         return competence;
     }
 
-    public void setCompetence(Set<Competence> competence) {
+    public void setCompetence(List<Competence> competence) {
         this.competence = competence;
     }
 

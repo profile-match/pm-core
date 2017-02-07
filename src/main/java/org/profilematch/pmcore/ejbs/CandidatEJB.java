@@ -5,7 +5,9 @@ import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.profilematch.pmcore.entities.Candidat;
+import org.profilematch.pmcore.entities.Competence;
 import org.profilematch.pmcore.entities.MessageSignalementCandidat;
 
 /**
@@ -23,11 +25,12 @@ public class CandidatEJB {
         em.persist(m);
     }
 
-    public int registerUser(Candidat c) {
+    public List<Competence> getCompetencesStartBy(String s){
+        return em.createNamedQuery("competence.startsby").setParameter("debut_comp", s+"%").getResultList();
+    }
 
+    public void registerUser(Candidat c) {
         em.persist(c);
-
-        return 0;
     }
 
     public int updateUser(Candidat c) {
