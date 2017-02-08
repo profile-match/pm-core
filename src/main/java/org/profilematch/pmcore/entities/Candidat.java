@@ -34,7 +34,7 @@ public class Candidat implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String nom, prenom, email, loisirs, photo;
+    private String nom, prenom, email, loisirs, photo, adresse, telfix, telperso;
 
     public String getPhoto() {
         return photo;
@@ -158,6 +158,32 @@ public class Candidat implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getTelfix() {
+        return telfix;
+    }
+
+    public void setTelfix(String telfix) {
+        this.telfix = telfix;
+    }
+
+    public String getTelperso() {
+        return telperso;
+    }
+
+    public void setTelperso(String telperso) {
+        this.telperso = telperso;
+    }
+    
+    
 
     @Override
     public int hashCode() {

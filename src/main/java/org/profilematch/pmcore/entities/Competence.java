@@ -20,12 +20,12 @@ public class Competence implements Serializable {
     private String competence;
 
     private List<Candidat> candidat = new ArrayList<>(0);
-    
-    public Competence(){
-        
+
+    public Competence() {
+
     }
-    
-    public Competence(String c){
+
+    public Competence(String c) {
         this.competence = c;
     }
 

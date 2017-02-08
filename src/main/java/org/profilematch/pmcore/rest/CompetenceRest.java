@@ -22,7 +22,6 @@ public class CompetenceRest {
     @Produces("application/json")
     @Path("get/{s}")
     public Response GetAllClient(@PathParam("s") String s) {
-        System.out.println(ce.getCompetencesStartBy(s));
         return Response.ok(ce.getCompetencesStartBy(s)).build();
     }
 

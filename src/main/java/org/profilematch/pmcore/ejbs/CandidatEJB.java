@@ -1,5 +1,6 @@
 package org.profilematch.pmcore.ejbs;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -25,12 +26,16 @@ public class CandidatEJB {
         em.persist(m);
     }
 
-    public List<Competence> getCompetencesStartBy(String s){
-        return em.createNamedQuery("competence.startsby").setParameter("debut_comp", s+"%").getResultList();
+    public List<Competence> getCompetencesStartBy(String s) {
+        return em.createNamedQuery("competence.startsby").setParameter("debut_comp", s + "%").getResultList();
     }
 
     public void registerUser(Candidat c) {
+        for(Competence comp : c.getCompetence()){
+            em.merge(comp);
+        }
         em.persist(c);
+        
     }
 
     public int updateUser(Candidat c) {
