@@ -31,6 +31,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name = "DOSSIER")
 @NamedQueries({
+    @NamedQuery(name = "Dossier.findAll", query = "SELECT d FROM Dossier_poste d"),
     @NamedQuery(name = "Dossier.getAllDossiers",
             query = "SELECT p FROM Dossier_poste p where p.id = :id_recruteur"),
     @NamedQuery(name = "Dossier.getAllDossier",

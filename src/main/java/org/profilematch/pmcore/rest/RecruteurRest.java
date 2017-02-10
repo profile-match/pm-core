@@ -98,6 +98,13 @@ public class RecruteurRest {
     }
     
     @GET
+    @Path("allDossier")
+    @Produces("application/json")
+    public Response allDossier() {
+        return Response.ok(ce.getAllPostes()).build();
+    }
+    
+    @GET
     @Path("allDossier/{id}")
     @Produces("application/json")
     public Response allDossier(@PathParam("id") int id) {
@@ -127,5 +134,33 @@ public class RecruteurRest {
     public Response createDossier(Dossier_poste c) {
         return Response.ok(ce.createDossier(c)).build();
     }
+    
+    @GET
+    @Path("get/{id}")
+    @Produces("application/json")
+    public Response GetCandidat(@PathParam("id") Long id) {
+        return Response.ok(ce.getUser(id)).build();
+    }
 
+    @GET
+    @Path("get")
+    @Produces("application/json")
+    public Response GetAllClient() {
+        return Response.ok(ce.getAllUser()).build();
+    }
+    
+    @PUT
+    @Produces("application/json")
+    @Path("ban/{id}")
+    public Response UpdateBanCandidat(@PathParam("id") Long id) {
+
+        return Response.ok(ce.BanUser(id)).build();
+    }
+
+    @PUT
+    @Produces("application/json")
+    @Path("unban/{id}")
+    public Response UpdateUnbanCandidat(@PathParam("id") Long id) {
+        return Response.ok(ce.UnbanUser(id)).build();
+    }
 }

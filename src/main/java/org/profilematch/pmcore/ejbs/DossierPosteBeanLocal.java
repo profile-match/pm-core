@@ -46,6 +46,16 @@ public interface DossierPosteBeanLocal {
     public List<Dossier_poste> getAllDossier(int id);
     
     public Dossier_poste getDossier(Long id);
+
+    public Object getUser(Long id);
+
+    public Object BanUser(Long id);
+
+    public Object UnbanUser(Long id);
+
+    public Object getAllUser();
+
+    public Object getAllPostes();
     
     
 }

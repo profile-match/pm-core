@@ -20,6 +20,7 @@ import org.profilematch.pmcore.entities.Fonctionnelle;
 import org.profilematch.pmcore.entities.Formation_Recruteur;
 import org.profilematch.pmcore.entities.Langue;
 import org.profilematch.pmcore.entities.Metier;
+import org.profilematch.pmcore.entities.Recruteur;
 import org.profilematch.pmcore.entities.Technique;
 
 /**
@@ -123,5 +124,47 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
     public List<Certification> completeCertification(String certification) {
     Query query = em.createNamedQuery("certification.completeCertification").setParameter("nom_certification", certification + "%");
         return query.getResultList(); }
+
+    @Override
+    public Object getUser(Long id) {
+        Recruteur c = em.find(Recruteur.class, id);
+        if (c != null) {
+            return c;
+        } else {
+            return new Recruteur(-1L, "", "", "");
+        }
+    }
+
+    @Override
+    public Object BanUser(Long id) {
+        Recruteur c = em.find(Recruteur.class, id);
+        if (c != null) {
+            c.setBanned(true);
+            return c;
+        } else {
+            return new Recruteur(-1L, "", "", "");
+        }
+    }
+
+    @Override
+    public Object UnbanUser(Long id) {
+        Recruteur c = em.find(Recruteur.class, id);
+        if (c != null) {
+            c.setBanned(false);
+            return c;
+        } else {
+            return new Recruteur(-1L, "", "", "");
+        }
+    }
+
+    @Override
+    public Object getAllUser() {
+        return em.createNamedQuery("Recruteur.findAll").getResultList();
+    }
+
+    @Override
+    public Object getAllPostes() {
+        return em.createNamedQuery("Dossier.findAll").getResultList();
+    }
 
 }
