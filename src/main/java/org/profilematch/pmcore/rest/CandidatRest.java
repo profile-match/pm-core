@@ -81,14 +81,14 @@ public class CandidatRest {
     @Path("suspend/{id}")
     public Response UpdateSuspsendCandidat(@PathParam("id") Long id) {
 
-        return Response.ok(ce.BanUser(id)).build();
+        return Response.ok(ce.SuspendUser(id)).build();
     }
 
     @PUT
     @Produces("application/json")
     @Path("unsuspend/{id}")
     public Response UpdateUnSuspsendCandidat(@PathParam("id") Long id) {
-        return Response.ok(ce.UnbanUser(id)).build();
+        return Response.ok(ce.UnSuspendUser(id)).build();
     }
 
     @GET
