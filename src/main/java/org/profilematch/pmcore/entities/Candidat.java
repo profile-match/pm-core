@@ -1,8 +1,11 @@
 package org.profilematch.pmcore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,6 +30,8 @@ import org.hibernate.annotations.LazyCollectionOption;
     @NamedQuery(name = "Candidat.findAll", query = "SELECT c FROM Candidat c"),
     @NamedQuery(name = "Candidat.countMale", query = "SELECT count(c) FROM Candidat c WHERE c.isMale = TRUE"),
     @NamedQuery(name = "Candidat.countFemelle", query = "SELECT count(c) FROM Candidat c WHERE c.isMale = FALSE")
+    //@NamedQuery(name = "Candidat.findPostule", 
+   //         query = "SELECT cand FROM Candidat cand where cand.id = some (select pos.candidat_id from POSTE_CANDIDAT_POSTULE pos where pos.poste_id =:poste_id)")
 })
 public class Candidat implements Serializable {
 
@@ -46,7 +51,11 @@ public class Candidat implements Serializable {
 
     private boolean isBanned;
     private boolean isSuspended;
-    
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "listeCandidat", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Dossier_poste> listDossier = new HashSet<>(0);
+
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<ExperiencePro> experiencePro;
@@ -61,6 +70,10 @@ public class Candidat implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "Candidat_Competence", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "id_comp"))
     private List<Competence> competence;
+
+    public Set<Dossier_poste> getDossierPoste() {
+        return listDossier;
+    }
 
     public Candidat() {
 
@@ -179,7 +192,7 @@ public class Candidat implements Serializable {
     public void setTelperso(String telperso) {
         this.telperso = telperso;
     }
-    
+
     public boolean isIsSuspended() {
         return isSuspended;
     }
@@ -207,7 +220,7 @@ public class Candidat implements Serializable {
     public void setIsBanned(boolean isBanned) {
         this.isBanned = isBanned;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;

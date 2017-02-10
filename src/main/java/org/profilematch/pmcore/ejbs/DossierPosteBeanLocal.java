@@ -57,5 +57,7 @@ public interface DossierPosteBeanLocal {
 
     public Object getAllPostes();
     
+    public Object getCandidatPostule(Long id);
+    
     
 }

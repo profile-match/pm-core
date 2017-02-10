@@ -167,4 +167,9 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
         return em.createNamedQuery("Dossier.findAll").getResultList();
     }
 
+    @Override
+    public Object getCandidatPostule(Long id) {
+        return em.createNamedQuery("Dossier.findPostule").setParameter("poste_id", id).getResultList();
+    }
+
 }
