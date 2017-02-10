@@ -179,14 +179,6 @@ public class Candidat implements Serializable {
     public void setTelperso(String telperso) {
         this.telperso = telperso;
     }
-    
-    public boolean isIsSuspended() {
-        return isSuspended;
-    }
-
-    public void setIsSuspended(boolean isSuspended) {
-        this.isSuspended = isSuspended;
-    }
 
     public List<ExperiencePro> getExperiencePro() {
         return experiencePro;
@@ -206,6 +198,19 @@ public class Candidat implements Serializable {
 
     public void setIsBanned(boolean isBanned) {
         this.isBanned = isBanned;
+    }
+
+    public boolean isSuspended() {
+        return isSuspended;
+    }
+    
+    public void setSuspended(boolean b) {
+        this.isSuspended = b;
+    }
+    
+
+    public void setIsSuspended(boolean isSuspended) {
+        this.isSuspended = isSuspended;
     }
     
     @Override

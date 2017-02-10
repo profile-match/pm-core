@@ -88,7 +88,7 @@ public class CandidatEJB {
     public Candidat SuspendUser(Long id) {
         Candidat c = em.find(Candidat.class, id);
         if (c != null) {
-            c.setIsSuspended(true);
+            c.setSuspended(true);
             return c;
         } else {
             return new Candidat(-1L, "", "", "");
@@ -98,7 +98,7 @@ public class CandidatEJB {
     public Candidat UnSuspendUser(Long id) {
         Candidat c = em.find(Candidat.class, id);
         if (c != null) {
-            c.setIsSuspended(false);
+            c.setSuspended(false);
             return c;
         } else {
             return new Candidat(-1L, "", "", "");
