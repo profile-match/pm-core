@@ -1,6 +1,5 @@
 package org.profilematch.pmcore.ejbs;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -79,6 +78,27 @@ public class CandidatEJB {
         Candidat c = em.find(Candidat.class, id);
         if (c != null) {
             c.setBanned(false);
+            return c;
+        } else {
+            return new Candidat(-1L, "", "", "");
+        }
+    }
+    
+    
+    public Candidat SuspendUser(Long id) {
+        Candidat c = em.find(Candidat.class, id);
+        if (c != null) {
+            c.setIsSuspended(true);
+            return c;
+        } else {
+            return new Candidat(-1L, "", "", "");
+        }
+    }
+
+    public Candidat UnSuspendUser(Long id) {
+        Candidat c = em.find(Candidat.class, id);
+        if (c != null) {
+            c.setIsSuspended(false);
             return c;
         } else {
             return new Candidat(-1L, "", "", "");

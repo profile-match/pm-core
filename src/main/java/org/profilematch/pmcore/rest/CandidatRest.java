@@ -75,6 +75,21 @@ public class CandidatRest {
     public Response UpdateUnbanCandidat(@PathParam("id") Long id) {
         return Response.ok(ce.UnbanUser(id)).build();
     }
+    
+        @PUT
+    @Produces("application/json")
+    @Path("ban/{id}")
+    public Response UpdateSuspsendCandidat(@PathParam("id") Long id) {
+
+        return Response.ok(ce.BanUser(id)).build();
+    }
+
+    @PUT
+    @Produces("application/json")
+    @Path("unban/{id}")
+    public Response UpdateUnSuspsendCandidat(@PathParam("id") Long id) {
+        return Response.ok(ce.UnbanUser(id)).build();
+    }
 
     @GET
     @Path("get")
