@@ -5,10 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,6 +31,7 @@ import org.hibernate.annotations.LazyCollectionOption;
     @NamedQuery(name = "Candidat.findAll", query = "SELECT c FROM Candidat c"),
     @NamedQuery(name = "Candidat.countMale", query = "SELECT count(c) FROM Candidat c WHERE c.isMale = TRUE"),
     @NamedQuery(name = "Candidat.countFemelle", query = "SELECT count(c) FROM Candidat c WHERE c.isMale = FALSE")
+
     //@NamedQuery(name = "Candidat.findPostule", 
    //         query = "SELECT cand FROM Candidat cand where cand.id = some (select pos.candidat_id from POSTE_CANDIDAT_POSTULE pos where pos.poste_id =:poste_id)")
 })
@@ -62,17 +61,17 @@ public class Candidat implements Serializable {
     private List<Dossier_poste> listDossier = new LinkedList();
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<ExperiencePro> experiencePro;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Formation> formation;
 
     private boolean isMale;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "Candidat_Competence", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "id_comp"))
     private List<Competence> competence;
 

@@ -30,18 +30,17 @@ public class CandidatEJB {
     }
 
     public void registerUser(Candidat c) {
-        for(Competence comp : c.getCompetence()){
-            em.merge(comp);
-        }
         em.persist(c);
-        
     }
 
     public int updateUser(Candidat c) {
         Candidat c1 = em.find(Candidat.class, c.getId());
         if (c1 != null) {
+            
             em.merge(c);
+            
             return 0;
+            
         } else {
             return -1;
         }
@@ -83,8 +82,7 @@ public class CandidatEJB {
             return new Candidat(-1L, "", "", "");
         }
     }
-    
-    
+
     public Candidat SuspendUser(Long id) {
         Candidat c = em.find(Candidat.class, id);
         if (c != null) {
