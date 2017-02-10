@@ -32,7 +32,7 @@ import org.profilematch.pmcore.entities.Utilisateur;
  *
  * @author Franck
  */
-@Path("generic")
+@Path("linkedin/")
 public class LinkedinRest {
 
     @EJB
@@ -47,7 +47,7 @@ public class LinkedinRest {
     public LinkedinRest() {
     }
 
- @GET
+    @GET
     @Path("gettoken/{code}/{state}")
     @Consumes("text/plain")
     public String GetCandidat(@PathParam("code") String code, @PathParam("state") String state) {
