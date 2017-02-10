@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 
 import org.profilematch.pmcore.ejbs.CandidatEJB;
 import org.profilematch.pmcore.entities.Candidat;
+import org.profilematch.pmcore.entities.Competence;
 import org.profilematch.pmcore.entities.MessageSignalementCandidat;
 
 /**
@@ -57,6 +58,9 @@ public class CandidatRest {
     @Consumes("application/json")
     @Path("update/")
     public Response UpdateCandidat(Candidat c) {
+        for (Competence comp : c.getCompetence()) {
+            System.out.println(comp);
+        }
         ce.updateUser(c);
         return Response.ok().build();
     }
