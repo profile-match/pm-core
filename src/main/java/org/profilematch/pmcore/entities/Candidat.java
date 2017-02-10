@@ -1,6 +1,8 @@
 package org.profilematch.pmcore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -34,6 +36,7 @@ import org.hibernate.annotations.LazyCollectionOption;
     //@NamedQuery(name = "Candidat.findPostule", 
    //         query = "SELECT cand FROM Candidat cand where cand.id = some (select pos.candidat_id from POSTE_CANDIDAT_POSTULE pos where pos.poste_id =:poste_id)")
 })
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Candidat implements Serializable {
 
     @Id
@@ -53,9 +56,9 @@ public class Candidat implements Serializable {
     private boolean isBanned;
     private boolean isSuspended;
 
+    
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "listeCandidat", fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<Dossier_poste> listDossier = new LinkedList();
 
     @LazyCollection(LazyCollectionOption.FALSE)

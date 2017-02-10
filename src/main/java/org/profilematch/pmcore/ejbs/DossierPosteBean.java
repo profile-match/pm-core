@@ -110,7 +110,7 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
 
     @Override
     public Dossier_poste getDossier(Long id) {
-             Query query = em.createNamedQuery("Dossier.getAllDossiers").setParameter("id_recruteur", id);
+             Query query = em.createNamedQuery("Dossier.getDossier").setParameter("poste_id", id);
              Dossier_poste p = (Dossier_poste)query.getSingleResult();
              return p;
     }

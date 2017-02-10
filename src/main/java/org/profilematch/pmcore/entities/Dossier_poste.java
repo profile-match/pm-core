@@ -5,9 +5,10 @@
  */
 package org.profilematch.pmcore.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -34,8 +35,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Table(name = "DOSSIER")
 @NamedQueries({
     @NamedQuery(name = "Dossier.findAll", query = "SELECT d FROM Dossier_poste d"),
-    @NamedQuery(name = "Dossier.getAllDossiers",
-            query = "SELECT p FROM Dossier_poste p where p.id = :id_recruteur"),
+    @NamedQuery(name = "Dossier.getDossier",
+            query = "SELECT p FROM Dossier_poste p where p.id = :poste_id"),
     @NamedQuery(name = "Dossier.getAllDossier",
             query = "SELECT p FROM Dossier_poste p where p.id_recruteur = :id_recruteur"),
     @NamedQuery(name = "Dossier.findByIntitule",
@@ -45,6 +46,7 @@ import org.hibernate.annotations.LazyCollectionOption;
     @NamedQuery(name = "Dossier.findByElement",
             query = "SELECT p.intitule, p.resume, p.lieu_travail, p.type_contrat, p.date_publication from Dossier_poste p where p.id_recruteur = :id_recruteur")
 })
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Dossier_poste implements Serializable {
 
     private int id_recruteur;
@@ -199,8 +201,6 @@ public class Dossier_poste implements Serializable {
         return savoir_specifications;
     }
 
-    
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "POSTE_CANDIDAT_POSTULE", joinColumns = @JoinColumn(name = "poste_id"), inverseJoinColumns = @JoinColumn(name = "candidat_id"))

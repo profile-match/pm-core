@@ -104,7 +104,7 @@ public class RecruteurRest {
     }
     
     @GET
-    @Path("allDossier/{id}")
+    @Path("dossierRecruteur/{id}")
     @Produces("application/json")
     public Response allDossier(@PathParam("id") int id) {
         return Response.ok(ce.getAllDossier(id)).build();
