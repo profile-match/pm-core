@@ -43,8 +43,7 @@ public class Mail {
     }
     
     
-    private Transport connexion(){
-        
+    private Transport connexion(){       
         try {
             File fichier = new File(path);
             
@@ -63,6 +62,12 @@ public class Mail {
         return null;
     }
     
+    /**
+     * Fonction qui permet d'envoyer une invitation pour s'inscrire sur le site
+     * @param mail Le mail de la personne à inviter à créer un compte
+     * @return
+     * @throws Exception 
+     */
     public  String envoyer(org.profilematch.pmcore.entities.Mail mail) throws Exception {
         
         MimeMessage generateMailMessage;
@@ -73,9 +78,9 @@ public class Mail {
             generateMailMessage.setSubject("Invitation iMatchProfile", "utf-8");
             String emailBody = "Bonjour," +
                     "<br/> Vous avez recu une invitation pour rejoindre la communité iMatchProfile"
-                    + "<br/>  Vous pouvez y accèder grâce à ce  <a href='#'> lien </a>"
+                    + "<br/>  Vous pouvez y accèder grâce à ce  <a href='http://www.imp.bober.ovh/'> lien </a>"
                     + " <br/> A bientôt, "
-                    + "<br/><br/>  l'équipe iMatchProfile";
+                    + "<br/><br/>  l'Equipe iMatchProfile";
             generateMailMessage.setContent(emailBody, "text/html ; charset=utf-8");
 
             transport = connexion();
