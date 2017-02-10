@@ -2,6 +2,7 @@ package org.profilematch.pmcore.rest;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -43,6 +44,13 @@ public class CandidatRest {
     @Produces("application/json")
     public Response GetNbFemelle() {
         return Response.ok(ce.getNbFemelle()).build();
+    }
+
+    @DELETE
+    @Path("delete/{id}")
+    public Response DeleteCandidat(@PathParam("id") Long id) {
+        ce.deleteCandidat(id);
+        return Response.ok().build();
     }
 
     @POST

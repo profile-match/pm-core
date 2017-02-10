@@ -32,6 +32,13 @@ public class CandidatEJB {
     public void registerUser(Candidat c) {
         em.persist(c);
     }
+    
+    public void deleteCandidat(Long id){
+        Candidat c = em.find(Candidat.class, id);
+        if (c != null) {
+            em.remove(c);
+        }
+    }
 
     public int updateUser(Candidat c) {
         Candidat c1 = em.find(Candidat.class, c.getId());
