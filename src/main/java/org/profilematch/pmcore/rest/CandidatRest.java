@@ -49,6 +49,7 @@ public class CandidatRest {
     @Consumes("application/json")
     @Path("create/")
     public Response RegisterCandidat(Candidat c) {
+        System.out.println(c);
         ce.registerUser(c);
         return Response.ok().build();
     }

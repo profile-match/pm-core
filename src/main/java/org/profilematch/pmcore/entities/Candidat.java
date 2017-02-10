@@ -14,7 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -45,10 +45,15 @@ public class Candidat implements Serializable {
     }
 
     private boolean isBanned;
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private ExperiencePro experiencePro;
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private Formation formation;
+    private boolean isSuspended;
+    
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<ExperiencePro> experiencePro;
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<Formation> formation;
 
     private boolean isMale;
 
@@ -69,7 +74,7 @@ public class Candidat implements Serializable {
         this.competence = new ArrayList<>();
     }
 
-    public Candidat(Long id, String nom, String prenom, String email, String loisirs, ExperiencePro ep, Formation f, List<Competence> c) {
+    public Candidat(Long id, String nom, String prenom, String email, String loisirs, List<ExperiencePro> ep, List<Formation> f, List<Competence> c) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -103,19 +108,11 @@ public class Candidat implements Serializable {
         this.loisirs = loisirs;
     }
 
-    public ExperiencePro getExperiencePro() {
-        return experiencePro;
-    }
-
-    public void setExperiencePro(ExperiencePro experiencePro) {
-        this.experiencePro = experiencePro;
-    }
-
-    public Formation getFormation() {
+    public List<Formation> getFormation() {
         return formation;
     }
 
-    public void setFormation(Formation formation) {
+    public void setFormation(List<Formation> formation) {
         this.formation = formation;
     }
 
@@ -183,8 +180,34 @@ public class Candidat implements Serializable {
         this.telperso = telperso;
     }
     
-    
+    public boolean isIsSuspended() {
+        return isSuspended;
+    }
 
+    public void setIsSuspended(boolean isSuspended) {
+        this.isSuspended = isSuspended;
+    }
+
+    public List<ExperiencePro> getExperiencePro() {
+        return experiencePro;
+    }
+
+    public void setExperiencePro(List<ExperiencePro> experiencePro) {
+        this.experiencePro = experiencePro;
+    }
+
+    public boolean isBanned() {
+        return isBanned;
+    }
+
+    public void setBanned(boolean banned) {
+        isBanned = banned;
+    }
+
+    public void setIsBanned(boolean isBanned) {
+        this.isBanned = isBanned;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -208,18 +231,6 @@ public class Candidat implements Serializable {
     @Override
     public String toString() {
         return "com.imp.entities.Candidat[ id=" + id + " ]";
-    }
-
-    public boolean isBanned() {
-        return isBanned;
-    }
-
-    public void setBanned(boolean banned) {
-        isBanned = banned;
-    }
-
-    public void setIsBanned(boolean isBanned) {
-        this.isBanned = isBanned;
     }
 
 }

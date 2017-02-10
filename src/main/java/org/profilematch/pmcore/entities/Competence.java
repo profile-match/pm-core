@@ -19,7 +19,15 @@ public class Competence implements Serializable {
 
     private String competence;
 
-    private List<Candidat> candidat = new ArrayList<>(0);
+    private List<Candidat> candidat = new ArrayList<>(0);    
+    
+    /*
+    * 0 : metier
+    * 1 : fonctionnelle
+    * 2 : technique
+    * 3 : linguistique
+    */
+    private int type;
 
     public Competence() {
 
@@ -55,6 +63,14 @@ public class Competence implements Serializable {
 
     public void setCompetence(String competences) {
         this.competence = competences;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     @Override
