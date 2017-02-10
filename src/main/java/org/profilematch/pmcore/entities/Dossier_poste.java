@@ -5,6 +5,7 @@
  */
 package org.profilematch.pmcore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -198,6 +199,8 @@ public class Dossier_poste implements Serializable {
         return savoir_specifications;
     }
 
+    
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "POSTE_CANDIDAT_POSTULE", joinColumns = @JoinColumn(name = "poste_id"), inverseJoinColumns = @JoinColumn(name = "candidat_id"))

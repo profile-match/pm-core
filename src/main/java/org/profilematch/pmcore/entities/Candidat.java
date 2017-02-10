@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -52,9 +53,10 @@ public class Candidat implements Serializable {
     private boolean isBanned;
     private boolean isSuspended;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "listeCandidat", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<Dossier_poste> listDossier = new HashSet<>(0);
+    private List<Dossier_poste> listDossier = new LinkedList();
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = CascadeType.PERSIST)
@@ -71,7 +73,7 @@ public class Candidat implements Serializable {
     @JoinTable(name = "Candidat_Competence", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "id_comp"))
     private List<Competence> competence;
 
-    public Set<Dossier_poste> getDossierPoste() {
+    public List<Dossier_poste> getDossierPoste() {
         return listDossier;
     }
 
