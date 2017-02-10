@@ -6,16 +6,11 @@ import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.profilematch.pmcore.ejbs.Mail;
-
-
-/**
- *
- * @author geoffrey
- */
+        
+        
 @Path("serviceMail/")
 public class MailRest {
     
@@ -31,7 +26,7 @@ public class MailRest {
             res = mail.envoyer(mails); 
         } catch (Exception ex) {
             Logger.getLogger(MailRest.class.getName()).log(Level.SEVERE, null, ex);
-            return Response.ok("erreur").build();
+            return Response.status(201).build();
         }
         return Response.ok(res).build();
     }
