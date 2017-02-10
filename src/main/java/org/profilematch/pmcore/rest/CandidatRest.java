@@ -65,7 +65,6 @@ public class CandidatRest {
     @Produces("application/json")
     @Path("ban/{id}")
     public Response UpdateBanCandidat(@PathParam("id") Long id) {
-
         return Response.ok(ce.BanUser(id)).build();
     }
 
@@ -76,18 +75,17 @@ public class CandidatRest {
         return Response.ok(ce.UnbanUser(id)).build();
     }
 
-    @PUT
+    @GET
     @Produces("application/json")
     @Path("suspend/{id}")
-    public Response UpdateSuspsendCandidat(@PathParam("id") Long id) {
-
+    public Response SuspsendCandidat(@PathParam("id") Long id) {
         return Response.ok(ce.SuspendUser(id)).build();
     }
 
-    @PUT
+    @GET
     @Produces("application/json")
     @Path("unsuspend/{id}")
-    public Response UpdateUnSuspsendCandidat(@PathParam("id") Long id) {
+    public Response UnSuspsendCandidat(@PathParam("id") Long id) {
         return Response.ok(ce.UnSuspendUser(id)).build();
     }
 
