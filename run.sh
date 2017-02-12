@@ -8,4 +8,5 @@ fi
 mvn package
 mvn wildfly-swarm:package
 cd target/
+mkdir images
 java -Dswarm.ds.connection.url="jdbc:mysql://localhost:3306/IMP?useSSL=false" -jar pm-core-swarm.jar
