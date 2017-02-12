@@ -1,5 +1,6 @@
 package org.profilematch.pmcore.rest;
 
+import org.profilematch.pmcore.config.FileUploadForm;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -107,7 +108,6 @@ public class CandidatRest {
     @Path("get")
     @Produces("application/json")
     public Response GetAllClient() {
-        System.out.println(ce);
         return Response.ok(ce.getAllUser()).build();
     }
 
