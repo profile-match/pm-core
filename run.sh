@@ -1,5 +1,10 @@
 #!/bin/bash
-mvn clean
+if [ -d "target" ]; then
+	cd target
+	find . -type f ! -name 'password.txt' -delete
+	rm -R -- */
+	cd ..
+fi
 mvn package
 mvn wildfly-swarm:package
 cd target/
