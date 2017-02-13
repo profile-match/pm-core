@@ -29,8 +29,9 @@ public class CandidatEJB {
         return em.createNamedQuery("competence.startsby").setParameter("debut_comp", s + "%").getResultList();
     }
 
-    public void registerUser(Candidat c) {
+    public Candidat registerUser(Candidat c) {
         em.persist(c);
+        return c;
     }
     
     public void deleteCandidat(Long id){
@@ -40,16 +41,16 @@ public class CandidatEJB {
         }
     }
 
-    public int updateUser(Candidat c) {
+    public Candidat updateUser(Candidat c) {
         Candidat c1 = em.find(Candidat.class, c.getId());
         if (c1 != null) {
             
             em.merge(c);
             
-            return 0;
+            return c;
             
         } else {
-            return -1;
+            return c;
         }
     }
 

@@ -42,6 +42,17 @@ public class UtilisateurEJB {
         }
     }
 
+    public Utilisateur getUtilisateurByEmail(String email){
+        Utilisateur u;
+        try{
+            u = (Utilisateur) em.createQuery("Utilisateur.findByEmail")
+                 .setParameter("email", email).getSingleResult();    
+        }catch(Exception e){
+            u = new Utilisateur(-1, "", "", "");
+        }
+        return u;
+    }
+    
     public List<Utilisateur> getUtilisateurs(){
         return em.createNamedQuery("Utilisateur.findAll").getResultList();
     }

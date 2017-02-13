@@ -1,7 +1,6 @@
 package org.profilematch.pmcore.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ import org.hibernate.annotations.LazyCollectionOption;
     //@NamedQuery(name = "Candidat.findPostule", 
    //         query = "SELECT cand FROM Candidat cand where cand.id = some (select pos.candidat_id from POSTE_CANDIDAT_POSTULE pos where pos.poste_id =:poste_id)")
 })
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class Candidat implements Serializable {
 
     @Id

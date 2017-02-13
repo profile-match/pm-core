@@ -44,20 +44,25 @@ public class Utilisateur implements Serializable {
     @NotNull
     @Column(name = "id")
     private int id;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "motdepasse")
     private String motdepasse;
     @Size(max = 45)
     @Column(name = "type")
     private String type;
+    @Column(name = "tokenacces")
+    private String tokenacces;
 
     public Utilisateur() {
     }
 
     public Utilisateur(String email) {
         this.email = email;
+    }
+    
+    public Utilisateur(String email, String tokenacces) {
+        this.email = email;
+        this.tokenacces = tokenacces;
     }
 
     public Utilisateur(int id, String email, String motdepasse, String type) {
