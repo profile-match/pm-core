@@ -1,5 +1,14 @@
 package org.profilematch.pmcore.rest;
 
+import org.profilematch.pmcore.config.FileUploadForm;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.activation.MimetypesFileTypeMap;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -10,10 +19,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
 import org.profilematch.pmcore.ejbs.CandidatEJB;
 import org.profilematch.pmcore.entities.Candidat;
-import org.profilematch.pmcore.entities.Competence;
 import org.profilematch.pmcore.entities.MessageSignalementCandidat;
 
 /**
@@ -57,20 +66,14 @@ public class CandidatRest {
     @Consumes("application/json")
     @Path("create/")
     public Response RegisterCandidat(Candidat c) {
-        System.out.println(c);
-        ce.registerUser(c);
-        return Response.ok().build();
+        return Response.ok(ce.registerUser(c)).build();
     }
 
     @PUT
     @Consumes("application/json")
     @Path("update/")
     public Response UpdateCandidat(Candidat c) {
-        for (Competence comp : c.getCompetence()) {
-            System.out.println(comp);
-        }
-        ce.updateUser(c);
-        return Response.ok().build();
+        return Response.ok(ce.updateUser(c)).build();
     }
 
     @PUT
@@ -116,4 +119,32 @@ public class CandidatRest {
         return Response.ok().build();
     }
 
+    @GET
+    @Produces("image/*")
+    @Path("photo/{id}")
+    public Response getPhoto(@PathParam("id") Long id) {
+        File f = new File("images/" + id);
+        String mt = new MimetypesFileTypeMap().getContentType(f);
+        return Response.ok(f,mt).build();
+    }
+
+    @POST
+    @Path("photo")
+    @Consumes("multipart/form-data")
+    public Response uploadFile(@MultipartForm FileUploadForm form) {
+
+        int file = Arrays.hashCode(form.getFileData());
+
+        try {
+            FileOutputStream fos = new FileOutputStream("images/" + file);
+            fos.write(form.getFileData());
+            fos.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(CandidatRest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(CandidatRest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return Response.ok("" + file).build();
+    }
 }

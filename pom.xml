@@ -47,6 +47,12 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>org.wildfly.swarm</groupId>
+            <artifactId>jaxrs-multipart</artifactId>
+        </dependency>
+
+
         <!-- Java EE 7 dependency -->
         <dependency>
             <groupId>org.hibernate</groupId>

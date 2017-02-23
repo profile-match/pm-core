@@ -6,7 +6,6 @@
 package org.profilematch.pmcore.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.Date;
@@ -46,7 +45,7 @@ import org.hibernate.annotations.LazyCollectionOption;
     @NamedQuery(name = "Dossier.findByElement",
             query = "SELECT p.intitule, p.resume, p.lieu_travail, p.type_contrat, p.date_publication from Dossier_poste p where p.id_recruteur = :id_recruteur")
 })
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class Dossier_poste implements Serializable {
 
     private int id_recruteur;
