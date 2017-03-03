@@ -43,7 +43,7 @@ public class Utilisateur implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id")
-    private int id;
+    private Long id;
     @Size(min = 1, max = 45)
     @Column(name = "motdepasse")
     private String motdepasse;
@@ -65,7 +65,7 @@ public class Utilisateur implements Serializable {
         this.tokenacces = tokenacces;
     }
 
-    public Utilisateur(int id, String email, String motdepasse, String type) {
+    public Utilisateur(Long id, String email, String motdepasse, String type) {
         this.email = email;
         this.id = id;
         this.motdepasse = motdepasse;
@@ -80,11 +80,11 @@ public class Utilisateur implements Serializable {
         this.email = email;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
