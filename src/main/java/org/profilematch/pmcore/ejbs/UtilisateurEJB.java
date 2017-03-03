@@ -38,7 +38,7 @@ public class UtilisateurEJB {
         if (u != null) {
             return u;
         } else {
-            return new Utilisateur(-1, "", "", "");
+            return new Utilisateur((long)-1, "", "", "");
         }
     }
 
@@ -48,7 +48,7 @@ public class UtilisateurEJB {
             u = (Utilisateur) em.createQuery("Utilisateur.findByEmail")
                  .setParameter("email", email).getSingleResult();    
         }catch(Exception e){
-            u = new Utilisateur(-1, "", "", "");
+            u = new Utilisateur((long)-1, "", "", "");
         }
         return u;
     }

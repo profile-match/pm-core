@@ -161,6 +161,12 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
     public Object getAllUser() {
         return em.createNamedQuery("Recruteur.findAll").getResultList();
     }
+    
+    @Override
+    public Recruteur registerUser(Recruteur r) {
+        em.persist(r);
+        return r;
+    }
 
     @Override
     public Object getAllPostes() {
