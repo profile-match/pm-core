@@ -119,12 +119,23 @@ public class RecruteurRest {
     }
 
     //Methode Delete dossier_poste
+
     @DELETE
     @Path("deleteDossier/{id}")
     @Consumes("application/json")
     public Response deleteDossier(@PathParam("id") Long id) {
+      System.out.println(id);
+      System.out.println(id);
+      System.out.println(id);
+      System.out.println(id);
+      System.out.println(id);
+      System.out.println(id);
+      System.out.println(id);
+      System.out.println(id);
+      System.out.println(id);
+      System.out.println(id);
+      return Response.ok(ce.deleteDossier(id)).build();
 
-        return Response.ok(ce.deleteDossier(id)).build();
     }
 
     @POST
@@ -133,7 +144,7 @@ public class RecruteurRest {
     public Response createDossier(Dossier_poste c) {
         return Response.ok(ce.createDossier(c)).build();
     }
-    
+
     @GET
     @Path("get/{id}")
     @Produces("application/json")
