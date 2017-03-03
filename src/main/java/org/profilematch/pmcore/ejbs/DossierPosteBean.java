@@ -68,10 +68,13 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
 
     @Override
     public int deleteDossier(Long id) {
-        em.createNamedQuery("Dossier.deleteDossier").setParameter("poste_id", id).executeUpdate();
+        Dossier_poste c = em.find(Dossier_poste.class, id);
+                if (c != null) {
+                    em.remove(c);
+                }
+                return 0;
+            }
 
-        return 0;
-    }
 
     @Override
     public int updateDossier(Dossier_poste dp) {
