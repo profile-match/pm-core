@@ -45,12 +45,7 @@ public class Mail {
     
     private Transport connexion(){       
         try {
-            File fichier = new File(path);
-            
-            if(mdp.isEmpty() && fichier.exists()){
-                BufferedReader lecteurAvecBuffer = new BufferedReader(new FileReader(fichier));
-                mdp = lecteurAvecBuffer.readLine();
-            }
+            mdp = "Lmfiroot";
             
             transport = mailSession.getTransport("smtp");
             transport.connect("smtp.gmail.com", mail, mdp);
