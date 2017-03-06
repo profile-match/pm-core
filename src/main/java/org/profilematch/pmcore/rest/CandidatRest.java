@@ -22,6 +22,7 @@ import javax.ws.rs.core.Response;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
 import org.profilematch.pmcore.ejbs.CandidatEJB;
+import org.profilematch.pmcore.ejbs.CvEJB;
 import org.profilematch.pmcore.entities.Candidat;
 import org.profilematch.pmcore.entities.MessageSignalementCandidat;
 
@@ -33,6 +34,18 @@ public class CandidatRest {
 
     @EJB
     private CandidatEJB ce;
+
+    @EJB
+    private CvEJB cv;
+
+    @GET
+    @Path("cv/{id}")
+    @Produces("application/pdf")
+    public Response getCV(@PathParam("id") Long id) {
+        File f = cv.getCV(id);
+        String mt = new MimetypesFileTypeMap().getContentType(f);
+        return Response.ok(f, mt).build();
+    }
 
     @GET
     @Path("get/{id}")

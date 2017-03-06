@@ -3,9 +3,7 @@ package org.profilematch.pmcore.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,6 +40,8 @@ public class Candidat implements Serializable {
     private Long id;
 
     private String nom, prenom, email, loisirs, photo, adresse, telfix, telperso;
+
+    private Calendar naissance;
 
     public String getPhoto() {
         return photo;
@@ -230,7 +230,14 @@ public class Candidat implements Serializable {
     public void setIsSuspended(boolean isSuspended) {
         this.isSuspended = isSuspended;
     }
-    
+
+    public Calendar getNaissance() {
+        return naissance;
+    }
+
+    public void setNaissance(Calendar naissance) {
+        this.naissance = naissance;
+    }
 
     @Override
     public int hashCode() {
