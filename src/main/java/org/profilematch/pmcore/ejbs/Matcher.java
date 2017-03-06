@@ -1,5 +1,6 @@
 package org.profilematch.pmcore.ejbs;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.profilematch.pmcore.entities.*;
 
 import javax.ejb.EJB;
@@ -20,6 +21,67 @@ public class Matcher {
 
     @EJB
     CandidatEJB candidatEJB;
+
+    public HashMap<String, Boolean>[] matchCandidat(Long idPost, Long idCandidat){
+
+        Dossier_poste d = posteEJB.getDossier(idPost);
+        Candidat c = candidatEJB.getUser(idCandidat);
+
+        return matchCandidat(d,c);
+    }
+
+    public HashMap<String, Boolean>[] matchCandidat(Dossier_poste d, Candidat c){
+        HashMap<String, Boolean> competencesH = new HashMap<>();
+        HashMap<String, Boolean> formationsH = new HashMap<>();
+        HashMap<String, Boolean> experiencesH = new HashMap<>();
+
+        HashMap<String, Boolean>[] result = new HashMap[3];
+        result[0] = competencesH;
+        result[1] = formationsH;
+        result[2] = experiencesH;
+
+        for(Metier m : d.getMetiers()){
+            competencesH.put(m.getIntitule(), false);
+            for(Competence comp : c.getCompetence()){
+                if(comp.getType() == 0 && m.getIntitule().equals(comp.getCompetence()))
+                    competencesH.put(m.getIntitule(), true);
+            }
+        }
+
+        for(Fonctionnelle f : d.getFonctionnelles()){
+            competencesH.put(f.getIntitule(), false);
+            for(Competence comp : c.getCompetence()){
+                if(comp.getType() == 1 && f.getIntitule().equals(comp.getCompetence()))
+                    competencesH.put(f.getIntitule(), true);
+            }
+        }
+
+        for(Technique t : d.getTechniques()){
+            competencesH.put(t.getIntitule(), false);
+            for(Competence comp : c.getCompetence()){
+                if(comp.getType() == 2 && t.getIntitule().equals(comp.getCompetence()))
+                    competencesH.put(t.getIntitule(), true);
+            }
+        }
+
+        for(Langue l : d.getLangues()){
+            competencesH.put(l.getIntitule(), false);
+            for(Competence comp : c.getCompetence()){
+                if(comp.getType() == 3 && l.getIntitule().equals(comp.getCompetence()))
+                    competencesH.put(l.getIntitule(), true);
+            }
+        }
+
+        for(Formation_Recruteur f : d.getFormations()){
+            formationsH.put(f.getIntitule(), false);
+            for(Formation form : c.getFormation()){
+                if(f.getIntitule().equals(form.getIntitule_de_formation()))
+                    formationsH.put(f.getIntitule(), true);
+            }
+        }
+
+        return result;
+    }
 
     public HashMap<Candidat, Float> match(Long dossierPoste) {
         HashMap<Candidat, Float> result = new HashMap<>();

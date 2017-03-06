@@ -157,8 +157,7 @@ public class CvEJB {
         if(c.getNaissance() != null){
             p2.add((Calendar.getInstance().get(Calendar.YEAR) - c.getNaissance().get(Calendar.YEAR)) + "ans");
         }
-
-
+        
         p.add(title);
         p.add(p2);
 

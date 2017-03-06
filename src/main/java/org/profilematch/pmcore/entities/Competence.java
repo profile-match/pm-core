@@ -37,6 +37,11 @@ public class Competence implements Serializable {
         this.competence = c;
     }
 
+    public Competence(String c, int type) {
+        this.competence = c;
+        this.type = type;
+    }
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "competence")
     @JsonIgnore
     public List<Candidat> getCandidat() {
