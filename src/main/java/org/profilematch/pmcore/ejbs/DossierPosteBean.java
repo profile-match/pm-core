@@ -14,6 +14,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.profilematch.pmcore.entities.Avis;
 import org.profilematch.pmcore.entities.Certification;
 import org.profilematch.pmcore.entities.Dossier_poste;
 import org.profilematch.pmcore.entities.Fonctionnelle;
@@ -180,5 +181,13 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
     public Object getCandidatPostule(Long id) {
         return em.createNamedQuery("Dossier.findPostule").setParameter("poste_id", id).getResultList();
     }
+
+    @Override
+    public int createAvis(Avis avis) {
+      em.persist(avis);
+      return 0;
+    }
+    
+    
 
 }
