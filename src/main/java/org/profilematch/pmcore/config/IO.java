@@ -1,4 +1,4 @@
-package org.profilematch.pmcore.ejbs;
+package org.profilematch.pmcore.config;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
