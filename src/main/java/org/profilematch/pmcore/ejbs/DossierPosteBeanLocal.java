@@ -1,12 +1,6 @@
 package org.profilematch.pmcore.ejbs;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import java.util.List;
-import java.util.Set;
 import javax.ejb.Local;
 import org.profilematch.pmcore.entities.Avis;
 import org.profilematch.pmcore.entities.Certification;

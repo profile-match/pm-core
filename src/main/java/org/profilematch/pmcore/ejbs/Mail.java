@@ -1,9 +1,6 @@
 package org.profilematch.pmcore.ejbs;
 
 import com.sun.mail.smtp.SMTPAddressFailedException;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import javax.ejb.Singleton;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -63,7 +60,7 @@ public class Mail {
      * @return
      * @throws Exception 
      */
-    public  String envoyer(org.profilematch.pmcore.entities.Mail mail) throws Exception {
+    public String envoyer(org.profilematch.pmcore.entities.Mail mail) throws Exception {
         
         MimeMessage generateMailMessage;
         

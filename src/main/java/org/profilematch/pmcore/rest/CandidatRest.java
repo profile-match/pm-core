@@ -1,6 +1,5 @@
 package org.profilematch.pmcore.rest;
 
-import org.profilematch.pmcore.config.FileUploadForm;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,6 +20,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
+import org.profilematch.pmcore.config.FileUploadForm;
 import org.profilematch.pmcore.ejbs.CandidatEJB;
 import org.profilematch.pmcore.ejbs.CvEJB;
 import org.profilematch.pmcore.entities.Candidat;

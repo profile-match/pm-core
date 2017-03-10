@@ -4,7 +4,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import java.io.File;
-import java.nio.file.Files;
 
 /**
  * Created by antoine on 3/3/17.
