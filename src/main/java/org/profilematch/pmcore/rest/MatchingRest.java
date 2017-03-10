@@ -2,15 +2,12 @@ package org.profilematch.pmcore.rest;
 
 import org.profilematch.pmcore.ejbs.Matcher;
 
-import javax.activation.MimetypesFileTypeMap;
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-import java.io.File;
-
 /**
  * Created by antoine on 3/3/17.
  */
@@ -22,18 +19,17 @@ public class MatchingRest {
     private Matcher M;
 
     @GET
-    @Path("get/")
-    @Produces("application/json")
-    public Response GetCandidat() {
-
-        return Response.ok(M.match(1L)).build();
-    }
-
-    @GET
-    @Path("get/{idDossier}/{idCandidat}")
+    @Path("dossierCandidat/{idDossier}/{idCandidat}")
     @Produces("application/pdf")
     public Response getCV(@PathParam("idDossier") Long idDossier, @PathParam("idCandidat") Long idCandidat) {
         return Response.ok(M.matchCandidat(idDossier, idCandidat)).build();
+    }
+
+    @GET
+    @Path("dossier/{idDossier}/{borneInf}/{borneSup}")
+    @Produces("application/pdf")
+    public Response getCV(@PathParam("idDossier") Long idDossier,@PathParam("borneInf") int borneInf,@PathParam("borneSup") int borneSup) {
+        return Response.ok(M.match(idDossier, borneInf, borneSup)).build();
     }
 
 }

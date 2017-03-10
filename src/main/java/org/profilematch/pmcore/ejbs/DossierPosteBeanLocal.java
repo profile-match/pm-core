@@ -64,6 +64,8 @@ public interface DossierPosteBeanLocal {
     public Object getCandidatPostule(Long id);
     
     public int createAvis(Avis avis);
-    
-   
+
+
+    public boolean updateRecruteur(Recruteur r);
+
 }

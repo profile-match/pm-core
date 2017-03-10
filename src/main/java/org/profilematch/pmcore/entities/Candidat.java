@@ -56,8 +56,9 @@ public class Candidat implements Serializable {
 
     
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(mappedBy = "listeCandidat", fetch = FetchType.LAZY)
-    private List<Dossier_poste> listDossier = new LinkedList();
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "listeCandidat", fetch = FetchType.LAZY)
+    private List<Dossier_poste> listDossier;
+
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = CascadeType.ALL)
@@ -68,10 +69,13 @@ public class Candidat implements Serializable {
     private List<Formation> formation;
 
     @LazyCollection(LazyCollectionOption.FALSE)
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<CertificationCandidat> certifications;
+
     @OneToMany(cascade = CascadeType.MERGE,mappedBy="candidat")
     private List<Avis> avis;
 
-    
     private boolean isMale;
 
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -82,15 +86,6 @@ public class Candidat implements Serializable {
     public List<Dossier_poste> getDossierPoste() {
         return listDossier;
     }
-
-    public List<Dossier_poste> getListDossier() {
-        return listDossier;
-    }
-
-    public void setListDossier(List<Dossier_poste> listDossier) {
-        this.listDossier = listDossier;
-    }
-
     
     public List<Avis> getAvis() {
         return avis;
@@ -130,6 +125,22 @@ public class Candidat implements Serializable {
         this.prenom = prenom;
         this.email = email;
 
+    }
+
+    public List<Dossier_poste> getListDossier() {
+        return listDossier;
+    }
+
+    public void setListDossier(List<Dossier_poste> listDossier) {
+        this.listDossier = listDossier;
+    }
+
+    public List<CertificationCandidat> getCertifications() {
+        return certifications;
+    }
+
+    public void setCertifications(List<CertificationCandidat> certifications) {
+        this.certifications = certifications;
     }
 
     public boolean isIsMale() {
@@ -263,6 +274,8 @@ public class Candidat implements Serializable {
         this.naissance = naissance;
     }
 
+
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -272,7 +285,6 @@ public class Candidat implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Candidat)) {
             return false;
         }

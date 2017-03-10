@@ -1,12 +1,11 @@
 package org.profilematch.pmcore.ejbs;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.profilematch.pmcore.entities.*;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Created by antoine on 3/3/17.
@@ -15,6 +14,10 @@ import java.util.HashMap;
 @Stateless
 @LocalBean
 public class Matcher {
+
+    private final int OBLIGATOIRE = 2;
+    private final int PLUS = 1;
+    private final int NA = 0;
 
     @EJB
     DossierPosteBeanLocal posteEJB;
@@ -33,17 +36,17 @@ public class Matcher {
     public HashMap<String, Boolean>[] matchCandidat(Dossier_poste d, Candidat c){
         HashMap<String, Boolean> competencesH = new HashMap<>();
         HashMap<String, Boolean> formationsH = new HashMap<>();
-        HashMap<String, Boolean> experiencesH = new HashMap<>();
+        HashMap<String, Boolean> CertificationH = new HashMap<>();
 
         HashMap<String, Boolean>[] result = new HashMap[3];
         result[0] = competencesH;
         result[1] = formationsH;
-        result[2] = experiencesH;
+        result[2] = CertificationH;
 
         for(Metier m : d.getMetiers()){
             competencesH.put(m.getIntitule(), false);
             for(Competence comp : c.getCompetence()){
-                if(comp.getType() == 0 && m.getIntitule().equals(comp.getCompetence()))
+                if(comp.getType() == 0 && m.getIntitule().toLowerCase().equals(comp.getCompetence().toLowerCase()))
                     competencesH.put(m.getIntitule(), true);
             }
         }
@@ -51,7 +54,7 @@ public class Matcher {
         for(Fonctionnelle f : d.getFonctionnelles()){
             competencesH.put(f.getIntitule(), false);
             for(Competence comp : c.getCompetence()){
-                if(comp.getType() == 1 && f.getIntitule().equals(comp.getCompetence()))
+                if(comp.getType() == 1 && f.getIntitule().toLowerCase().equals(comp.getCompetence().toLowerCase()))
                     competencesH.put(f.getIntitule(), true);
             }
         }
@@ -59,7 +62,7 @@ public class Matcher {
         for(Technique t : d.getTechniques()){
             competencesH.put(t.getIntitule(), false);
             for(Competence comp : c.getCompetence()){
-                if(comp.getType() == 2 && t.getIntitule().equals(comp.getCompetence()))
+                if(comp.getType() == 2 && t.getIntitule().toLowerCase().equals(comp.getCompetence().toLowerCase()))
                     competencesH.put(t.getIntitule(), true);
             }
         }
@@ -67,7 +70,7 @@ public class Matcher {
         for(Langue l : d.getLangues()){
             competencesH.put(l.getIntitule(), false);
             for(Competence comp : c.getCompetence()){
-                if(comp.getType() == 3 && l.getIntitule().equals(comp.getCompetence()))
+                if(comp.getType() == 3 && l.getIntitule().toLowerCase().equals(comp.getCompetence().toLowerCase()))
                     competencesH.put(l.getIntitule(), true);
             }
         }
@@ -75,97 +78,118 @@ public class Matcher {
         for(Formation_Recruteur f : d.getFormations()){
             formationsH.put(f.getIntitule(), false);
             for(Formation form : c.getFormation()){
-                if(f.getIntitule().equals(form.getIntitule_de_formation()))
+                if(f.getIntitule().toLowerCase().equals(form.getIntitule_de_formation().toLowerCase()))
                     formationsH.put(f.getIntitule(), true);
+            }
+        }
+
+        for(Certification cert: d.getCertifications()){
+            CertificationH.put(cert.getIntitule(), false);
+            for(CertificationCandidat certC : c.getCertifications()){
+                if(cert.getIntitule().equals(certC.getCertification()))
+                    CertificationH.put(cert.getIntitule(), true);
             }
         }
 
         return result;
     }
 
-    public HashMap<Candidat, Float> match(Long dossierPoste) {
-        HashMap<Candidat, Float> result = new HashMap<>();
+    public List<MatchedCandidat> match(Long dossierPoste, int borneInf, int borneSup) {
 
-        for (Candidat c : candidatEJB.getAllUser()) {
-            result.put(c, 0f);
-        }
+        return match(posteEJB.getDossier(dossierPoste), candidatEJB.getAllUser(),borneInf, borneSup);
+    }
 
-        Dossier_poste d = posteEJB.getDossier(dossierPoste);
+    public List<MatchedCandidat> match(Dossier_poste d, List<Candidat> ListCandidats, int borneInf, int borneSup) {
+        List<MatchedCandidat> result = new ArrayList<>();
+
         /*
         * 0 : metier
         * 1 : fonctionnelle
         * 2 : technique
         * 3 : linguistique
         */
-        for (Candidat c : result.keySet()) {
-            float metier = 0, fonctionnelle = 0, technique = 0, langue = 0;
-            float diviseur = 0f;
+        for (Candidat c : ListCandidats) {
+            float plus = 0f, obligatoire = 0f;
+            float diviseurObligatoire = 0f, diviseurPlus = 0f;
 
-            System.out.println("Candidat : " + c.getNom());
 
-            for (Competence comp : c.getCompetence()) {
-
-                for (Metier t : d.getMetiers()) {
+            for (Metier t : d.getMetiers()) {
+                for (Competence comp : c.getCompetence()) {
                     if (comp.getCompetence().equals(t.getIntitule()) && comp.getType() == 0) {
-                        metier += 1;
-                        System.out.println(t + " / " + metier);
+                        if (t.getObligatoire() == OBLIGATOIRE)
+                            obligatoire++;
+                        else
+                            plus++;
                     }
                 }
 
-                for (Fonctionnelle t : d.getFonctionnelles()) {
+                if(t.getObligatoire() == OBLIGATOIRE)
+                    diviseurObligatoire ++;
+                else
+                    diviseurPlus++;
+
+            }
+
+            for (Fonctionnelle t : d.getFonctionnelles()) {
+                for (Competence comp : c.getCompetence()) {
                     if (comp.getCompetence().equals(t.getIntitule()) && comp.getType() == 1) {
-                        fonctionnelle += 1;
-                        System.out.println(t + " / " + fonctionnelle);
+                        if (t.getObligatoire() == OBLIGATOIRE)
+                            obligatoire++;
+                        else
+                            plus++;
                     }
                 }
+                if(t.getObligatoire() == OBLIGATOIRE)
+                    diviseurObligatoire ++;
+                else
+                    diviseurPlus++;
 
-                for (Technique t : d.getTechniques()) {
+            }
+
+            for (Technique t : d.getTechniques()) {
+                for (Competence comp : c.getCompetence()) {
                     if (comp.getCompetence().equals(t.getIntitule()) && comp.getType() == 2) {
-                        technique += 1;
-                        System.out.println(t + " / " + technique);
+                        if (t.getObligatoire() == OBLIGATOIRE)
+                            obligatoire++;
+                        else
+                            plus++;
                     }
                 }
+                if(t.getObligatoire() == OBLIGATOIRE)
+                    diviseurObligatoire ++;
+                else
+                    diviseurPlus++;
+            }
 
-                for (Langue t : d.getLangues()) {
+            for (Langue t : d.getLangues()) {
+                for (Competence comp : c.getCompetence()) {
                     if (comp.getCompetence().equals(t.getIntitule()) && comp.getType() == 3) {
-                        langue += 1;
-                        System.out.println(t + " / " + langue);
+                        if (t.getObligatoire() == OBLIGATOIRE)
+                            obligatoire++;
+                        else
+                            plus++;
                     }
                 }
+                if(t.getObligatoire() == OBLIGATOIRE)
+                    diviseurObligatoire ++;
+                else
+                    diviseurPlus++;
             }
 
-            if (d.getMetiers().size() > 0) {
-                metier /= d.getMetiers().size();
-                for (Metier l : d.getMetiers())
-                    System.out.println("Metier : " + l.getIntitule());
-                diviseur++;
-            }
+            result.add(new MatchedCandidat(c,  (obligatoire/diviseurObligatoire), (plus/diviseurPlus)));
 
-            if (d.getFonctionnelles().size() > 0) {
-                fonctionnelle /= d.getFonctionnelles().size();
-                for (Fonctionnelle l : d.getFonctionnelles())
-                    System.out.println("Fonctionelle " + l.getIntitule());
-                diviseur++;
-            }
-
-            if (d.getTechniques().size() > 0) {
-                technique /= d.getTechniques().size();
-                for (Technique l : d.getTechniques())
-                    System.out.println("Technique " + l.getIntitule());
-                diviseur++;
-            }
-
-            if (d.getLangues().size() > 0) {
-                langue /= d.getLangues().size();
-                for (Langue l : d.getLangues())
-                    System.out.println("Langue : " + l.getIntitule());
-                diviseur++;
-            }
-
-            System.out.println(diviseur);
-            result.put(c, (metier + fonctionnelle + technique + langue) / diviseur);
         }
 
-        return result;
+        List<MatchedCandidat> listFinal = new LinkedList<>();
+
+        Collections.sort(result);
+        Collections.reverse(result);
+        for(int i = borneSup; i >= borneInf; i--){
+            listFinal.add(result.get(i));
+        }
+
+        Collections.reverse(listFinal);
+
+        return listFinal;
     }
 }
