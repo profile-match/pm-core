@@ -22,6 +22,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 import org.json.JSONObject;
+import org.profilematch.pmcore.config.IO;
 import org.profilematch.pmcore.ejbs.CandidatEJB;
 import org.profilematch.pmcore.ejbs.DossierPosteBeanLocal;
 import org.profilematch.pmcore.ejbs.UtilisateurEJB;
@@ -56,10 +57,14 @@ public class LinkedinRest {
     @Produces("text/plain")
     public Response GetCandidat(@PathParam("code") String code, @PathParam("state") String state, @PathParam("genre") String genre){
         String rep = "-1";
+        String front = "http%3A%2F%2Flocalhost%3A4200%2F";
+        if(IO.getProd()){
+            front = "https%3A%2F%2Fimp.bober.ovh%2F";
+        }
         String url = "https://www.linkedin.com/oauth/v2/accessToken?" +
             "grant_type=authorization_code&" +
             "code=" + code + "&" +
-            "redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Finscription-linkedin?genre="+genre+"&" +
+            "redirect_uri="+front+"inscription-linkedin?genre="+genre+"&" +
             "client_id=7868doeuipinun&" +
             "client_secret=2HdM9JPydxMUsGWH";
         try {

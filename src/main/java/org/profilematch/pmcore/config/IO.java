@@ -12,6 +12,7 @@ import java.io.File;
 @Singleton
 public class IO {
     private String status;
+    private static boolean prod = false;
 
     @PostConstruct
     void init() {
@@ -21,6 +22,10 @@ public class IO {
         if (!f.exists()) {
             f.mkdir();
         }
+    }
+    
+    public static boolean getProd(){
+        return prod;
     }
 }
 
