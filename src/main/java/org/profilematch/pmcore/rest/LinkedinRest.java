@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.profilematch.pmcore.rest;
 
 import java.io.BufferedReader;
@@ -22,7 +17,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 import org.json.JSONObject;
-import org.profilematch.pmcore.config.IO;
+import org.profilematch.pmcore.config.AutoConfig;
 import org.profilematch.pmcore.ejbs.CandidatEJB;
 import org.profilematch.pmcore.ejbs.DossierPosteBeanLocal;
 import org.profilematch.pmcore.ejbs.UtilisateurEJB;
@@ -58,7 +53,7 @@ public class LinkedinRest {
     public Response GetCandidat(@PathParam("code") String code, @PathParam("state") String state, @PathParam("genre") String genre){
         String rep = "-1";
         String front = "http%3A%2F%2Flocalhost%3A4200%2F";
-        if(IO.getProd()){
+        if(AutoConfig.getProd()){
             front = "https%3A%2F%2Fimp.bober.ovh%2F";
         }
         String url = "https://www.linkedin.com/oauth/v2/accessToken?" +
