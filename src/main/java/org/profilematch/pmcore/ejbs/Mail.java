@@ -25,14 +25,14 @@ public class Mail {
     private final String path = "password.txt";
     private String mdp = "" ;
     
-    @PostConstruct
-    private void init(){
+    public Mail(){
         
         // configuration des propriétés
         proprietes = System.getProperties();
         proprietes.put("mail.smtp.port", "587");
         proprietes.put("mail.smtp.auth", "true");
         proprietes.put("mail.smtp.starttls.enable", "true");
+        proprietes.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         //mailServerProperties.put("mail.smtp.reportsuccess", "true");
         
         //génération de la session
@@ -63,6 +63,8 @@ public class Mail {
     public String envoyer(org.profilematch.pmcore.entities.Mail mail) throws Exception {
         
         MimeMessage generateMailMessage;
+        
+        
         
         try {
             generateMailMessage = new MimeMessage(mailSession);

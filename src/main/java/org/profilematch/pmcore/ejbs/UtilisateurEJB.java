@@ -66,13 +66,16 @@ public class UtilisateurEJB {
      */
     public Utilisateur getUtilisateurByEmail(String email){
         Utilisateur u;
-        try{
-            u = (Utilisateur) em.createQuery("Utilisateur.findByEmail")
-                 .setParameter("email", email).getSingleResult();    
-        }catch(Exception e){
-            u = new Utilisateur((long)-1, "", "", "");
-        }
-        return u;
+        
+          u = em.find(Utilisateur.class, email);
+      //  u = (Utilisateur) em.createQuery("Utilisateur.findByEmail")
+       //      .setParameter("email", email).getSingleResult();    
+        if (u != null) {
+             return u;
+         } else {
+             return new Utilisateur((long)-1, "", "", "");
+         }
+       
     }
 
     /**

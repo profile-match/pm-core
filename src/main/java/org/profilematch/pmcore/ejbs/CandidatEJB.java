@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import org.profilematch.pmcore.entities.Candidat;
 import org.profilematch.pmcore.entities.Competence;
+import org.profilematch.pmcore.entities.Dossier_poste;
 import org.profilematch.pmcore.entities.MessageSignalementCandidat;
 
 /**
@@ -78,6 +79,23 @@ public class CandidatEJB {
             
         } else {
             return c;
+        }
+    }
+    
+    public Candidat updateUserPost(Candidat c, Long id ) {
+       Dossier_poste p =  em.find(Dossier_poste.class, id);
+        Candidat c1 = em.find(Candidat.class, c.getId());
+       
+        if (c1 != null) {
+             c.getListDossier().add(p);
+             p.getListeCandidat().add(c);
+            em.merge(c);
+            em.merge(p);
+            
+            return c;
+            
+        } else {
+            return c1;
         }
     }
 
