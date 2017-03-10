@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.profilematch.pmcore.ejbs;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -133,7 +127,7 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
     }
 
     @Override
-    public Object getUser(Long id) {
+    public Recruteur getUser(Long id) {
         Recruteur c = em.find(Recruteur.class, id);
         if (c != null) {
             return c;
@@ -187,9 +181,11 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
 
     @Override
     public int createAvis(Avis avis) {
-        em.persist(avis);
-        return 0;
+      em.persist(avis);
+      return 0;
+
     }
+
 
     @Override
     public boolean updateRecruteur(Recruteur r) {

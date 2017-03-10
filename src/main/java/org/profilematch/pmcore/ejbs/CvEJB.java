@@ -30,6 +30,13 @@ public class CvEJB {
     private Candidat c;
     private Document document;
 
+    /**
+     *
+     * Generates a new CV from the informations of the candidat corresponding to the given id
+     *
+     * @param id
+     * @return a file corresponding to the generated CV
+     */
     public File getCV(Long id){
         this.c = candidatEJB.getUser(id);
 

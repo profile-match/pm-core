@@ -18,11 +18,23 @@ public class UtilisateurEJB {
     @PersistenceContext(unitName = "IMP_PU")
     EntityManager em;
 
+    /**
+     * Persists a the given Utilisateur
+     *
+     * @param u
+     * @return the persisted Utilisateur
+     */
     public boolean inscrireUtilisateur(Utilisateur u) {
         em.persist(u);
         return true;
     }
 
+    /**
+     * Updated the given Utilisateur
+     *
+     * @param u
+     * @return the updated Utilisateur
+     */
     public boolean modifierUtilisateur(Utilisateur u) {
         Utilisateur nouveauU = em.find(Utilisateur.class, u.getEmail());
         if (nouveauU != null) {
@@ -32,7 +44,12 @@ public class UtilisateurEJB {
             return false;
         }
     }
-    
+
+    /**
+     *
+     * @param id
+     * @return the Utilisateur corresponding to the given id
+     */
     public Utilisateur getUtilisateur(String id){
         Utilisateur u = em.find(Utilisateur.class, id);
         if (u != null) {
@@ -42,6 +59,11 @@ public class UtilisateurEJB {
         }
     }
 
+    /**
+     *
+     * @param email
+     * @return the Utilisateur corresponding to the given email
+     */
     public Utilisateur getUtilisateurByEmail(String email){
         Utilisateur u;
         try{
@@ -52,7 +74,11 @@ public class UtilisateurEJB {
         }
         return u;
     }
-    
+
+    /**
+     *
+     * @return all the Utilisateurs
+     */
     public List<Utilisateur> getUtilisateurs(){
         return em.createNamedQuery("Utilisateur.findAll").getResultList();
     }

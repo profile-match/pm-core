@@ -25,6 +25,16 @@ public class Matcher {
     @EJB
     CandidatEJB candidatEJB;
 
+    /**
+     *  Returns an array containing 3 hashmap <String, Boolean> <br/>
+     *  [0] : Competences   <br/>
+     *  [1] : Formations    <br/>
+     *  [2] : Certifications<br/>
+     *
+     * @param idPost
+     * @param idCandidat
+     * @return
+     */
     public HashMap<String, Boolean>[] matchCandidat(Long idPost, Long idCandidat){
 
         Dossier_poste d = posteEJB.getDossier(idPost);
@@ -33,6 +43,16 @@ public class Matcher {
         return matchCandidat(d,c);
     }
 
+    /**
+     *  Returns an array containing 3 hashmap <String, Boolean> <br/>
+     *  [0] : Competences   <br/>
+     *  [1] : Formations    <br/>
+     *  [2] : Certifications<br/>
+     *
+     * @param d
+     * @param c
+     * @return
+     */
     public HashMap<String, Boolean>[] matchCandidat(Dossier_poste d, Candidat c){
         HashMap<String, Boolean> competencesH = new HashMap<>();
         HashMap<String, Boolean> formationsH = new HashMap<>();
@@ -94,11 +114,28 @@ public class Matcher {
         return result;
     }
 
+    /**
+     * Return a sorted list of the borneInfth to the borneSupth bests candidats
+     *
+     * @param dossierPoste
+     * @param borneInf
+     * @param borneSup
+     * @return
+     */
     public List<MatchedCandidat> match(Long dossierPoste, int borneInf, int borneSup) {
 
         return match(posteEJB.getDossier(dossierPoste), candidatEJB.getAllUser(),borneInf, borneSup);
     }
 
+    /**
+     * Return a sorted list of the borneInfth to the borneSupth bests candidats
+     *
+     * @param d
+     * @param ListCandidats
+     * @param borneInf
+     * @param borneSup
+     * @return
+     */
     public List<MatchedCandidat> match(Dossier_poste d, List<Candidat> ListCandidats, int borneInf, int borneSup) {
         List<MatchedCandidat> result = new ArrayList<>();
 
@@ -108,6 +145,7 @@ public class Matcher {
         * 2 : technique
         * 3 : linguistique
         */
+
         for (Candidat c : ListCandidats) {
             float plus = 0f, obligatoire = 0f;
             float diviseurObligatoire = 0f, diviseurPlus = 0f;

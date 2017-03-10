@@ -28,9 +28,6 @@ import org.hibernate.annotations.LazyCollectionOption;
     @NamedQuery(name = "Candidat.findAll", query = "SELECT c FROM Candidat c"),
     @NamedQuery(name = "Candidat.countMale", query = "SELECT count(c) FROM Candidat c WHERE c.isMale = TRUE"),
     @NamedQuery(name = "Candidat.countFemelle", query = "SELECT count(c) FROM Candidat c WHERE c.isMale = FALSE")
-
-    //@NamedQuery(name = "Candidat.findPostule", 
-   //         query = "SELECT cand FROM Candidat cand where cand.id = some (select pos.candidat_id from POSTE_CANDIDAT_POSTULE pos where pos.poste_id =:poste_id)")
 })
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class Candidat implements Serializable {
@@ -54,11 +51,9 @@ public class Candidat implements Serializable {
     private boolean isBanned;
     private boolean isSuspended;
 
-    
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "listeCandidat", fetch = FetchType.LAZY)
     private List<Dossier_poste> listDossier;
-
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = CascadeType.ALL)
@@ -72,7 +67,8 @@ public class Candidat implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     private List<CertificationCandidat> certifications;
 
-    @OneToMany(mappedBy="candidat")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.MERGE,mappedBy="candidat")
     private List<Avis> avis;
 
     private boolean isMale;
@@ -93,8 +89,6 @@ public class Candidat implements Serializable {
     public void setAvis(List<Avis> avis) {
         this.avis = avis;
     }
-    
-    
 
     public Candidat() {
 
@@ -298,5 +292,8 @@ public class Candidat implements Serializable {
     public String toString() {
         return "com.imp.entities.Candidat[ id=" + id + " ]";
     }
+    
+    
 
+    
 }
