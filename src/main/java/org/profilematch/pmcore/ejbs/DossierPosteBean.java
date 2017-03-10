@@ -187,6 +187,17 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
       em.persist(avis);
       return 0;
     }
+
+    @Override
+    public boolean updateRecruteur(Recruteur r) {
+        Recruteur r2 = em.find(Recruteur.class, r.getId());
+        if (r2 != null) {
+            em.merge(r);
+            return true;
+        } else {
+            return false;
+        }
+    }
     
     
 

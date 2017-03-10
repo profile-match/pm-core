@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import org.profilematch.pmcore.ejbs.DossierPosteBeanLocal;
 import org.profilematch.pmcore.entities.Avis;
 import org.profilematch.pmcore.entities.Dossier_poste;
+import org.profilematch.pmcore.entities.Recruteur;
 
 @Path("/recruteur")
 public class RecruteurRest {
@@ -57,14 +58,14 @@ public class RecruteurRest {
     public Response completeLangue(@PathParam("complete") String c) {
         return Response.ok(ce.completeLinguistique(c)).build();
     }
-    
+
     @GET
     @Path("completeFormation/{complete}")
     @Produces("application/json")
     public Response completeFormation(@PathParam("complete") String c) {
         return Response.ok(ce.completeFormation(c)).build();
     }
-    
+
     @GET
     @Path("completeCertification/{complete}")
     @Produces("application/json")
@@ -96,37 +97,36 @@ public class RecruteurRest {
         return Response.ok(ce.getIntituleAllDossier(id)).build();
 
     }
-    
+
     @GET
     @Path("allDossier")
     @Produces("application/json")
     public Response allDossier() {
         return Response.ok(ce.getAllPostes()).build();
     }
-    
+
     @GET
     @Path("dossierRecruteur/{id}")
     @Produces("application/json")
     public Response allDossier(@PathParam("id") int id) {
         return Response.ok(ce.getAllDossier(id)).build();
     }
-    
+
     @GET
     @Path("dossier/{id}")
     @Produces("application/json")
-     public Response Dossier(@PathParam("id") Long id) {
+    public Response Dossier(@PathParam("id") Long id) {
         return Response.ok(ce.getDossier(id)).build();
-        
+
     }
 
     //Methode Delete dossier_poste
-
     @DELETE
     @Path("deleteDossier/{id}")
     @Consumes("application/json")
     public Response deleteDossier(@PathParam("id") Long id) {
-     
-      return Response.ok(ce.deleteDossier(id)).build();
+
+        return Response.ok(ce.deleteDossier(id)).build();
 
     }
 
@@ -150,7 +150,7 @@ public class RecruteurRest {
     public Response GetAllClient() {
         return Response.ok(ce.getAllUser()).build();
     }
-    
+
     @PUT
     @Produces("application/json")
     @Path("ban/{id}")
@@ -165,11 +165,24 @@ public class RecruteurRest {
     public Response UpdateUnbanCandidat(@PathParam("id") Long id) {
         return Response.ok(ce.UnbanUser(id)).build();
     }
-    
+
     @POST
     @Produces("application/json")
     @Path("avis")
-    public Response createAvis(Avis avis){
+    public Response createAvis(Avis avis) {
         return Response.ok(ce.createAvis(avis)).build();
+    }
+
+    @PUT
+    @Path("update")
+    @Consumes("application/json")
+    public Response updateRecruteur(Recruteur r) {
+
+        boolean res = ce.updateRecruteur(r);
+        if (res) {
+            return Response.ok(res +" ").build();
+        }
+        return Response.status(201).build();
+
     }
 }
