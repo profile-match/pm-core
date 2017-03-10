@@ -8,6 +8,7 @@ package org.profilematch.pmcore.ejbs;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Local;
+import org.profilematch.pmcore.entities.Avis;
 import org.profilematch.pmcore.entities.Certification;
 import org.profilematch.pmcore.entities.Dossier_poste;
 import org.profilematch.pmcore.entities.Fonctionnelle;
@@ -62,5 +63,5 @@ public interface DossierPosteBeanLocal {
     
     public Object getCandidatPostule(Long id);
     
-    
+    public int createAvis(Avis avis);
 }

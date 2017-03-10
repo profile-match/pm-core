@@ -59,6 +59,7 @@ public class Candidat implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "listeCandidat", fetch = FetchType.LAZY)
     private List<Dossier_poste> listDossier;
 
+
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = CascadeType.ALL)
     private List<ExperiencePro> experiencePro;
@@ -71,6 +72,9 @@ public class Candidat implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     private List<CertificationCandidat> certifications;
 
+    @OneToMany(mappedBy="candidat")
+    private List<Avis> avis;
+
     private boolean isMale;
 
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -81,6 +85,16 @@ public class Candidat implements Serializable {
     public List<Dossier_poste> getDossierPoste() {
         return listDossier;
     }
+    
+    public List<Avis> getAvis() {
+        return avis;
+    }
+
+    public void setAvis(List<Avis> avis) {
+        this.avis = avis;
+    }
+    
+    
 
     public Candidat() {
 

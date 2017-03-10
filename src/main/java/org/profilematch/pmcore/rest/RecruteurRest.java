@@ -11,6 +11,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import org.profilematch.pmcore.ejbs.DossierPosteBeanLocal;
+import org.profilematch.pmcore.entities.Avis;
 import org.profilematch.pmcore.entities.Dossier_poste;
 
 @Path("/recruteur")
@@ -124,16 +125,7 @@ public class RecruteurRest {
     @Path("deleteDossier/{id}")
     @Consumes("application/json")
     public Response deleteDossier(@PathParam("id") Long id) {
-      System.out.println(id);
-      System.out.println(id);
-      System.out.println(id);
-      System.out.println(id);
-      System.out.println(id);
-      System.out.println(id);
-      System.out.println(id);
-      System.out.println(id);
-      System.out.println(id);
-      System.out.println(id);
+     
       return Response.ok(ce.deleteDossier(id)).build();
 
     }
@@ -172,5 +164,12 @@ public class RecruteurRest {
     @Path("unban/{id}")
     public Response UpdateUnbanCandidat(@PathParam("id") Long id) {
         return Response.ok(ce.UnbanUser(id)).build();
+    }
+    
+    @POST
+    @Produces("application/json")
+    @Path("avis")
+    public Response createAvis(Avis avis){
+        return Response.ok(ce.createAvis(avis)).build();
     }
 }
