@@ -221,7 +221,7 @@ public class MatcherTest {
 
     @Test
     public void MatchingDossierNominalWrongTest(){
-        List<MatchedCandidat> result = M.match(dossierNominal, this.listeC, -1, 0);
+        List<MatchedCandidat> result = M.match(dossierNominal, this.listeC, 0, 0);
 
         assertTrue(result.get(0).getCandidat().equals(this.listeC.get(1)));
     }
