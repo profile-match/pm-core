@@ -10,6 +10,7 @@ import org.profilematch.pmcore.entities.Formation_Recruteur;
 import org.profilematch.pmcore.entities.Langue;
 import org.profilematch.pmcore.entities.Metier;
 import org.profilematch.pmcore.entities.Recruteur;
+import org.profilematch.pmcore.entities.RecruteurMDP;
 import org.profilematch.pmcore.entities.Technique;
 
 /**
@@ -61,5 +62,8 @@ public interface DossierPosteBeanLocal {
 
 
     public boolean updateRecruteur(Recruteur r);
+
+
+    public int updateMDPRecruteur(RecruteurMDP r);
 
 }
