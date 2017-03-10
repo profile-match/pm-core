@@ -189,6 +189,8 @@ public class RecruteurRest {
 
     }
 
+    
+    @PUT
     @Path("updateMdp")
     @Consumes("application/json")
 
