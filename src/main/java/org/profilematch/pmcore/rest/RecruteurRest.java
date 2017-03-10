@@ -10,10 +10,13 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import org.json.JSONObject;
 import org.profilematch.pmcore.ejbs.DossierPosteBeanLocal;
 import org.profilematch.pmcore.entities.Avis;
 import org.profilematch.pmcore.entities.Dossier_poste;
 import org.profilematch.pmcore.entities.Recruteur;
+import org.profilematch.pmcore.entities.RecruteurMDP;
 
 @Path("/recruteur")
 public class RecruteurRest {
@@ -180,9 +183,27 @@ public class RecruteurRest {
 
         boolean res = ce.updateRecruteur(r);
         if (res) {
-            return Response.ok(res +" ").build();
+            return Response.ok(res + " ").build();
         }
         return Response.status(201).build();
+
+    }
+
+    @PUT
+    @Path("updateMdp")
+    @Consumes("application/json")
+
+    public Response updateMdpRecruteur(RecruteurMDP r) {
+
+        int res = ce.updateMDPRecruteur(r);
+
+        if (res == 0) {
+            return Response.ok("le mot de passe a été modifié").build();
+        } else if (res == -1) {
+            return Response.status(201).entity("Une erreur c'est produite").build();
+        } else {
+            return Response.status(201).entity("ancien mot de passe incorrect").build();
+        }
 
     }
 }
