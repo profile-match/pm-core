@@ -83,5 +83,5 @@ public class UtilisateurRest {
     public Response GetUtilisateurs() {
         return Response.ok(ue.getUtilisateurs()).build();
     }
-
+    
 }
