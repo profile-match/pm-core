@@ -68,7 +68,7 @@ public class Candidat implements Serializable {
     private List<Formation> formation;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy="candidat")
+    @OneToMany(cascade = CascadeType.MERGE,mappedBy="candidat")
     private List<Avis> avis;
 
     
@@ -288,4 +288,5 @@ public class Candidat implements Serializable {
         return "com.imp.entities.Candidat[ id=" + id + " ]";
     }
 
+    
 }

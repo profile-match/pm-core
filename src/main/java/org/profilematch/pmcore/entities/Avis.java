@@ -5,7 +5,14 @@
  */
 package org.profilematch.pmcore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,10 +40,11 @@ public class Avis implements Serializable{
     
     private int note;
     
-    @ManyToOne
+     
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Candidat candidat;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Recruteur recruteur;
     
     public Long getID() {
@@ -61,6 +69,22 @@ public class Avis implements Serializable{
 
     public void setNote(int note) {
         this.note = note;
+    }
+
+    public Candidat getCandidat() {
+        return candidat;
+    }
+
+    public void setCandidat(Candidat candidat) {
+        this.candidat = candidat;
+    }
+
+    public Recruteur getRecruteur() {
+        return recruteur;
+    }
+
+    public void setRecruteur(Recruteur recruteur) {
+        this.recruteur = recruteur;
     }
     
     

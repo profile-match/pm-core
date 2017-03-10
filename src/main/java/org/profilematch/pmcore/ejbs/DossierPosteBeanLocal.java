@@ -49,7 +49,7 @@ public interface DossierPosteBeanLocal {
     
     public Dossier_poste getDossier(Long id);
 
-    public Object getUser(Long id);
+    public Recruteur getUser(Long id);
 
     public Object BanUser(Long id);
 
@@ -64,4 +64,6 @@ public interface DossierPosteBeanLocal {
     public Object getCandidatPostule(Long id);
     
     public int createAvis(Avis avis);
+    
+   
 }

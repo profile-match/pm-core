@@ -172,4 +172,6 @@ public class RecruteurRest {
     public Response createAvis(Avis avis){
         return Response.ok(ce.createAvis(avis)).build();
     }
+    
+    
 }
