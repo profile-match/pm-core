@@ -88,7 +88,16 @@ public class CandidatRest {
     public Response UpdateCandidat(Candidat c) {
         return Response.ok(ce.updateUser(c)).build();
     }
-
+    
+    @PUT
+    @Consumes("application/json")
+    @Path("update/{id}")
+    public Response UpdateCandidatPoste(@PathParam("id") Long id, Candidat c){
+        
+        return Response.ok(ce.updateUserPost(c,id)).build();
+    }
+    
+    
     @PUT
     @Produces("application/json")
     @Path("ban/{id}")
