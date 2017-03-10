@@ -73,6 +73,7 @@ public class Candidat implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     private List<CertificationCandidat> certifications;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = CascadeType.MERGE,mappedBy="candidat")
     private List<Avis> avis;
 
@@ -299,6 +300,8 @@ public class Candidat implements Serializable {
     public String toString() {
         return "com.imp.entities.Candidat[ id=" + id + " ]";
     }
+    
+    
 
     
 }
