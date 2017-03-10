@@ -2,15 +2,12 @@ package org.profilematch.pmcore.rest;
 
 import org.profilematch.pmcore.ejbs.Matcher;
 
-import javax.activation.MimetypesFileTypeMap;
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-import java.io.File;
-
 /**
  * Created by antoine on 3/3/17.
  */
@@ -26,7 +23,7 @@ public class MatchingRest {
     @Produces("application/json")
     public Response GetCandidat() {
 
-        return Response.ok(M.match(1L)).build();
+        return Response.ok(M.match(1L,0,10)).build();
     }
 
     @GET
