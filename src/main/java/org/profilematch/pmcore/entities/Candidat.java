@@ -69,10 +69,12 @@ public class Candidat implements Serializable {
     private List<Formation> formation;
 
     @LazyCollection(LazyCollectionOption.FALSE)
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<CertificationCandidat> certifications;
 
-    @OneToMany(mappedBy="candidat")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.MERGE,mappedBy="candidat")
     private List<Avis> avis;
 
     private boolean isMale;
@@ -298,5 +300,8 @@ public class Candidat implements Serializable {
     public String toString() {
         return "com.imp.entities.Candidat[ id=" + id + " ]";
     }
+    
+    
 
+    
 }

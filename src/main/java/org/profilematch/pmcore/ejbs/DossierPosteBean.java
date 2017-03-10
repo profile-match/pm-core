@@ -124,7 +124,7 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
         return query.getResultList(); }
 
     @Override
-    public Object getUser(Long id) {
+    public Recruteur getUser(Long id) {
         Recruteur c = em.find(Recruteur.class, id);
         if (c != null) {
             return c;
@@ -178,9 +178,23 @@ public class DossierPosteBean implements DossierPosteBeanLocal {
 
     @Override
     public int createAvis(Avis avis) {
+        
       em.persist(avis);
       return 0;
     }
+
+
+    @Override
+    public boolean updateRecruteur(Recruteur r) {
+        Recruteur r2 = em.find(Recruteur.class, r.getId());
+        if (r2 != null) {
+            em.merge(r);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     
     
 

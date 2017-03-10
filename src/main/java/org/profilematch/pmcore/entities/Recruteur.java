@@ -1,8 +1,11 @@
 package org.profilematch.pmcore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +23,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 @NamedQueries({
     @NamedQuery(name = "Recruteur.findAll", query = "SELECT c FROM Recruteur c"),
 })
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class Recruteur  implements Serializable{
     
     @Id
@@ -41,7 +45,7 @@ public class Recruteur  implements Serializable{
     private boolean isMale;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy="recruteur")
+    @OneToMany(cascade = CascadeType.MERGE,fetch = FetchType.LAZY,mappedBy="recruteur")
     private List<Avis> avis;
 
     
@@ -165,4 +169,15 @@ public class Recruteur  implements Serializable{
     public void setIsBanned(boolean isBanned) {
         this.isBanned = isBanned;
     }
+
+    public List<Avis> getAvis() {
+        return avis;
+    }
+
+    public void setAvis(List<Avis> avis) {
+        this.avis = avis;
+    }
+    
+    
+    
 }
