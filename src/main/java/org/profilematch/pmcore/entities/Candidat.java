@@ -70,6 +70,11 @@ public class Candidat implements Serializable {
     @JoinTable(name = "Candidat_Competence", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "id_comp"))
     private List<Competence> competence;
 
+    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "listeCandidat", fetch = FetchType.LAZY)
+    public List<Dossier_poste> getDossierPoste() {
+        return listDossier;
+    }
+
     public Candidat() {
 
     }
@@ -99,6 +104,8 @@ public class Candidat implements Serializable {
         this.email = email;
 
     }
+
+
 
     public List<Avis> getAvis() {
         return avis;
