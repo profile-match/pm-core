@@ -140,7 +140,7 @@ public class RecruteurRest {
     @GET
     @Path("get/{id}")
     @Produces("application/json")
-    public Response GetCandidat(@PathParam("id") Long id) {
+    public Response GetRecruteur(@PathParam("id") Long id) {
         return Response.ok(ce.getUser(id)).build();
     }
 
@@ -154,7 +154,7 @@ public class RecruteurRest {
     @PUT
     @Produces("application/json")
     @Path("ban/{id}")
-    public Response UpdateBanCandidat(@PathParam("id") Long id) {
+    public Response UpdateBanRecruteur(@PathParam("id") Long id) {
 
         return Response.ok(ce.BanUser(id)).build();
     }
@@ -162,7 +162,7 @@ public class RecruteurRest {
     @PUT
     @Produces("application/json")
     @Path("unban/{id}")
-    public Response UpdateUnbanCandidat(@PathParam("id") Long id) {
+    public Response UpdateUnbanRecruteur(@PathParam("id") Long id) {
         return Response.ok(ce.UnbanUser(id)).build();
     }
 

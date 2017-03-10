@@ -47,7 +47,7 @@ public class UtilisateurRest {
         Candidat c = new Candidat();
         c.setEmail(u.getEmail());
         cand.registerUser(c);
-        System.out.println("id Cand :"+c.getId());
+
         u.setId(c.getId());
      
         ue.inscrireUtilisateur(u);
@@ -82,6 +82,13 @@ public class UtilisateurRest {
     @Produces("application/json")
     public Response GetUtilisateurs() {
         return Response.ok(ue.getUtilisateurs()).build();
+    }
+    
+    @PUT
+    @Path("getUtilisateur")
+    @Produces("application/json")
+    public Response GetUtilisateur(Utilisateur u) {
+        return Response.ok(ue.getUtilisateurByEmail(u.getEmail())).build();
     }
 
 }
