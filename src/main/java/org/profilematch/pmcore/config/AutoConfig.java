@@ -10,7 +10,7 @@ import java.io.File;
  */
 @Startup
 @Singleton
-public class IO {
+public class AutoConfig {
     private String status;
     private static boolean prod = false;
 

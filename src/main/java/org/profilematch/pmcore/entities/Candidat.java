@@ -40,14 +40,6 @@ public class Candidat implements Serializable {
 
     private Calendar naissance;
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
     private boolean isBanned;
     private boolean isSuspended;
 
@@ -82,14 +74,6 @@ public class Candidat implements Serializable {
     public List<Dossier_poste> getDossierPoste() {
         return listDossier;
     }
-    
-    public List<Avis> getAvis() {
-        return avis;
-    }
-
-    public void setAvis(List<Avis> avis) {
-        this.avis = avis;
-    }
 
     public Candidat() {
 
@@ -119,6 +103,16 @@ public class Candidat implements Serializable {
         this.prenom = prenom;
         this.email = email;
 
+    }
+
+
+
+    public List<Avis> getAvis() {
+        return avis;
+    }
+
+    public void setAvis(List<Avis> avis) {
+        this.avis = avis;
     }
 
     public List<Dossier_poste> getListDossier() {
@@ -225,7 +219,6 @@ public class Candidat implements Serializable {
         this.telperso = telperso;
     }
 
-
     public List<ExperiencePro> getExperiencePro() {
         return experiencePro;
     }
@@ -268,7 +261,13 @@ public class Candidat implements Serializable {
         this.naissance = naissance;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
 
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
     @Override
     public int hashCode() {
@@ -293,8 +292,5 @@ public class Candidat implements Serializable {
     public String toString() {
         return "com.imp.entities.Candidat[ id=" + id + " ]";
     }
-    
-    
-
     
 }
