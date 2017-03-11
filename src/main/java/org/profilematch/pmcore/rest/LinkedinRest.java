@@ -133,7 +133,7 @@ public class LinkedinRest {
     public Response connexionLinkedin(@PathParam("code") String code, @PathParam("state") String state){
         String rep = "{\"id\":\"-1\", \"genre\":\"undefined\"}";
         String front = "http%3A%2F%2Flocalhost%3A4200%2F";
-        if(IO.getProd()){
+        if(AutoConfig.getProd()){
             front = "https%3A%2F%2Fimp.bober.ovh%2F";
         }
         String url = "https://www.linkedin.com/oauth/v2/accessToken?" +
