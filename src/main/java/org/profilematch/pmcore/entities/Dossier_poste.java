@@ -195,7 +195,7 @@ public class Dossier_poste implements Serializable {
         return savoir_specifications;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "POSTE_CANDIDAT_POSTULE", joinColumns = @JoinColumn(name = "poste_id"), inverseJoinColumns = @JoinColumn(name = "candidat_id"))
     public Set<Candidat> getListeCandidat() {

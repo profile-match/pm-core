@@ -25,8 +25,7 @@ public class Mail {
     private final String path = "password.txt";
     private String mdp = "" ;
     
-    @PostConstruct
-    private void init(){
+    public Mail(){
         
         // configuration des propriétés
         proprietes = System.getProperties();
