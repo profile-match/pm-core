@@ -39,7 +39,7 @@ public class Avis implements Serializable{
     @ManyToOne(cascade = CascadeType.MERGE)
     private Candidat candidat;
     
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne()
     private Recruteur recruteur;
     
     public Long getID() {

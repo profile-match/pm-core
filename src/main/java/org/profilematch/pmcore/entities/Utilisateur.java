@@ -47,16 +47,20 @@ public class Utilisateur implements Serializable {
     @Column(name = "tokenacces")
     private String tokenacces;
 
+    private int safe;
+    
     public Utilisateur() {
     }
 
     public Utilisateur(String email) {
         this.email = email;
+        this.safe=1000;
     }
     
     public Utilisateur(String email, String tokenacces) {
         this.email = email;
         this.tokenacces = tokenacces;
+        this.safe=1000;
     }
 
     public Utilisateur(Long id, String email, String motdepasse, String type) {
@@ -64,6 +68,15 @@ public class Utilisateur implements Serializable {
         this.id = id;
         this.motdepasse = motdepasse;
         this.type = type;
+        this.safe=1000;
+    }
+
+    public int getSafe() {
+        return safe;
+    }
+
+    public void setSafe(int safe) {
+        this.safe = safe;
     }
 
     public String getEmail() {
