@@ -39,7 +39,7 @@ public class Utilisateur implements Serializable {
     @NotNull
     @Column(name = "id")
     private Long id;
-    @Size(min = 1, max = 45)
+    @Size(min = 0, max = 45)
     @Column(name = "motdepasse")
     private String motdepasse;
     @Size(max = 45)
