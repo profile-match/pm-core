@@ -1,5 +1,6 @@
 package org.profilematch.pmcore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -40,6 +41,7 @@ public class Utilisateur implements Serializable {
     private Long id;
     @Size(min = 1, max = 45)
     @Column(name = "motdepasse")
+    @JsonIgnore
     private String motdepasse;
     @Size(max = 45)
     @Column(name = "type")

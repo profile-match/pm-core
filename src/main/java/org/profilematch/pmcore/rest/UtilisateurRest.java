@@ -91,4 +91,11 @@ public class UtilisateurRest {
         return Response.ok(ue.getUtilisateurByEmail(u.getEmail())).build();
     }
 
+    @GET
+    @Path("connexion/{email}/{hache}")
+    @Produces("application/json")
+    public Response connexion(@PathParam("email") String email, @PathParam("hache") String hache) {
+        return Response.ok(ue.connexion(email, hache)).build();
+    }
+    
 }

@@ -85,4 +85,14 @@ public class UtilisateurEJB {
     public List<Utilisateur> getUtilisateurs(){
         return em.createNamedQuery("Utilisateur.findAll").getResultList();
     }
+    
+    public Utilisateur connexion(String email, String hache){
+        Utilisateur user = getUtilisateurByEmail(email);
+        if(user.getId() != -1){
+            if(!user.getMotdepasse().equals(hache)){
+                user = new Utilisateur((long)-1, "", "", "");
+            }
+        }
+        return user; 
+    }
 }
