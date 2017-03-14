@@ -48,6 +48,14 @@ public class Utilisateur implements Serializable {
     @Column(name = "tokenacces")
     private String tokenacces;
 
+    public String getTokenacces() {
+        return tokenacces;
+    }
+
+    public void setTokenacces(String tokenacces) {
+        this.tokenacces = tokenacces;
+    }
+
     private int safe;
     
     public Utilisateur() {
@@ -70,6 +78,15 @@ public class Utilisateur implements Serializable {
         this.motdepasse = motdepasse;
         this.type = type;
         this.safe=1000;
+    }
+    
+    public Utilisateur(Utilisateur u) {
+        this.email = u.getEmail();
+        this.id = u.getId();
+        this.motdepasse = u.getMotdepasse();
+        this.type = u.getType();
+        this.safe=u.getSafe();
+        this.tokenacces = u.getTokenacces();
     }
 
     public int getSafe() {

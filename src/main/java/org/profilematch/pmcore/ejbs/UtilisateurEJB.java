@@ -86,15 +86,17 @@ public class UtilisateurEJB {
     
     public Utilisateur connexion(String email, String hache){
         Utilisateur user = getUtilisateurByEmail(email);
+        Utilisateur u = new Utilisateur((long)-1, "", "", "");
         if(user.getId() != -1){
             if(user.getMotdepasse() != null){
                 if(!user.getMotdepasse().equals(hache)){
                     user = new Utilisateur((long)-1, "", "", "");
                 }else{
-                    user.setMotdepasse("");
+                    u = new Utilisateur(user);
+                    u.setMotdepasse("");
                 }
             }
         }
-        return user; 
+        return u; 
     }
 }
