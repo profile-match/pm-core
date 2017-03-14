@@ -5,6 +5,7 @@ import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.profilematch.pmcore.entities.Avis;
 
 import org.profilematch.pmcore.entities.Candidat;
 import org.profilematch.pmcore.entities.Competence;
@@ -202,5 +203,13 @@ public class CandidatEJB {
      */
     public List<Candidat> getAllUser() {
         return em.createNamedQuery("Candidat.findAll").getResultList();
+    }
+    
+    /**
+     *
+     * @return all avis
+     */
+    public List<Avis> getAllAvis() {
+        return em.createNamedQuery("Avis.findAll").getResultList();
     }
 }

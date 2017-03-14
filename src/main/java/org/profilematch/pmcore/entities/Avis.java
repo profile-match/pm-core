@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -21,6 +23,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "AVIS")
+@NamedQueries({
+    @NamedQuery(name = "Avis.findAll", query = "SELECT a FROM Avis a")
+})
 public class Avis implements Serializable{
 
     @Id

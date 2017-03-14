@@ -132,6 +132,14 @@ public class CandidatRest {
     public Response GetAllClient() {
         return Response.ok(ce.getAllUser()).build();
     }
+    
+    @GET
+    @Path("get/avis")
+    @Produces("application/json")
+    public Response GetAllAvis() {
+        return Response.ok(ce.getAllAvis()).build();
+    }
+    
 
     @POST
     @Consumes("application/json")
