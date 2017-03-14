@@ -1,11 +1,12 @@
 package org.profilematch.pmcore.ejbs;
 
+import java.io.Serializable;
 import org.profilematch.pmcore.entities.Candidat;
 
 /**
  * Created by antoine on 3/9/17.
  */
-public class MatchedCandidat implements Comparable<MatchedCandidat> {
+public class MatchedCandidat implements Comparable<MatchedCandidat>,Serializable {
 
     private Candidat candidat;
 

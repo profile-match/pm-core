@@ -19,16 +19,31 @@ public class MatchingRest {
     private Matcher M;
 
     @GET
-    @Path("dossierCandidat/{idDossier}/{idCandidat}")
-    @Produces("application/pdf")
-    public Response getCV(@PathParam("idDossier") Long idDossier, @PathParam("idCandidat") Long idCandidat) {
-        return Response.ok(M.matchCandidat(idDossier, idCandidat)).build();
+    @Path("dossierCandidatCert/{idDossier}/{idCandidat}")
+    @Produces("application/json")
+    public Response getMatchingDossierCert(@PathParam("idDossier") Long idDossier, @PathParam("idCandidat") Long idCandidat) {
+        return Response.ok(M.matchCandidatCert(idDossier, idCandidat)).build();
     }
+    
+    @GET
+    @Path("dossierCandidatComp/{idDossier}/{idCandidat}")
+    @Produces("application/json")
+    public Response getMatchingDossierComp(@PathParam("idDossier") Long idDossier, @PathParam("idCandidat") Long idCandidat) {
+        return Response.ok(M.matchCandidatComp(idDossier, idCandidat)).build();
+    }
+    
+    @GET
+    @Path("dossierCandidatForm/{idDossier}/{idCandidat}")
+    @Produces("application/json")
+    public Response getMatchingDossierForm(@PathParam("idDossier") Long idDossier, @PathParam("idCandidat") Long idCandidat) {
+        return Response.ok(M.matchCandidatForm(idDossier, idCandidat)).build();
+    }
+    
 
     @GET
     @Path("dossier/{idDossier}/{borneInf}/{borneSup}")
-    @Produces("application/pdf")
-    public Response getCV(@PathParam("idDossier") Long idDossier,@PathParam("borneInf") int borneInf,@PathParam("borneSup") int borneSup) {
+    @Produces("application/json")
+    public Response getMatching(@PathParam("idDossier") Long idDossier,@PathParam("borneInf") int borneInf,@PathParam("borneSup") int borneSup) {
         return Response.ok(M.match(idDossier, borneInf, borneSup)).build();
     }
 
