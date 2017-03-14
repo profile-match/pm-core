@@ -28,6 +28,10 @@ import org.profilematch.pmcore.entities.Utilisateur;
  * REST Web Service
  *
  * @author Franck
+ * 
+ * Classe web service permettant d'accedez à l'API Linkedin
+ * dans le but de récupérer le mail de l'utilisateur, il permet
+ * aussi à l'utilisateur de se connecter à IMatchProfile
  */
 @Path("linkedin/")
 public class LinkedinRest {
@@ -41,16 +45,23 @@ public class LinkedinRest {
     
     
     /**
-     * Creates a new instance of LinkedinRest
+     * Constructeur de la classe
      */
     public LinkedinRest() {
     }
 
+    /**
+     * Méthode permettant de récuperer le mail de l'utilisateur via l'API Linkedin et de l'inscrire
+     * @param code code pour l'authentification OAuth2.
+     * @param state state pour vérifier que la requete correspond bien à celle que l'on à faite coté front. 
+     * @param genre permet de savoir si l'utilisateur est une candidat ou un recruteur.
+     * @return retourne l'ID de l'utilisateur ou -1 si il n'a été possible d'ajouter le nouvelle utilisateur.
+     */
     @GET
     @Path("gettoken/{code}/{state}/{genre}")
     @Consumes("text/plain")
     @Produces("text/plain")
-    public Response GetCandidat(@PathParam("code") String code, @PathParam("state") String state, @PathParam("genre") String genre){
+    public Response inscriptionLinkedin(@PathParam("code") String code, @PathParam("state") String state, @PathParam("genre") String genre){
         String rep = "-1";
         String front = "http%3A%2F%2Flocalhost%3A4200%2F";
         if(AutoConfig.getProd()){
@@ -126,6 +137,12 @@ public class LinkedinRest {
         return Response.ok(rep).build();
     }
     
+     /**
+     * Méthode permettant de récupérer l'email de l'utilisateur et de le connecter.
+     * @param code code pour l'authentification OAuth2.
+     * @param state state pour vérifier que la requete correspond bien à celle que l'on à faite coté front. 
+     * @return retourne un objet JSON contenant l'ID de l'utilisateur et son type (candidat/recruteur).
+     */
     @GET
     @Path("connexion/{code}/{state}")
     @Consumes("text/plain")
