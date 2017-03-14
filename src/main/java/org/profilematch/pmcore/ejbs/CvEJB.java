@@ -39,6 +39,10 @@ public class CvEJB {
      */
     public File getCV(Long id){
         this.c = candidatEJB.getUser(id);
+        if(c.getNom() == null)
+            c.setNom("NA");
+        if(c.getPrenom() == null)
+            c.setPrenom("NA");
 
         String name = "cv_" + c.getNom()+".pdf";
         this.document = new Document();
@@ -49,7 +53,7 @@ public class CvEJB {
 
             document.open();
 
-            document.addAuthor(c.getNom());
+                document.addAuthor(c.getNom());
 
             infoPersos();
             addPhoto();
@@ -135,14 +139,6 @@ public class CvEJB {
         }
     }
 
-    private PdfPCell getCell(Paragraph p, int alignment) {
-        PdfPCell cell = new PdfPCell(p);
-        cell.setPadding(0);
-        cell.setHorizontalAlignment(alignment);
-        cell.setBorder(PdfPCell.NO_BORDER);
-        return cell;
-    }
-
     private void infoPersos() throws IOException, DocumentException {
         Paragraph p = new Paragraph();
         Font fontTitle=new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, BaseColor.WHITE);
@@ -164,7 +160,7 @@ public class CvEJB {
         if(c.getNaissance() != null){
             p2.add((Calendar.getInstance().get(Calendar.YEAR) - c.getNaissance().get(Calendar.YEAR)) + "ans");
         }
-        
+
         p.add(title);
         p.add(p2);
 
