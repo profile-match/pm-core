@@ -41,7 +41,6 @@ public class Utilisateur implements Serializable {
     private Long id;
     @Size(min = 1, max = 45)
     @Column(name = "motdepasse")
-    @JsonIgnore
     private String motdepasse;
     @Size(max = 45)
     @Column(name = "type")

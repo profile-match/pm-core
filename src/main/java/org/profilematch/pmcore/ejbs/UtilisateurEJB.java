@@ -65,17 +65,15 @@ public class UtilisateurEJB {
      * @return the Utilisateur corresponding to the given email
      */
     public Utilisateur getUtilisateurByEmail(String email){
-        Utilisateur u;
+        Utilisateur rep = new Utilisateur((long)-1, "", "", "");
         
-          u = em.find(Utilisateur.class, email);
+        Utilisateur u = em.find(Utilisateur.class, email);
       //  u = (Utilisateur) em.createQuery("Utilisateur.findByEmail")
        //      .setParameter("email", email).getSingleResult();    
         if (u != null) {
-             return u;
-         } else {
-             return new Utilisateur((long)-1, "", "", "");
-         }
-       
+             rep = u;
+        } 
+        return rep;
     }
 
     /**
@@ -89,8 +87,12 @@ public class UtilisateurEJB {
     public Utilisateur connexion(String email, String hache){
         Utilisateur user = getUtilisateurByEmail(email);
         if(user.getId() != -1){
-            if(!user.getMotdepasse().equals(hache)){
-                user = new Utilisateur((long)-1, "", "", "");
+            if(user.getMotdepasse() != null){
+                if(!user.getMotdepasse().equals(hache)){
+                    user = new Utilisateur((long)-1, "", "", "");
+                }else{
+                    user.setMotdepasse("");
+                }
             }
         }
         return user; 
