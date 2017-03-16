@@ -1,6 +1,7 @@
 package org.profilematch.pmcore.rest;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -9,8 +10,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+import org.profilematch.pmcore.ejbs.CandidatEJB;
+import org.profilematch.pmcore.ejbs.DossierPosteBeanLocal;
 
 import org.profilematch.pmcore.ejbs.UtilisateurEJB;
+import org.profilematch.pmcore.entities.Candidat;
+import org.profilematch.pmcore.entities.Recruteur;
 import org.profilematch.pmcore.entities.Utilisateur;
 
 /**
@@ -21,6 +26,12 @@ public class UtilisateurRest {
 
     @EJB
     private UtilisateurEJB ue;
+    
+    @EJB
+    private CandidatEJB cand;
+    
+    @Inject
+    DossierPosteBeanLocal rec;
 
     @GET
     @Path("get/{email}")
@@ -31,9 +42,30 @@ public class UtilisateurRest {
 
     @POST
     @Consumes("application/json")
-    @Path("inscrire/")
-    public Response InscrireUtilisateur(Utilisateur u) {
+    @Path("inscrireCand/")
+    public Response InscrireUtilisateurCand(Utilisateur u) {
+        Candidat c = new Candidat();
+        c.setEmail(u.getEmail());
+        cand.registerUser(c);
+
+        u.setId(c.getId());
+     
         ue.inscrireUtilisateur(u);
+        return Response.ok().build();
+    }
+    
+    @POST
+    @Consumes("application/json")
+    @Path("inscrireRec/")
+    public Response InscrireUtilisateurRec(Utilisateur u) {
+        Recruteur r = new Recruteur();        
+        r.setEmail(u.getEmail());
+        rec.registerUser(r);
+        
+        u.setId(r.getId());
+        
+        ue.inscrireUtilisateur(u);
+        
         return Response.ok().build();
     }
 
@@ -51,5 +83,19 @@ public class UtilisateurRest {
     public Response GetUtilisateurs() {
         return Response.ok(ue.getUtilisateurs()).build();
     }
+    
+    @PUT
+    @Path("getUtilisateur")
+    @Produces("application/json")
+    public Response GetUtilisateur(Utilisateur u) {
+        return Response.ok(ue.getUtilisateurByEmail(u.getEmail())).build();
+    }
 
+    @GET
+    @Path("connexion/{email}/{hache}")
+    @Produces("application/json")
+    public Response connexion(@PathParam("email") String email, @PathParam("hache") String hache) {
+        return Response.ok(ue.connexion(email, hache)).build();
+    }
+    
 }

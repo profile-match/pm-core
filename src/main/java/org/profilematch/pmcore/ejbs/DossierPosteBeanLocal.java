@@ -1,19 +1,16 @@
 package org.profilematch.pmcore.ejbs;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import java.util.List;
-import java.util.Set;
 import javax.ejb.Local;
+import org.profilematch.pmcore.entities.Avis;
 import org.profilematch.pmcore.entities.Certification;
 import org.profilematch.pmcore.entities.Dossier_poste;
 import org.profilematch.pmcore.entities.Fonctionnelle;
 import org.profilematch.pmcore.entities.Formation_Recruteur;
 import org.profilematch.pmcore.entities.Langue;
 import org.profilematch.pmcore.entities.Metier;
+import org.profilematch.pmcore.entities.Recruteur;
+import org.profilematch.pmcore.entities.RecruteurMDP;
 import org.profilematch.pmcore.entities.Technique;
 
 /**
@@ -46,6 +43,27 @@ public interface DossierPosteBeanLocal {
     public List<Dossier_poste> getAllDossier(int id);
     
     public Dossier_poste getDossier(Long id);
+
+    public Recruteur getUser(Long id);
+
+    public Object BanUser(Long id);
+
+    public Object UnbanUser(Long id);
+
+    public Object getAllUser();
     
+    public Recruteur registerUser(Recruteur r);
+
+    public Object getAllPostes();
     
+    public Object getCandidatPostule(Long id);
+    
+    public int createAvis(Avis avis);
+
+
+    public boolean updateRecruteur(Recruteur r);
+
+
+    public int updateMDPRecruteur(RecruteurMDP r);
+
 }

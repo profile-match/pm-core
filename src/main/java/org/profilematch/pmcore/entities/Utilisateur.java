@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.profilematch.pmcore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -33,7 +29,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Utilisateur implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
@@ -43,28 +38,63 @@ public class Utilisateur implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id")
-    private int id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    private Long id;
+    @Size(min = 0, max = 45)
     @Column(name = "motdepasse")
     private String motdepasse;
     @Size(max = 45)
     @Column(name = "type")
     private String type;
+    @Column(name = "tokenacces")
+    private String tokenacces;
 
+    public String getTokenacces() {
+        return tokenacces;
+    }
+
+    public void setTokenacces(String tokenacces) {
+        this.tokenacces = tokenacces;
+    }
+
+    private int safe;
+    
     public Utilisateur() {
     }
 
     public Utilisateur(String email) {
         this.email = email;
+        this.safe=1000;
+    }
+    
+    public Utilisateur(String email, String tokenacces) {
+        this.email = email;
+        this.tokenacces = tokenacces;
+        this.safe=1000;
     }
 
-    public Utilisateur(int id, String email, String motdepasse, String type) {
+    public Utilisateur(Long id, String email, String motdepasse, String type) {
         this.email = email;
         this.id = id;
         this.motdepasse = motdepasse;
         this.type = type;
+        this.safe=1000;
+    }
+    
+    public Utilisateur(Utilisateur u) {
+        this.email = u.getEmail();
+        this.id = u.getId();
+        this.motdepasse = u.getMotdepasse();
+        this.type = u.getType();
+        this.safe=u.getSafe();
+        this.tokenacces = u.getTokenacces();
+    }
+
+    public int getSafe() {
+        return safe;
+    }
+
+    public void setSafe(int safe) {
+        this.safe = safe;
     }
 
     public String getEmail() {
@@ -75,11 +105,11 @@ public class Utilisateur implements Serializable {
         this.email = email;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

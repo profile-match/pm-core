@@ -1,9 +1,9 @@
 package org.profilematch.pmcore.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,7 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -29,34 +29,51 @@ import org.hibernate.annotations.LazyCollectionOption;
     @NamedQuery(name = "Candidat.countMale", query = "SELECT count(c) FROM Candidat c WHERE c.isMale = TRUE"),
     @NamedQuery(name = "Candidat.countFemelle", query = "SELECT count(c) FROM Candidat c WHERE c.isMale = FALSE")
 })
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class Candidat implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String nom, prenom, email, loisirs, photo;
+    private String nom, prenom, email, loisirs, photo, adresse, telfix, telperso;
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
+    private Calendar naissance;
 
     private boolean isBanned;
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private ExperiencePro experiencePro;
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private Formation formation;
+    private boolean isSuspended;
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "listeCandidat", fetch = FetchType.LAZY)
+    private List<Dossier_poste> listDossier;
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<ExperiencePro> experiencePro;
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Formation> formation;
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<CertificationCandidat> certifications;
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.MERGE,mappedBy="candidat")
+    private List<Avis> avis;
 
     private boolean isMale;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "Candidat_Competence", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "id_comp"))
-    private Set<Competence> competence;
+    private List<Competence> competence;
+
+    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "listeCandidat", fetch = FetchType.LAZY)
+    public List<Dossier_poste> getDossierPoste() {
+        return listDossier;
+    }
 
     public Candidat() {
 
@@ -67,10 +84,10 @@ public class Candidat implements Serializable {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
-        this.competence = new HashSet<>();
+        this.competence = new ArrayList<>();
     }
 
-    public Candidat(Long id, String nom, String prenom, String email, String loisirs, ExperiencePro ep, Formation f, Set<Competence> c) {
+    public Candidat(Long id, String nom, String prenom, String email, String loisirs, List<ExperiencePro> ep, List<Formation> f, List<Competence> c) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -86,6 +103,32 @@ public class Candidat implements Serializable {
         this.prenom = prenom;
         this.email = email;
 
+    }
+
+
+
+    public List<Avis> getAvis() {
+        return avis;
+    }
+
+    public void setAvis(List<Avis> avis) {
+        this.avis = avis;
+    }
+
+    public List<Dossier_poste> getListDossier() {
+        return listDossier;
+    }
+
+    public void setListDossier(List<Dossier_poste> listDossier) {
+        this.listDossier = listDossier;
+    }
+
+    public List<CertificationCandidat> getCertifications() {
+        return certifications;
+    }
+
+    public void setCertifications(List<CertificationCandidat> certifications) {
+        this.certifications = certifications;
     }
 
     public boolean isIsMale() {
@@ -104,27 +147,19 @@ public class Candidat implements Serializable {
         this.loisirs = loisirs;
     }
 
-    public ExperiencePro getExperiencePro() {
-        return experiencePro;
-    }
-
-    public void setExperiencePro(ExperiencePro experiencePro) {
-        this.experiencePro = experiencePro;
-    }
-
-    public Formation getFormation() {
+    public List<Formation> getFormation() {
         return formation;
     }
 
-    public void setFormation(Formation formation) {
+    public void setFormation(List<Formation> formation) {
         this.formation = formation;
     }
 
-    public Set<Competence> getCompetence() {
+    public List<Competence> getCompetence() {
         return competence;
     }
 
-    public void setCompetence(Set<Competence> competence) {
+    public void setCompetence(List<Competence> competence) {
         this.competence = competence;
     }
 
@@ -160,29 +195,36 @@ public class Candidat implements Serializable {
         this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public String getAdresse() {
+        return adresse;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Candidat)) {
-            return false;
-        }
-        Candidat other = (Candidat) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
-    @Override
-    public String toString() {
-        return "com.imp.entities.Candidat[ id=" + id + " ]";
+    public String getTelfix() {
+        return telfix;
+    }
+
+    public void setTelfix(String telfix) {
+        this.telfix = telfix;
+    }
+
+    public String getTelperso() {
+        return telperso;
+    }
+
+    public void setTelperso(String telperso) {
+        this.telperso = telperso;
+    }
+
+    public List<ExperiencePro> getExperiencePro() {
+        return experiencePro;
+    }
+
+    public void setExperiencePro(List<ExperiencePro> experiencePro) {
+        this.experiencePro = experiencePro;
     }
 
     public boolean isBanned() {
@@ -197,4 +239,58 @@ public class Candidat implements Serializable {
         this.isBanned = isBanned;
     }
 
+
+    public boolean isSuspended() {
+        return isSuspended;
+    }
+    
+    public void setSuspended(boolean b) {
+        this.isSuspended = b;
+    }
+    
+
+    public void setIsSuspended(boolean isSuspended) {
+        this.isSuspended = isSuspended;
+    }
+
+    public Calendar getNaissance() {
+        return naissance;
+    }
+
+    public void setNaissance(Calendar naissance) {
+        this.naissance = naissance;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Candidat)) {
+            return false;
+        }
+        Candidat other = (Candidat) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.imp.entities.Candidat[ id=" + id + " ]";
+    }
+    
 }
